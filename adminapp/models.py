@@ -52,7 +52,8 @@ class AddBank(models.Model):
     bank_balance = models.IntegerField()     
 
     class Meta:
-        db_table = 'addBank'
+
+        db_table = 'addbank'
 
 
 

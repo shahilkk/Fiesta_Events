@@ -1,5 +1,7 @@
+
 from django.shortcuts import render , redirect
-from . models import Employee
+from . models import Employee,Product
+
 
 # Create your views here.
 
@@ -119,9 +121,27 @@ def bank(req):
     return render(req,'addbank.html',context) 
     
 
-def products(req):
-    context={"is_product":True}
-    return render(req,'products.html',context) 
+def products(request):
+   
+    # msg = ''
+    if request.method == 'POST':
+        food_name = request.POST['food_name']
+        catagory = request.POST['catagory']
+        priceper_head = request.POST['priceper_head']
+        priceper_kg = request.POST['priceper_kg']
+        food_deatails = request.POST['food_deatails']
+        food_exist = Product(food_name = food_name,catagory = catagory,priceper_head = priceper_head,priceper_kg = priceper_kg,food_deatails = food_deatails)
+        food_exist.save()
+        print(food_name)
+        return redirect('/admin/products')
+        # msg = " product added"
+
+    view_product = Product.objects.all()    
+    context={
+        "is_product":True,
+        'view_product': view_product
+    }
+    return render(request,'products.html',context) 
 
 
      
