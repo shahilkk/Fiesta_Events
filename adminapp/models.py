@@ -15,7 +15,7 @@ class Client(models.Model):
     client_address = models.CharField(max_length=30)
 
     class Meta:
-        db_table = 'Client'
+        db_table = 'client'
 
 class Product(models.Model):
     food_name = models.CharField(max_length=50)
@@ -25,7 +25,7 @@ class Product(models.Model):
     food_deatails = models.CharField(max_length=50)
 
     class Meta:
-        db_table = 'Product'
+        db_table = 'product'
 
 
 class Employee(models.Model):
@@ -39,7 +39,7 @@ class Employee(models.Model):
     employee_address = models.CharField(max_length=30)
 
     class Meta:
-        db_table = 'Employee'
+        db_table = 'employee'
 
 
 class AddBank(models.Model):
@@ -50,7 +50,7 @@ class AddBank(models.Model):
     bank_balance = models.IntegerField()     
 
     class Meta:
-        db_table = 'AddBank'
+        db_table = 'addbank'
 
 
 
