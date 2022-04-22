@@ -2,6 +2,22 @@
 {% block content %}
 {% load static %}
 
+<style>
+    .timeline-badge.primary {
+	background-color: #fb9678;
+}
+    .badge{
+        border-radius: 6px;
+    display: inline-block;
+    font-size: 14px;
+    min-width: 46px;
+    padding: 10px 20px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 20px;
+
+    }
+</style>
 
 <div class="page-wrapper">
     <div class="content container-fluid">
@@ -61,16 +77,41 @@
                             <table class="table table-center table-hover datatable">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Employees</th>
+                                        <th>Employees Name</th>
                                         <th>Email</th>
-                                        <th>Amount Due</th>
-                                        <th>Registered On</th>
+                                        <th>Phone</th>
+                                        <th>Username</th>
                                         <th>Status</th>
                                         <th class="text-end">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for i in employeelist %}
                                     <tr>
+        
+                                        <td> {{ i.employee_name }} </td>
+                                        <td> {{ i.employee_email }} </td>
+                                        <td> {{ i.employee_phone }} </td>
+                                        <td> {{ i.employee_username }} </td>
+                                        <td  {% if i.employee_status == 'Active'  %} class="badge badge-pill  bg-success-light" {% endif %} > {{ i.employee_status }} </td>
+                                        <td class="text-end">
+                                            <a href="/admin/viewcustomer"
+                                                class="btn btn-sm btn-white text-success me-2"><i
+                                                    class="far fa-edit me-1"></i> view</a>
+                                            <a href="/admin/editstaff" class="btn btn-sm btn-white text-success me-2"><i
+                                                    class="far fa-edit me-1"></i> Edit</a>
+                                            <a href="javascript:void(0);"
+                                                class="btn btn-sm btn-white text-danger me-2"><i
+                                                    class="far fa-trash-alt me-1"></i>Delete</a>
+                                        </td>
+        
+        
+                                    </tr>
+                                    {% endfor %}
+        
+        
+                                    </tr>
+                                    <!-- <tr>
                                         <td>
                                             <h2 class="table-avatar">
 
@@ -146,7 +187,7 @@
                                                 class="btn btn-sm btn-white text-danger me-2"><i
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>

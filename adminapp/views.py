@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
+from . models import Employee
 
 # Create your views here.
 
@@ -31,13 +32,31 @@ def viewcustomer(req):
 
 
 def marketingstaff(req):
-    context={"is_marketingstaff":True}
+    employeelist=Employee.objects.all()
+    context={"is_marketingstaff":True,
+    "employeelist":employeelist
+    }
     return render(req,'marketingstaff.html',context)      
 
 
-def addmstaff(req):
+def addmstaff(request):
     context={"is_marketingstaff":True}
-    return render(req,'addmstaff.html',context)
+    if request.method=='POST':
+        employee_name=request.POST['employee_name']
+        employee_username=request.POST['employee_username']
+        employee_password=request.POST['employee_password']
+        employee_phone=request.POST['employee_phone']
+        employee_email=request.POST['employee_email']
+        employee_state=request.POST['employee_state']
+        employee_district=request.POST['employee_password']
+        employee_zipcode=request.POST['employee_zipcode']
+        employee_address=request.POST['employee_address']
+        print(employee_name)
+        emplyoeedetails=Employee(employee_name=employee_name, employee_username=employee_username, employee_password=employee_password, employee_phone=employee_phone, employee_email=employee_email, employee_state=employee_state, employee_district=employee_district, employee_zipcode=employee_zipcode, employee_address=employee_address, employee_status='Active')
+        emplyoeedetails.save()
+        return redirect('/admin/marketingstaff')
+        
+    return render(request,'addmstaff.html',context)
 
 
 
