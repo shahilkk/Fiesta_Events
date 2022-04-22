@@ -3,18 +3,17 @@
 {% load static %}
 
 <style>
-    .timeline-badge.primary {
-	background-color: #fb9678;
-}
+ 
+
     .badge{
         border-radius: 6px;
     display: inline-block;
     font-size: 14px;
-    min-width: 46px;
+    min-width: 10px;
     padding: 10px 20px;
     font-weight: 500;
     text-align: center;
-    margin-top: 20px;
+  
 
     }
 </style>
@@ -90,10 +89,12 @@
                                     <tr>
         
                                         <td> {{ i.employee_name }} </td>
-                                        <td> {{ i.employee_email }} </td>
+                                        <td> <a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
+                                            class="__cf_email__"
+                                            data-cfemail="3443515a505158584355465074514c55594458511a575b59">[email&#160;protected]</a> </td>
                                         <td> {{ i.employee_phone }} </td>
                                         <td> {{ i.employee_username }} </td>
-                                        <td  {% if i.employee_status == 'Active'  %} class="badge badge-pill  bg-success-light" {% endif %} > {{ i.employee_status }} </td>
+                                        <td  {% if i.employee_status == 'Active'  %} class="badge badge-pill  bg-success-light" {% else %} class="badge badge-pill bg-danger-light" {% endif %} > {{ i.employee_status }} </td>
                                         <td class="text-end">
                                             <a href="/admin/viewcustomer"
                                                 class="btn btn-sm btn-white text-success me-2"><i
