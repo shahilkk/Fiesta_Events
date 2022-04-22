@@ -1,0 +1,556 @@
+{% extends 'master.html' %}
+{% block content %}
+{% load static %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card bg-primary text-white" >
+                    <div class="card-body" >
+                        <div class="dash-widget-header">
+                            <span class=" bg-1">
+                                
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title" style="font-size: 12px; font-weight: 900;">State Bank Of India
+                                </div>
+                                <div class="dash-counts">
+                                    <p>1,642</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card text-white bg-info">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class=" bg-2">
+                                
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title">Federal Bank</div>
+                                <div class="dash-counts">
+                                    <p>3,642</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class=" bg-3">
+                                
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title" style="font-size: 14px; font-weight: 900;">South Indian Bank
+                                </div>
+                                <div class="dash-counts">
+                                    <p>1,041</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card text-white bg-success ">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class=" bg-4">
+                                
+                                
+                            </span>
+                            <div class="dash-count ">
+                                <div class="dash-title">Cash</div>
+                                <div class="dash-counts">
+                                    <p>2,150</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-7 col-sm-6">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title">Billed</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="/admin/filter" class="btn-right btn btn-sm btn-outline-primary">
+                                            View All
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-stripped table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Customer</th>
+                                                <th>Amount</th>
+                                                <th>Due Date</th>
+                                                <th class="text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        Barbara Moore
+                                                        <!-- <a href="profile.html">Barbara
+                                                                Moore</a> -->
+                                                    </h2>
+                                                </td>
+                                                <td>$118</td>
+                                                <td>23 Nov 2020</td>
+                                                <td class="text-right">
+                                                    <div class="dropleft dropdown-action">
+                                                        <a href="#" class="action-icon dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                                class="fas fa-ellipsis-h"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                                    class="far fa-edit me-2"></i>Edit</a>
+                                                            <a class="dropdown-item" href="/admin/invoicedetails"><i
+                                                                    class="far fa-eye me-2"></i>View</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-trash-alt me-2"></i>Delete</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-check-circle me-2"></i>Advance</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-paper-plane me-2"></i>Partialy
+                                                                Paid</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-copy me-2"></i>Closed</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title">Advanced</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="/admin/filter" class="btn-right btn btn-sm btn-outline-primary">
+                                            View All
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-stripped table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Customer</th>
+                                                <th>Amount</th>
+                                                <th>Due Date</th>
+                                                <th class="text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        Barbara Moore
+                                                        <!-- <a href="profile.html">Barbara
+                                                                Moore</a> -->
+                                                    </h2>
+                                                </td>
+                                                <td>$118</td>
+                                                <td>23 Nov 2020</td>
+                                                <td class="text-right">
+                                                    <div class="dropleft dropdown-action">
+                                                        <a href="#" class="action-icon dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                                class="fas fa-ellipsis-h"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                                    class="far fa-edit me-2"></i>Edit</a>
+                                                            <a class="dropdown-item" href="/admin/invoicedetails"><i
+                                                                    class="far fa-eye me-2"></i>View</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-trash-alt me-2"></i>Delete</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-paper-plane me-2"></i>Partialy
+                                                                Paid</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-copy me-2"></i>Closed</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title">Partically Paid</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="/admin/filter" class="btn-right btn btn-sm btn-outline-primary">
+                                            View All
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-stripped table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Customer</th>
+                                                <th>Amount</th>
+                                                <th>Due Date</th>
+                                                <th class="text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        Barbara Moore
+                                                        <!-- <a href="profile.html">Barbara
+                                                                Moore</a> -->
+                                                    </h2>
+                                                </td>
+                                                <td>$118</td>
+                                                <td>23 Nov 2020</td>
+                                                <td class="text-right">
+                                                    <div class="dropleft dropdown-action">
+                                                        <a href="#" class="action-icon dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                                class="fas fa-ellipsis-h"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                                    class="far fa-edit me-2"></i>Edit</a>
+                                                            <a class="dropdown-item" href="/admin/invoicedetails"><i
+                                                                    class="far fa-eye me-2"></i>View</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-trash-alt me-2"></i>Delete</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-copy me-2"></i>Closed</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title">Closed</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="/admin/filter" class="btn-right btn btn-sm btn-outline-primary">
+                                            View All
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-stripped table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Customer</th>
+                                                <th>Amount</th>
+                                                <th>Due Date</th>
+                                                <th class="text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        Barbara Moore
+                                                        <!-- <a href="profile.html">Barbara
+                                                                Moore</a> -->
+                                                    </h2>
+                                                </td>
+                                                <td>$118</td>
+                                                <td>23 Nov 2020</td>
+                                                <td class="text-right">
+                                                    <div class="dropleft dropdown-action">
+                                                        <a href="#" class="action-icon dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                                class="fas fa-ellipsis-h"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                                    class="far fa-edit me-2"></i>Edit</a>
+                                                            <a class="dropdown-item" href="/admin/invoicedetails"><i
+                                                                    class="far fa-eye me-2"></i>View</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="far fa-trash-alt me-2"></i>Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-5 col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title">Enquire List</h5>
+                            </div>
+                            <div class="col-auto">
+                                <a href="/admin/estimate" class="btn-right btn btn-sm btn-outline-primary">
+                                    View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Estimate Date</th>
+                                        <th>Amount</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                Greg Lynch
+                                            </h2>
+                                        </td>
+                                        <td>5 Nov 2020</td>
+                                        <td>$175</td>
+                                        <td class="text-right">
+                                            <div class="dropleft dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                        class="fas fa-ellipsis-h"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                            class="far fa-edit me-2"></i>Edit</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-trash-alt me-2"></i>Delete</a>
+                                                    <a class="dropdown-item" href="/admin/editestimate"><i
+                                                            class="far fa-eye me-2"></i>View</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-file-alt me-2"></i>Bill</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-check-circle me-2"></i>Advance</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                class="far fa-check-circle me-2"></i>Mark as
+                                                            Accepted</a> -->
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-times-circle me-2"></i>Closed</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                               shahid
+                                            </h2>
+                                        </td>
+                                        <td>5 Nov 2020</td>
+                                        <td>$175</td>
+                                        <td class="text-right">
+                                            <div class="dropleft dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                        class="fas fa-ellipsis-h"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                            class="far fa-edit me-2"></i>Edit</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-trash-alt me-2"></i>Delete</a>
+                                                    <a class="dropdown-item" href="/admin/editestimate"><i
+                                                            class="far fa-eye me-2"></i>View</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-file-alt me-2"></i>Bill</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-check-circle me-2"></i>Advance</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                class="far fa-check-circle me-2"></i>Mark as
+                                                            Accepted</a> -->
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-times-circle me-2"></i>Closed</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                anu
+                                            </h2>
+                                        </td>
+                                        <td>5 Nov 2020</td>
+                                        <td>$175</td>
+                                        <td class="text-right">
+                                            <div class="dropleft dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                        class="fas fa-ellipsis-h"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                            class="far fa-edit me-2"></i>Edit</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-trash-alt me-2"></i>Delete</a>
+                                                    <a class="dropdown-item" href="/admin/editestimate"><i
+                                                            class="far fa-eye me-2"></i>View</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-file-alt me-2"></i>Bill</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-check-circle me-2"></i>Advance</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                class="far fa-check-circle me-2"></i>Mark as
+                                                            Accepted</a> -->
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-times-circle me-2"></i>Closed</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                shahil
+                                            </h2>
+                                        </td>
+                                        <td>5 Nov 2020</td>
+                                        <td>$175</td>
+                                        <td class="text-right">
+                                            <div class="dropleft dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                        class="fas fa-ellipsis-h"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                            class="far fa-edit me-2"></i>Edit</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-trash-alt me-2"></i>Delete</a>
+                                                    <a class="dropdown-item" href="/admin/editestimate"><i
+                                                            class="far fa-eye me-2"></i>View</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-file-alt me-2"></i>Bill</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-check-circle me-2"></i>Advance</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                class="far fa-check-circle me-2"></i>Mark as
+                                                            Accepted</a> -->
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="far fa-times-circle me-2"></i>Closed</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+ 
+
+<script>
+   
+    $(document).on('click', '#toggle_btn', function () {
+            if ($('body').hasClass('mini-sidebar')) {
+                $('body').removeClass('mini-sidebar');
+                $('.subdrop + ul').slideDown();
+            } else {
+                $('body').addClass('mini-sidebar');
+                $('.subdrop + ul').slideUp();
+            }
+            setTimeout(function () {
+                mA.redraw();
+                mL.redraw();
+            }, 300);
+            return false;
+        });
+</script>
+
+{% endblock %}

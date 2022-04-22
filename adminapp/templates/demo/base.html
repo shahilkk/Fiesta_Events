@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Kanakku - Bootstrap Admin HTML Template</title>
+
+    <link rel="shortcut icon" href="{% static 'demo/img/favicon.png' %}">
+
+    <link rel="stylesheet" href="{% static 'demo/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'demo/plugins/fontawesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'demo/plugins/fontawesome/css/all.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'demo/css/style.css' %}">
+</head>
+
+
+<body class="nk-body bg-lighter npc-default has-sidebar no-touch nk-nio-theme">
+
+    <div class="main-wrapper">
+        {% include 'demo/header.html' %}
+        {% include 'demo/sidebar.html' %}
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+
+    <script src="{% static 'demo/js/jquery-3.6.0.min.js' %}"></script>
+
+    <script src="{% static 'demo/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'demo/js/feather.min.js' %}"></script>
+
+    <script src="{% static 'demo/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+    <script src="{% static 'demo/plugins/apexchart/apexcharts.min.js' %}"></script>
+    <script src="{% static 'demo/plugins/apexchart/chart-data.js' %}"></script>
+
+    <script src="{% static 'demo/js/script.js' %}"></script>
+</body>
+
+</html>

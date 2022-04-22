@@ -1,0 +1,55 @@
+{% load static %}
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul id="toggle">
+                <li class="menu-title"><span>Main</span></li>
+                <li {% if is_index %} class="active" {% endif %}>
+                    <a href="/admin/index"><i class="fa fa-home"
+                            data-bs-toggle="tooltip"></i><span>Dashboard</span></a>
+                </li>
+                <li {% if is_customer %} class="active" {% endif %}>
+                    <a href="/admin/customer"><i class="fa fa-users" data-bs-toggle="tooltip"></i>
+                        <span>Customers</span></a>
+                </li>
+                <li {% if is_marketingstaff %} class="active" {% endif %}>
+                    <a href="/admin/marketingstaff"><i class="fa fa-user" data-bs-toggle="tooltip"
+                            title="fa fa-user"></i> <span>Marketing Staff</span></a>
+                </li>
+                <li {% if is_estimate %} class="active" {% endif %}>
+                    <a href="/admin/estimate"><i class="fa fa-file" data-bs-toggle="tooltip"
+                            title="fa fa-file-text"></i><span>Estimates</span></a>
+                </li>
+                <li  class="submenu" >
+                    <a href="#"><i class="fa fa-clipboard" data-bs-toggle="tooltip"
+                            title="fa fa-clipboard"></i><span>Invoices</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul>
+                        <li {% if is_invoice %} class="active " {% endif %}><a href="/admin/invoiceList">Invoices List</a></li>
+                        <li {% if is_invoice %} class="active " {% endif %}><a href="/admin/invoicegrid">Invoices Grid</a></li>
+                        <li {% if is_invoice %} class="active " {% endif %}><a href="/admin/addinvoice">Add Invoices</a></li>
+                        <li><a href="/admin/editinvoice">Edit Invoices</a></li>
+                        <li><a href="/admin/invoicedetails">Invoices Details</a></li>
+                        <li><a href="/admin/invoicesettings">Invoices Settings</a></li>
+                    </ul>
+                </li>
+                <li {% if is_product %} class="active" {% endif %}>
+                    <a href="/admin/products"><i class="fa fa-coffee" data-bs-toggle="tooltip"
+                            title="fa fa-coffee"></i> <span>Products</span></a>
+
+                </li>
+                <li {% if is_payment %} class="active" {% endif %}>
+                    <a href="/admin/payment"><i class="fa fa-credit-card"></i> <span>Payments</span></a>
+                </li>
+                <li {% if is_expenses %} class="active" {% endif %}>
+                    <a href="/admin/expenses"><i class="fas fa-chart-area"></i> <span>Expenses</span></a>
+                </li>
+                <li {% if is_profit %} class="active" {% endif %}>
+                    
+                    <a href="/admin/profit"><i class="fa fa-signal"></i> <span>Profit</span></a>
+                </li>
+               
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,354 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Fiesta Events</title>
+
+    <!-- index -->
+    <link rel="stylesheet" href="{% static 'img/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- endindex -->
+
+    <!-- customer -->
+    <link rel="stylesheet" href="{% static 'plugins/datatables/datatables.min.css' %}">
+    <!-- end customer -->
+
+
+    <!-- add customer -->
+    <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+    <!-- end add customer -->
+
+
+    <!-- estimate -->
+    <!-- end etimate -->
+
+
+    <!-- invoicelist -->
+    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
+    <!-- invoice list -->
+
+    <!-- invoice grid -->
+    <!-- end invoice grid -->
+
+    <!-- editinvoice -->
+    <!-- end editinvoice -->
+
+
+    <!-- invoice settings -->
+    <!-- end invoice settings -->
+
+
+    <!-- edit customer -->
+    <!-- edit customer -->
+
+    <!-- bank settings -->
+    <!-- bank settings -->
+
+
+<!-- boostrap icon -->
+<style>
+      
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+</style>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css"> -->
+<!-- @import url(""); -->
+
+
+
+
+
+</head>
+
+<body class="nk-body bg-lighter npc-default has-sidebar no-touch nk-nio-theme">
+
+    <div class="main-wrapper">
+
+        <div class="header header-one">
+
+            <div class="header-left header-left-one">
+                <a href="/admin/index" class="logo">
+                    <img src="{% static 'img/logo/img2.jpeg' %}" alt="Logo">
+                </a>
+                <a href="/admin/index" class="white-logo">
+                    <img src="{% static 'img/logo/img2.jpeg' %}" alt="Logo">
+                </a>
+                <a href="/admin/index" class="logo logo-small">
+                    <img src="{% static 'img/logo/img2.jpeg' %}" alt="Logo" width="30" height="30">
+                </a>
+            </div>
+
+
+            <a href="javascript:void(0);" id="toggle_btn">
+                <i class="fas fa-bars"></i>
+            </a>
+
+
+            <div class="top-nav-search">
+                <form>
+                    <input type="text" class="form-control" placeholder="Search here">
+                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+
+
+            <!-- <a class="mobile_btn" id="mobile_btn">
+                <i class="fas fa-bars"></i>
+            </a> -->
+
+
+
+        </div>
+
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul id="toggle">
+                        <li class="menu-title"><span>Main</span></li>
+                        <li {% if is_index %} class="active" {% endif %}>
+                            <a href="/admin/index"><i class="fa fa-home"
+                                    data-bs-toggle="tooltip"></i><span>Dashboard</span></a>
+                        </li>
+                        <li {% if is_customer %} class="active" {% endif %}>
+                            <a href="/admin/customer"><i class="fa fa-users" data-bs-toggle="tooltip"></i>
+                                <span>Clients</span></a>
+                        </li>
+                        <li {% if is_marketingstaff %} class="active" {% endif %}>
+                            <a href="/admin/marketingstaff"><i class="fa fa-user" data-bs-toggle="tooltip"
+                                    title="fa fa-user"></i> <span>Employees</span></a>
+                        </li>
+                        <li {% if is_estimate %} class="active" {% endif %}>
+                            <a href="/admin/estimate"><i class="fa fa-file" data-bs-toggle="tooltip"
+                                    title="fa fa-file-text"></i><span>Estimates</span></a>
+                        </li>
+                        <li {% if is_invoice %} class="active" {% endif %}>
+                            <a href="/admin/invoiceList"><i class="fa fa-clipboard" data-bs-toggle="tooltip"
+                                    title="fa fa-clipboard"></i><span>Invoices </span></a>
+                        </li>
+                        
+                        </li>
+                        <li {% if is_product %} class="active" {% endif %}>
+                            <a href="/admin/products"><i class="fa fa-coffee" data-bs-toggle="tooltip"
+                                    title="fa fa-coffee"></i> <span>Products</span></a>
+
+                        </li>
+                        <li {% if is_payment %} class="active" {% endif %}>
+                            <a href="/admin/payment"><i class="fa fa-credit-card"></i> <span>Payments</span></a>
+                        </li>
+                        <li {% if is_expenses %} class="active" {% endif %}>
+                            <a href="/admin/expenses"><i class="fas fa-chart-area"></i> <span>Expenses</span></a>
+                        </li>
+                        <li {% if is_profit %} class="active" {% endif %}>
+
+                            <a href="/admin/profit"><i class=" bi bi-cash"></i> <span>Profit</span></a>
+                        </li>
+                        <li {% if is_bank %} class="active" {% endif %}>
+                            <a href="/admin/bank"><i class="fa fa-university"></i> <span> Add Bank</span></a>
+                        </li>
+                        <li {% if is_filter %} class="active" {% endif %}>
+                            <a href="/admin/filter"><i class="fa fa-filter"></i> <span> Advace filter </span></a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+
+    <!-- index -->
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/feather.min.js' %}"></script>
+    <script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'plugins/apexchart/apexcharts.min.js' %}"></script>
+    <script src="{% static 'plugins/apexchart/chart-data.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <!-- end index -->
+
+
+    <!-- customer -->
+    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/datatables.min.js' %}"></script>
+    <!-- end customer -->
+
+
+
+    <!-- add customer -->
+    <script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
+    <!-- end add customer -->
+
+
+    <!-- estimate -->
+    <!-- end estimate -->
+
+    <!-- invoice list -->
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
+    <!-- end invoice list -->
+
+
+
+    <!-- invoice grid -->
+    <!-- end invoice grid -->
+
+    <!-- edit invoice -->
+    <!-- end edit invoice -->
+
+    <!-- invoice settings -->
+    <!-- end invoice settings -->
+
+    <!-- editcustomer -->
+    <!-- edit customer -->
+
+
+
+
+
+
+    <script>
+
+
+        if ($('.datetimepicker').length > 0) {
+            $('.datetimepicker').datetimepicker({
+                format: 'DD-MM-YYYY',
+                icons: {
+                    up: "fas fa-angle-up",
+                    down: "fas fa-angle-down",
+                    next: 'fas fa-angle-right',
+                    previous: 'fas fa-angle-left'
+                }
+            });
+        }
+
+
+
+      
+
+
+        //    toggle
+        $(document).on('click', '#toggle_btn', function () {
+            if ($('body').hasClass('mini-sidebar')) {
+                $('body').removeClass('mini-sidebar');
+                $('.subdrop + ul').slideDown();
+            } else {
+                $('body').addClass('mini-sidebar');
+                $('.subdrop + ul').slideUp();
+            }
+            setTimeout(function () {
+                mA.redraw();
+                mL.redraw();
+            }, 300);
+            return false;
+        });
+        // end toggle
+
+        // filters
+        $(document).on('click', '#filter_search', function () {
+            $('#filter_inputs').slideToggle("slow");
+        });
+
+        // endfilter
+
+
+
+        // datatable
+        if ($('.datatable').length > 0) {
+            $('.datatable').DataTable({
+                language: {
+                    search: '<i class="fas fa-search"></i>',
+                    searchPlaceholder: "Search"
+                }
+            });
+        }
+        // end datatable
+
+
+
+
+        //    add + in add invoice
+        $(document).on("click", ".add-btn", function () {
+            var experiencecontent = '<tr class="add-row">' +
+                '<td>' +
+                '<input type="text" class="form-control">' +
+                '</td>' +
+                '<td>' +
+                '<input type="text" class="form-control">' +
+                '</td>' +
+                '<td>' +
+                '<input type="text" class="form-control">' +
+                '</td>' +
+                '<td>' +
+                '<input type="text" class="form-control">' +
+                '</td>' +
+                '<td>' +
+                '<input type="text" class="form-control">' +
+                '</td>' +
+                '<td>' +
+                '<input type="text" class="form-control">' +
+                '</td>' +
+                '<td class="add-remove text-end">' +
+                '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
+                '<a href="#" class="copy-btn me-2"><i class="fas fa-copy"></i></a>' +
+                '<a href="javascript:void(0);" class="remove-btn"><i class="fas fa-trash"></i></a>' +
+                '</td>' +
+                '</tr>';
+
+            $(".add-table-items").append(experiencecontent);
+            return false;
+        });
+        // end  + in add invoice
+
+
+
+
+        // selectbox
+        $('.app-listing .selectBox').on("click", function () {
+            $(this).parent().find('#checkBoxes').fadeToggle();
+            $(this).parent().parent().siblings().find('#checkBoxes').fadeOut();
+        });
+
+        $('.invoices-main-form .selectBox').on("click", function () {
+            $(this).parent().find('#checkBoxes-one').fadeToggle();
+            $(this).parent().parent().siblings().find('#checkBoxes-one').fadeOut();
+        });
+        // end selectbox
+
+
+
+
+        $(".add-table-items").on('click','.remove-btn', function () {
+		$(this).closest('.add-row').remove();
+		return false;
+
+
+
+
+    });
+
+
+    
+
+
+
+
+    // bank settings
+    // end bank settings
+    </script>
+</body>
+
+</html>
