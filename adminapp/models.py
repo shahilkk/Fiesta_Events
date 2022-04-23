@@ -6,14 +6,15 @@ from django.db import models
 class Client(models.Model):
     client_name = models.CharField(max_length=30) 
     client_gst_number = models.CharField(max_length=30) 
-    client_id = models.CharField(max_length=30) 
+    client_id = models.CharField(max_length=30,default=0) 
     client_phone = models.CharField(max_length=30)
     client_email = models.CharField(max_length=30)
     client_state = models.CharField(max_length=30)
     client_district = models.CharField(max_length=30)
     client_zipcode = models.CharField(max_length=30)
     client_address = models.CharField(max_length=30)
-
+    client_contact_type = models.CharField(max_length=10,default="")
+    client_status = models.CharField(max_length=30,default="")
     class Meta:
         db_table = 'client'
 

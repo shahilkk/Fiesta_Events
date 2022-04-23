@@ -1,6 +1,6 @@
 
 from django.shortcuts import render , redirect
-from . models import Employee,Product
+from . models import Employee,Product,Client
 
 
 # Create your views here.
@@ -18,9 +18,38 @@ def customer(req):
     return render(req,'customer.html',context)
 
 
-def addcustomer(req):
+
+def addcustomer(request):
+   
     context={"is_customer":True}
-    return render(req,'addcustomer.html',context) 
+    if request.method=='POST':
+       
+        client_name=request.POST['client_name']
+        client_gst_number=request.POST['client_gst_number']
+        client_id=request.POST['client_id']
+        client_phone=request.POST['client_phone']
+        client_email=request.POST['client_email']
+        client_state=request.POST['client_state']
+        client_district=request.POST['client_district']
+        client_zipcode=request.POST['client_zipcode']
+        client_address=request.POST['client_address']
+        client_contact_type=request.POST['client_contact_type']
+        print(client_name)
+        client_add=Client(client_name=client_name,client_gst_number=client_gst_number
+        ,client_id=client_id,client_phone=client_phone,client_email=client_email,
+        client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
+        ,client_address=client_address,client_contact_type=client_contact_type)
+        client_add.save()
+        return redirect('admin/customer')
+       
+    return render(request,'addcustomer.html',context) 
+
+def viewcustomer(req):
+    customerlist=Client.objects.all()
+    context={"is_customer":True,
+     "customerlist":customerlist
+    }
+    return render(req,'viewcustomer.html',context) 
 
 def editcustomer(req):
     context={"is_customer":True}
@@ -28,9 +57,7 @@ def editcustomer(req):
 
 
 
-def viewcustomer(req):
-    context={"is_customer":True}
-    return render(req,'viewcustomer.html',context)         
+        
 
 
 def marketingstaff(req):
@@ -57,6 +84,7 @@ def addmstaff(request):
         emplyoeedetails=Employee(employee_name=employee_name, employee_username=employee_username, employee_password=employee_password, employee_phone=employee_phone, employee_email=employee_email, employee_state=employee_state, employee_district=employee_district, employee_zipcode=employee_zipcode, employee_address=employee_address, employee_status='Active')
         emplyoeedetails.save()
         return redirect('/admin/marketingstaff')
+        
         
     return render(request,'addmstaff.html',context)
 
