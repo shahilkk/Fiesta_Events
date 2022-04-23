@@ -14,6 +14,7 @@
                             <h3 class="page-title">Profile</h3>
                             <ul class="breadcrumb">
                                 <li><a href="/admin/index">Dashboard /</a></li>
+                                <li><a href="/admin/marketingstaff">Employee /</a></li>
                                 <li class="breadcrumb-item active">Profile</li>
                             </ul>
                         </div>
@@ -23,17 +24,17 @@
 
                 <div class="text-center mb-5">
 
-                    <h2>Charles Hafner <i class="fas fa-certificate text-primary small" data-toggle="tooltip"
+                    <h2>{{ details.employee_name }} <i class="fas fa-certificate text-primary small" data-toggle="tooltip"
                         data-placement="top" title="" data-original-title="Verified"></i></h2>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <i class="far fa-building"></i> <span>Hafner Pvt Ltd. </span>
+                            <i class="fa fa-map-marker"></i> <span>{{ details.employee_district }} </span>
                         </li>
                         <li class="list-inline-item">
-                            <i class="fas fa-map-marker-alt"></i> West Virginia, US
+                            <i class="fa fa-envelope"></i> <span>{{ details.employee_email }}</span>
                         </li>
                         <li class="list-inline-item">
-                            <i class="far fa-calendar-alt"></i> <span>Joined November 2017</span>
+                            <i class="fa fa-phone"></i> <span>{{ details.employee_phone }}</span>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +45,7 @@
                             <div class="card-header">
                                 <h5 class="card-title d-flex justify-content-between">
                                     <span>Profile</span>
-                                    <a class="btn btn-sm btn-white" href="/admin/editcustomer">Edit</a>
+                                    <!-- <a class="btn btn-sm btn-white" href="/admin/editcustomer">Edit</a> -->
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -53,29 +54,28 @@
                                         <small class="text-dark">About</small>
                                     </li>
                                     <li>
-                                        Charles Hafner
+                                       {{ details.employee_name }}
                                     </li>
                                     <li>
-                                        Hafner Pvt Ltd.
+                                        {{ details.employee_username }}
                                     </li>
                                     <li class="pt-2 pb-0">
                                         <small class="text-dark">Contacts</small>
                                     </li>
                                     <li>
-                                        <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                            data-cfemail="71121910031d14021910171f1403311409101c011d145f121e1c">[email&#160;protected]</a>
+                                        {{ details.employee_email }}
                                     </li>
                                     <li>
-                                        +1 (304) 499-13-66
+                                        {{ details.employee_phone }}
                                     </li>
                                     <li class="pt-2 pb-0">
                                         <small class="text-dark">Address</small>
                                     </li>
                                     <li>
-                                        4663 Agriculture Lane,<br>
-                                        Miami,<br>
-                                        Florida - 33165,<br>
-                                        United States.
+                                        {{ details.employee_address }},<br>
+                                        {{ details.employee_state }},<br>
+                                        {{ details.employee_district }},<br>
+                                        {{ details.employee_zipcode }}.
                                     </li>
                                 </ul>
                             </div>

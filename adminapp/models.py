@@ -48,7 +48,8 @@ class AddBank(models.Model):
     bank_name = models.CharField(max_length=50)
     bank_holdername = models.CharField(max_length=50)
     bank_ifsc = models.CharField(max_length=30)
-    bank_accountname = models.CharField(max_length=30)    
+    bank_accountname = models.CharField(max_length=30) 
+    bank_branch = models.CharField(max_length=30)    
     bank_balance = models.IntegerField()     
 
     class Meta:

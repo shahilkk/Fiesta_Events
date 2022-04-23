@@ -1,6 +1,6 @@
 
 from django.shortcuts import render , redirect
-from . models import Employee,Product
+from . models import Employee,Product,AddBank
 
 
 # Create your views here.
@@ -28,14 +28,19 @@ def editcustomer(req):
 
 
 
-def viewcustomer(req):
-    context={"is_customer":True}
-    return render(req,'viewcustomer.html',context)         
+def viewcustomer(requsest,id):
+    print(id)
+    details = Employee.objects.get(id=id)
+    context={
+        'details':details
+    }
+    return render(requsest,'viewcustomer.html',context)         
 
 
 def marketingstaff(req):
     employeelist=Employee.objects.all()
-    context={"is_marketingstaff":True,
+    context={
+    "is_marketingstaff":True,
     "employeelist":employeelist
     }
     return render(req,'marketingstaff.html',context)      
@@ -50,7 +55,7 @@ def addmstaff(request):
         employee_phone=request.POST['employee_phone']
         employee_email=request.POST['employee_email']
         employee_state=request.POST['employee_state']
-        employee_district=request.POST['employee_password']
+        employee_district=request.POST['employee_district']
         employee_zipcode=request.POST['employee_zipcode']
         employee_address=request.POST['employee_address']
         print(employee_name)
@@ -62,9 +67,29 @@ def addmstaff(request):
 
 
 
-def editstaff(req):
-    context={"is_marketingstaff":True}
-    return render(req,'editstaff.html',context)    
+def editstaff(request,staff_id):
+    print(staff_id)
+    if request.method=='POST':
+        employee_name=request.POST['employee_name']
+        employee_username=request.POST['employee_username']
+        employee_phone=request.POST['employee_phone']
+        employee_email=request.POST['employee_email']
+        employee_state=request.POST['employee_state']
+        employee_district=request.POST['employee_district']
+        employee_zipcode=request.POST['employee_zipcode']
+        employee_address=request.POST['employee_address']
+        Employee.objects.filter(id=staff_id).update(employee_zipcode=employee_zipcode,employee_address=employee_address,  employee_email=employee_email,employee_state=employee_state, employee_district=employee_district,  employee_name=employee_name, employee_username=employee_username,employee_phone=employee_phone )
+        return render(request,'editstaff.html',{'status':1})
+    else:
+        staffdetails = Employee.objects.get(id=staff_id)
+        print(staffdetails)
+        
+    context={
+        "is_marketingstaff":True,
+        'staffdetails':staffdetails,
+        'status':0
+        }
+    return render(request,'editstaff.html',context)    
 
 
 
@@ -116,9 +141,34 @@ def editinvoice(req):
     return render(req,'editinvoice.html',context) 
 
 
-def bank(req):
-    context={"is_bank":True}
-    return render(req,'addbank.html',context) 
+def bank(request):
+    if request.method == 'POST':
+        bank_name = request.POST['bank_name']
+        bank_holdername = request.POST['bank_holdername']
+        bank_accountname = request.POST['bank_accountname']
+        bank_ifsc = request.POST['bank_ifsc']
+        bank_branch = request.POST['bank_branch']
+        addbank= AddBank(bank_name=bank_name, bank_holdername=bank_holdername, bank_accountname=bank_accountname, bank_ifsc=bank_ifsc, bank_branch=bank_branch, bank_balance=0)
+        addbank.save()
+        return render(request,'addbank.html',{'status':1,})
+    else:
+        context={
+        "is_bank":True,
+        'status':0,
+        }
+        return render(request,'addbank.html',context)
+        
+
+        
+
+        
+        
+    
+
+
+
+    
+     
     
 
 def products(request):
@@ -189,10 +239,21 @@ def filter(req):
       
 
 
+def profitandloss(req):
+    context={
+        "is_profitandloss":True
+        }
+    return render(req,'profit&loss.html',context)
+
 
 
    
 def demo(request):
     return render(request,'demo/index.html')
+
+
+
+    
+        
 
       

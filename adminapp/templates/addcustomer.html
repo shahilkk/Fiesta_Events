@@ -29,31 +29,32 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Client Info</h4>
-                        <form action="#">
+                        <form action="#" method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Client Name / Company Name</label>
+                                        <label>Client  / Company Name</label>
                                         <input type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Client ID</label>
+                                        <label>Client  / Company ID</label>
                                         <input type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Company Phone Number</label>
+                                        <label>Client  / Company Phone Number</label>
                                         <input type="email" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Company Watsup Number</label>
+                                        <label>Client / Company Whatsapp Number</label>
                                         <input type="email" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Company Email</label>
+                                        <label>Client  / Company Email</label>
                                         <input type="email" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label> Company Address</label>
+                                        <label> Client  / Company Address</label>
                                         <textarea rows="5" cols="5" class="form-control"
                                             placeholder="Enter Address"></textarea>
                                     </div>
@@ -66,9 +67,9 @@
                                     <div class="form-group">
                                         <label>Primary Contact Type</label>
                                         <select class="select form-control form-control-lg">
-                                            <option>watsup</option>
-                                            <option>email</option>
-                                            <option>phone number</option>
+                                            <option>Whatsapp</option>
+                                            <option>Email</option>
+                                            <option>Phone Number</option>
                                             
                                         </select>
                                     </div>
@@ -97,7 +98,7 @@
                                     </div>
                                    
                                     <div class="form-group">
-                                        <label>Zip Code</label>
+                                        <label>Pin Code</label>
                                         <input type="text" class="form-control">
                                     </div>
                                     
