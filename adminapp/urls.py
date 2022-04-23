@@ -24,13 +24,18 @@ urlpatterns = [
     path('profit',views.profit,name="profit"),
     path('addprofit',views.addprofit,name="addprofit"),
     path('viewestimate',views.viewestimate,name="viewestimate"),
-    path('editcustomer',views.editcustomer,name="editcustomer"),
+    path('editcustomer/<str:id>',views.editcustomer,name="editcustomer"),
     path('addestimate',views.addestimate,name="addestimate"),
     path('filter',views.filter,name="filter"),
+    path('viewemployee/<str:id>',views.viewemployee,name="viewemployee"),
     path('viewcustomer/<str:id>',views.viewcustomer,name="viewcustomer"),
     path('addmstaff',views.addmstaff,name="addmstaff"),
     path('editstaff/<str:staff_id>',views.editstaff,name="editstaff"),
+    # path('getproduct/',views.getproduct,name="getproduct"),
+    path('getproductGet/<int:id>',views.getproductGet,name="getproductGet"),
     path('profitandloss',views.profitandloss,name="profitandloss"),
+    path('editProductdata/<int:id>',views.editProductdata,name="editProductdata"),
+    path('updateproduct/<int:id>',views.updateproduct,name="updateproduct"),
 
 
     

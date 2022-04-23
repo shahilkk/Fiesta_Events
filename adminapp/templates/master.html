@@ -72,13 +72,13 @@
         <div class="header header-one">
 
             <div class="header-left header-left-one">
-                <a href="/admin/index" class="logo">
+                <a href="/user/index" class="logo">
                     <img src="{% static 'img/logo/img2.jpeg' %}" alt="Logo">
                 </a>
-                <a href="/admin/index" class="white-logo">
+                <a href="/user/index" class="white-logo">
                     <img src="{% static 'img/logo/img2.jpeg' %}" alt="Logo">
                 </a>
-                <a href="/admin/index" class="logo logo-small">
+                <a href="/user/index" class="logo logo-small">
                     <img src="{% static 'img/logo/img2.jpeg' %}" alt="Logo" width="30" height="30">
                 </a>
             </div>
@@ -112,50 +112,50 @@
                     <ul id="toggle">
                         <li class="menu-title"><span>Main</span></li>
                         <li {% if is_index %} class="active" {% endif %}>
-                            <a href="/admin/index"><i class="fa fa-home"
+                            <a href="/user/index"><i class="fa fa-home"
                                     data-bs-toggle="tooltip"></i><span>Dashboard</span></a>
                         </li>
                         <li {% if is_customer %} class="active" {% endif %}>
-                            <a href="/admin/customer"><i class="fa fa-users" data-bs-toggle="tooltip"></i>
+                            <a href="/user/customer"><i class="fa fa-users" data-bs-toggle="tooltip"></i>
                                 <span>Clients</span></a>
                         </li>
                         <li {% if is_marketingstaff %} class="active" {% endif %}>
-                            <a href="/admin/marketingstaff"><i class="fa fa-user" data-bs-toggle="tooltip"
+                            <a href="/user/marketingstaff"><i class="fa fa-user" data-bs-toggle="tooltip"
                                     title="fa fa-user"></i> <span>Employees</span></a>
                         </li>
                         <li {% if is_estimate %} class="active" {% endif %}>
-                            <a href="/admin/estimate"><i class="fa fa-file" data-bs-toggle="tooltip"
+                            <a href="/user/estimate"><i class="fa fa-file" data-bs-toggle="tooltip"
                                     title="fa fa-file-text"></i><span>Estimates</span></a>
                         </li>
                         <li {% if is_invoice %} class="active" {% endif %}>
-                            <a href="/admin/invoiceList"><i class="fa fa-clipboard" data-bs-toggle="tooltip"
+                            <a href="/user/invoiceList"><i class="fa fa-clipboard" data-bs-toggle="tooltip"
                                     title="fa fa-clipboard"></i><span>Invoices </span></a>
                         </li>
                         
                         </li>
                         <li {% if is_product %} class="active" {% endif %}>
-                            <a href="/admin/products"><i class="fa fa-coffee" data-bs-toggle="tooltip"
+                            <a href="/user/products"><i class="fa fa-coffee" data-bs-toggle="tooltip"
                                     title="fa fa-coffee"></i> <span>Products</span></a>
 
                         </li>
                         <li {% if is_payment %} class="active" {% endif %}>
-                            <a href="/admin/payment"><i class="fa fa-credit-card"></i> <span>Payments</span></a>
+                            <a href="/user/payment"><i class="fa fa-credit-card"></i> <span>Payments</span></a>
                         </li>
                         <li {% if is_expenses %} class="active" {% endif %}>
-                            <a href="/admin/expenses"><i class="fas fa-chart-area"></i> <span>Expenses</span></a>
+                            <a href="/user/expenses"><i class="fas fa-chart-area"></i> <span>Expenses</span></a>
                         </li>
                         <li {% if is_profit %} class="active" {% endif %}>
 
-                            <a href="/admin/profit"><i class=" bi bi-cash"></i> <span>Profit</span></a>
+                            <a href="/user/profit"><i class=" bi bi-cash"></i> <span>Profit</span></a>
                         </li>
                         <li {% if is_bank %} class="active" {% endif %}>
-                            <a href="/admin/bank"><i class="fa fa-university"></i> <span> Add Bank</span></a>
+                            <a href="/user/bank"><i class="fa fa-university"></i> <span> Add Bank</span></a>
                         </li>
                         <li {% if is_profitandloss %} class="active" {% endif %}>
-                            <a href="/admin/profitandloss"><i class="fas fa-sitemap"></i> <span> Profit And Loss </span></a>
+                            <a href="/user/profitandloss"><i class="fas fa-sitemap"></i> <span> Profit And Loss </span></a>
                         </li>
                         <li {% if is_filter %} class="active" {% endif %}>
-                            <a href="/admin/filter"><i class="fa fa-filter"></i> <span> Advace filter </span></a>
+                            <a href="/user/filter"><i class="fa fa-filter"></i> <span> Advace filter </span></a>
                         </li>
                        
                     </ul>

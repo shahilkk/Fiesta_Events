@@ -1,8 +1,11 @@
 
 from django.shortcuts import render , redirect
-from . models import Employee,Product,AddBank
 
-
+from . models import Employee,Product,AddBank,Client
+import random
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
 # Create your views here.
 
 
@@ -14,27 +17,92 @@ def index(req):
     return render(req,'index.html',context)  
 
 def customer(req):
-    context={"is_customer":True}
+    # context={"is_customer":True}
+    customerlist=Client.objects.all()
+    context={
+        "is_customer":True,
+     "customerlist":customerlist
+    }
     return render(req,'customer.html',context)
 
 
-def addcustomer(req):
+
+def addcustomer(request):
+   
     context={"is_customer":True}
-    return render(req,'addcustomer.html',context) 
+    rand=random.randint(10000,9999999)
+    client_uid = 'CLT'+str(rand)
+    if request.method=='POST':
+       
+        client_name=request.POST['client_name']
+        client_gst_number=request.POST['client_gst_number']
+        client_whsatpp=request.POST['client_whsatpp']
+        client_phone=request.POST['client_phone']
+        client_email=request.POST['client_email']
+        client_state=request.POST['client_state']
+        client_district=request.POST['client_district']
+        client_zipcode=request.POST['client_zipcode']
+        client_address=request.POST['client_address']
+        client_contact_type=request.POST['client_contact_type']
+        print(client_name)
+        client_add=Client(client_name=client_name,client_gst_number=client_gst_number
+        ,client_id=client_uid,client_phone=client_phone,client_email=client_email,
+        client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
+        ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
+        client_add.save()
+        return redirect('/user/customer')
+       
+    return render(request,'addcustomer.html',context) 
 
-def editcustomer(req):
-    context={"is_customer":True}
-    return render(req,'editcustomer.html',context)   
 
 
+def editcustomer(request,id):
+    if request.method=='POST':
+        client_name=request.POST['client_name']
+        client_gst_number=request.POST['client_gst_number']
+        client_whsatpp=request.POST['client_whsatpp']
+        client_phone=request.POST['client_phone']
+        client_email=request.POST['client_email']
+        client_state=request.POST['client_state']
+        client_district=request.POST['client_district']
+        client_zipcode=request.POST['client_zipcode']
+        client_address=request.POST['client_address']
+        client_contact_type=request.POST['client_contact_type']
+        Client.objects.filter(id=id).update(client_name=client_name,client_gst_number=client_gst_number
+        ,client_phone=client_phone,client_email=client_email,
+        client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
+        ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
+        return render(request,'editcustomer.html',{'status':1})
 
-def viewcustomer(requsest,id):
+    else:
+        print(id)
+        editcust=Client.objects.get(id=id)
+    context={
+        "is_customer":True,
+        "editcust":editcust,
+        'status':0
+        }
+    return render(request,'editcustomer.html',context)   
+
+
+def viewcustomer(request,id):
+    print(id)
+    details=Client.objects.get(id=id)
+    context={
+        "is_custome":True,
+        "details":details
+        }
+    return render(request,'viewcustomer.html',context)  
+
+
+def viewemployee(requsest,id):
     print(id)
     details = Employee.objects.get(id=id)
     context={
         'details':details
     }
-    return render(requsest,'viewcustomer.html',context)         
+    return render(requsest,'viewemployee.html',context)         
+        
 
 
 def marketingstaff(req):
@@ -61,7 +129,8 @@ def addmstaff(request):
         print(employee_name)
         emplyoeedetails=Employee(employee_name=employee_name, employee_username=employee_username, employee_password=employee_password, employee_phone=employee_phone, employee_email=employee_email, employee_state=employee_state, employee_district=employee_district, employee_zipcode=employee_zipcode, employee_address=employee_address, employee_status='Active')
         emplyoeedetails.save()
-        return redirect('/admin/marketingstaff')
+        return redirect('/user/marketingstaff')
+        
         
     return render(request,'addmstaff.html',context)
 
@@ -158,18 +227,7 @@ def bank(request):
         }
         return render(request,'addbank.html',context)
         
-
-        
-
-        
-        
-    
-
-
-
-    
-     
-    
+ 
 
 def products(request):
    
@@ -183,7 +241,7 @@ def products(request):
         food_exist = Product(food_name = food_name,catagory = catagory,priceper_head = priceper_head,priceper_kg = priceper_kg,food_deatails = food_deatails)
         food_exist.save()
         print(food_name)
-        return redirect('/admin/products')
+        return redirect('/user/products')
         # msg = " product added"
 
     view_product = Product.objects.all()    
@@ -193,8 +251,71 @@ def products(request):
     }
     return render(request,'products.html',context) 
 
+# @csrf_exempt
+# def getproduct(request):
+#     productID = request.POST.get('productID')
 
+#     product=Product.objects.get(id=productID)
+
+#     data={
+#         "food_name":product.food_name,
+#         "catagory":product.catagory,
+#         "priceper_head":product.priceper_head,
+#         "priceper_kg":product.priceper_kg,
+#         "food_deatails":product.food_deatails
+
+#     }
+#     return JsonResponse({'product': data})  
+@csrf_exempt     
+def getproductGet(request,id):
+
+    product=Product.objects.get(id=id)
+
+    data={
+        "food_name":product.food_name,
+        "catagory":product.catagory,
+        "priceper_head":product.priceper_head,
+        "priceper_kg":product.priceper_kg,
+        "food_deatails":product.food_deatails
+
+    }
+    # listone=[]
+    # listone.append(data)
+    # listone.append(data)
+    return JsonResponse({'product': data})  
      
+
+
+@csrf_exempt
+def editProductdata(request,id):
+
+    editproduct=Product.objects.get(id=id)
+    # print(editproduct)
+    
+    data={
+        "food_name":editproduct.food_name,
+        "catagory":editproduct.catagory,
+        "priceper_head":editproduct.priceper_head,
+        "priceper_kg":editproduct.priceper_kg,
+        "food_deatails":editproduct.food_deatails
+
+    }
+    return JsonResponse({'product': data})
+          
+@csrf_exempt
+def updateproduct(request,id):
+    print(id)
+    food_name = request.POST['editfood']
+    catagory = request.POST['editcat']
+    priceper_head = request.POST['editdecrption']
+    priceper_kg = request.POST['editperhead']
+    food_deatails = request.POST['editperkg']
+    Product.objects.filter(id=id).update(food_name=food_name, catagory=catagory, priceper_head=priceper_head ,priceper_kg=priceper_kg,food_deatails=food_deatails )
+    return redirect('/user/product')
+    
+ 
+      
+
 
 
 def payment(req):

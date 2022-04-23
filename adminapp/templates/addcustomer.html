@@ -1,5 +1,3 @@
-
-
 {% extends 'master.html' %}
 {% block content %}
 {% load static %}
@@ -16,8 +14,8 @@
                 <div class="col-sm-12">
                     <h3 class="page-title">Clients</h3>
                     <ul class="breadcrumb">
-                        <li class=""><a href="/admin/index">Dashboard /</a></li>
-                        <li class=""><a href="/admin/customer">Clients /</a></li>
+                        <li class=""><a href="/user/index">Dashboard /</a></li>
+                        <li class=""><a href="/user/customer">Clients /</a></li>
                         <li class="breadcrumb-item active">Add Clients</li>
                     </ul>
                 </div>
@@ -28,140 +26,92 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+
                         <h4 class="card-title">Client Info</h4>
                         <form action="#" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Client  / Company Name</label>
-                                        <input type="text" class="form-control">
+
+                                        <label>Client Name / Company Name</label>
+                                        <input type="text" class="form-control" name="client_name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Company Phone Number</label>
+                                        <input type="text" class="form-control" name="client_phone">
                                     </div>
                                     <div class="form-group">
-                                        <label>Client  / Company ID</label>
-                                        <input type="text" class="form-control">
+                                        <label>Company Watsup Number</label>
+                                        <input type="text" class="form-control" name="client_whsatpp">
                                     </div>
                                     <div class="form-group">
-                                        <label>Client  / Company Phone Number</label>
-                                        <input type="email" class="form-control">
+                                        <label>Company Email</label>
+                                        <input type="email" class="form-control" name="client_email">
                                     </div>
                                     <div class="form-group">
-                                        <label>Client / Company Whatsapp Number</label>
-                                        <input type="email" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Client  / Company Email</label>
-                                        <input type="email" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label> Client  / Company Address</label>
-                                        <textarea rows="5" cols="5" class="form-control"
+                                        <label> Company Address</label>
+                                        <textarea rows="5" cols="5" class="form-control" name="client_address"
                                             placeholder="Enter Address"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>GST number</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="client_gst_number">
                                     </div>
                                     <div class="form-group">
                                         <label>Primary Contact Type</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>Whatsapp</option>
-                                            <option>Email</option>
-                                            <option>Phone Number</option>
-                                            
+                                        <select class="select form-control form-control-lg" name="client_contact_type">
+                                            <option value="watsup">watsup</option>
+                                            <option value="email">email</option>
+                                            <option value="phone number">phone number</option>
+
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>State</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>kerala</option>
-                                            <option>tamilnadu</option>
-                                            <option>karnataka</option>
-                                            
+                                        <select class="select form-control form-control-lg" name="client_state">
+                                            <option value="kerala">kerala</option>
+                                            <option value="tamilnadu">tamilnadu</option>
+                                            <option value="karnataka">karnataka</option>
+
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Distric</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>kasargode</option>
-                                            <option>kannur</option>
-                                            <option>vayanad</option>
-                                            <option value=""> kozhikkod</option>
-                                            <option value="">malappuram</option>
-                                            <option value="">trissure</option>
-                                            <option value="">palakkad</option>
-                                            <option value="">ernakulam</option>
-                                            
-                                        </select>
-                                    </div>
-                                   
-                                    <div class="form-group">
-                                        <label>Pin Code</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    
-                                    
-                                   
-                                </div>
-                             
-                            </div>
+                                        <select class="select form-control form-control-lg" name="client_district">
+                                            <option value="kasargode">kasargode</option>
+                                            <option value="kannur">kannur</option>
+                                            <option value="vayanad">vayanad</option>
+                                            <option value="kozhikkod"> kozhikkod</option>
+                                            <option value="malappuram">malappuram</option>
+                                            <option value="trissure">trissure</option>
+                                            <option value="palakkad">palakkad</option>
+                                            <option value="ernakulam">ernakulam</option>
 
-                        </form>
-                        <!-- <h4 class="card-title mt-4">Billing Address</h4>
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>State</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <textarea rows="5" cols="5" class="form-control"
-                                            placeholder="Enter Address"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Country</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>Select Country</option>
-                                            <option>Afghanistan</option>
-                                            <option>Afghanistan</option>
-                                            <option>Albania</option>
-                                            <option>Algeria</option>
-                                            <option>American Samoa</option>
-                                            <option>Andorra</option>
-                                            <option>Angola</option>
-                                            <option>Anguilla</option>
-                                            <option selected>United States</option>
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label>City</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phone</label>
-                                        <input type="text" class="form-control">
-                                    </div>
+
                                     <div class="form-group">
                                         <label>Zip Code</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="client_zipcode">
                                     </div>
+
+
+
                                 </div>
+
                             </div>
-                        </form> -->
-                        <button type="button" class="btn btn-primary mr-1 mb-1" id="basic-alert">save</button>
-                       
+                            <button type="submit" class="btn btn-primary mr-1 mb-1" id="basic-alert">save</button>
+
+                        </form>
+
+
+
                     </div>
-                  
+
                 </div>
             </div>
         </div>

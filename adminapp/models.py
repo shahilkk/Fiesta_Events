@@ -6,16 +6,21 @@ from django.db import models
 class Client(models.Model):
     client_name = models.CharField(max_length=30) 
     client_gst_number = models.CharField(max_length=30) 
-    client_id = models.CharField(max_length=30) 
+    client_id = models.CharField(max_length=30,default=0) 
     client_phone = models.CharField(max_length=30)
     client_email = models.CharField(max_length=30)
     client_state = models.CharField(max_length=30)
     client_district = models.CharField(max_length=30)
     client_zipcode = models.CharField(max_length=30)
-    client_address = models.CharField(max_length=30)
-
+    client_address = models.CharField(max_length=60)
+    client_whsatpp = models.CharField(max_length=60)
+    client_contact_type = models.CharField(max_length=40,default="")
+    client_status = models.BooleanField(default=False)
     class Meta:
         db_table = 'client'
+    def __str__(self):
+        return self.client_name 
+
 
 class Product(models.Model):
     food_name = models.CharField(max_length=50)
@@ -26,6 +31,8 @@ class Product(models.Model):
 
     class Meta:
         db_table = 'product'
+    def __str__(self):
+        return self.food_name    
 
 
 class Employee(models.Model):
@@ -42,7 +49,8 @@ class Employee(models.Model):
 
     class Meta:
         db_table = 'employee'
-
+    def __str__(self):
+        return self.employee_name
 
 class AddBank(models.Model):
     bank_name = models.CharField(max_length=50)
@@ -53,8 +61,9 @@ class AddBank(models.Model):
     bank_balance = models.IntegerField()     
 
     class Meta:
-
         db_table = 'addbank'
+    def __str__(self):
+        return self.bank_name    
 
 
 

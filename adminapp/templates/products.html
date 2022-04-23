@@ -12,7 +12,7 @@
                 <div class="col">
                     <h3 class="page-title">Product </h3>
                     <ul class="breadcrumb">
-                        <li><a href="/admin/index">Dashboard /</a></li>
+                        <li><a href="/user/index">Dashboard /</a></li>
                         <li class="breadcrumb-item active">Items List</li>
                     </ul>
                 </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="invoices-items-tabs">
                                 <ul>
-                                    <li><a href="/admin/products" class="active"> All Products</a></li>
+                                    <li><a href="/user/products" class="active"> All Products</a></li>
 
                                 </ul>
                             </div>
@@ -41,7 +41,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-12 col-md-12">
                             <div class="invoices-settings-btn invoices-settings-btn-one">
-                                <a href="/admin/productcatogory" class="btn" data-bs-toggle="modal"
+                                <a href="/user/productcatogory" class="btn" data-bs-toggle="modal"
                                     data-bs-target="#add_items">
                                     <i data-feather="plus-circle"></i> Add New Product
                                 </a>
@@ -67,28 +67,30 @@
                                         <th class="text-end">Action</th>
                                     </tr>
                                 </thead>
-                               <tbody>
-                                {% for i in view_product %}
-                                <tr>
-                                    <td>{{i.food_name }} </td>
+                                <tbody>
+                                    {% for i in view_product %}
+                                    <tr>
+                                        <td>{{i.food_name }} </td>
                                         <td>{{i.catagory}}</td>
                                         <td>{{i.priceper_head}}</td>
                                         <td>{{i.priceper_kg}}</td>
                                         <td class="text-end">
                                             <a class="btn btn-sm btn-white text-success" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit_items"><i class="far fa-edit  me-1"></i>Edit</a>
-                                            <a class="btn btn-sm btn-white text-primary" href="#" data-bs-toggle="modal"
+                                                onclick="editdata({{i.id}})" data-bs-target="#edit_items"><i
+                                                    class="far fa-edit  me-1"></i>Edit</a>
+                                            <a class="btn btn-sm btn-white text-primary" href="#"
+                                                onclick="viewdata({{i.id}})" data-bs-toggle="modal"
                                                 data-bs-target="#view_paid"><i class="fa fa-eye me-1"></i>View</a>
                                             <a class="btn btn-sm btn-white text-danger" href="#" data-bs-toggle="modal"
                                                 data-bs-target="#delete_paid"><i
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>
-                                </tr>
+                                    </tr>
 
-                                {% endfor %}
-                               </tbody>
+                                    {% endfor %}
+                                </tbody>
 
-                               
+
                             </table>
 
 
@@ -222,13 +224,14 @@
             <div class="modal-body">
                 <div class="d-flex justify-content-center container mt-5">
                     <div class="card p-3 py-4">
-                        <h5 class="mb-0">Product Name</h5>
-                        <h4 class="mb-0">Category</h4>
-                        <span class="text-black-50 p-description"><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text
+                        <h5 class="mb-0" id="prName">Product Name</h5>
+                        <h4 class="mb-0" id="prCategory">Category</h4>
+                        <span id="prDecreption" class="text-black-50 p-description"><strong>Lorem Ipsum</strong>&nbsp;is
+                            simply dummy text
                             of the printing and typesetting industry. Lorem Ipsum has been...<br></span>
 
-                        <div class="d-flex justify-content-between align-items-center mt-4"><span>$ 99.99
-                                per/head</span><br><span>100.99 per/kg</span></div>
+                        <div class="d-flex justify-content-between align-items-center mt-4"><span id="perhead">$ 99.99
+                                per/head</span><br><span id="perkg">100.99 </span></div>
                     </div>
                 </div>
             </div>
@@ -243,6 +246,7 @@
 <div class="modal custom-modal fade bank-details" id="edit_items" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
+            <!-- <form action="editProductdata\{{i.id}}" method="post"> -->
             <div class="modal-header">
                 <div class="form-header text-start mb-0">
                     <h4 class="mb-0">Edit Product</h4>
@@ -254,36 +258,38 @@
             <div class="modal-body">
                 <div class="bank-inner-details">
                     <div class="row">
+
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label>Food Name</label>
-                                <input type="text" class="form-control" placeholder="Add New Item">
+                                <input type="text" class="form-control" id="editfood">
                             </div>
                         </div>
+
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label>Category</label>
-                                <select class="form-select form-control">
+                                <select class="form-select form-control" name="editcat">
+
                                     <option>Select Category</option>
-                                    <option>Welcome Drink</option>
-                                    <option>Soups</option>
-                                    <option>Apetizer</option>
-                                    <option>Breads</option>
-                                    <option>Salads</option>
-                                    <option value="">Snacks</option>
-                                    <option value="">Contintal Snacks</option>
-                                    <option value="">Main Course</option>
-                                    <option value="">Biriyani</option>
-                                    <option value="">Noodles</option>
-                                    <option value="">Beef Dishes</option>
-                                    <option value="">Chiken Dishes</option>
-                                    <option value="">Mutton Dishes</option>
-                                    <option value="">Fish Dishes</option>
-                                    <option value="">Prawns Dishes</option>
-                                    <option value="">Thandoories</option>
-                                    <option value="">Desserts</option>
-                                    <option value="">Pastries</option>
-                                    <option value="">Sweets</option>
+                                    <option value="Welcome Drink">Welcome Drink</option>
+                                    <option value="Soups">Soups</option>
+                                    <option value="SoupApetizers">Apetizer</option>
+                                    <option value="Breads">Breads</option>
+                                    <option value="Salads">Salads</option>
+                                    <option value="Contintal Snacks">Contintal Snacks</option>
+                                    <option value="Main Course">Main Course</option>
+                                    <option value="Biriyani">Biriyani</option>
+                                    <option value="Noodles">Noodles</option>
+                                    <option value="Beef Dishes">Beef Dishes</option>
+                                    <option value="Chiken Dishes">Chiken Dishes</option>
+                                    <option value="Mutton Dishes">Mutton Dishes</option>
+                                    <option value="Fish Dishes">Fish Dishes</option>
+                                    <option value="Prawns Dishes">Prawns Dishes</option>
+                                    <option value="Thandoories">Thandoories</option>
+                                    <option value="Desserts">Desserts</option>
+                                    <option value="Pastries">Pastries</option>
+                                    <option value="Sweets">Sweets</option>
 
 
                                 </select>
@@ -292,20 +298,21 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label>Price Per Head</label>
-                                <input type="text" class="form-control" placeholder="$">
+                                <input type="text" class="form-control" id="editperhead" placeholder="$">
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label>Price per Kg</label>
-                                <input type="text" class="form-control" placeholder="$/kg">
+                                <input type="text" class="form-control" id="editperkg" placeholder="$/kg">
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Food Deatails </label>
-                                <textarea class="form-control" placeholder="Food Deatails"></textarea>
+                                <textarea class="form-control" id="editdecrption"
+                                    placeholder="Food Deatails"></textarea>
                             </div>
                         </div>
                     </div>
@@ -314,10 +321,78 @@
             <div class="modal-footer">
                 <div class="bank-details-btn">
                     <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn bank-cancel-btn me-2">Cancel</a>
-                    <a href="javascript:void(0);" class="btn bank-save-btn">Save Item</a>
+                    <button type="button" id="update" class="btn bank-save-btn">Save Item</button>
                 </div>
             </div>
+            <!-- </form> -->
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+
+
+
+    // $(document).ready(() => {
+
+
+        function viewdata(id) {
+            $.ajax({
+                url: "/user/getproductGet/" + id,
+                type: 'GET',
+
+                success: function (responce) {
+
+
+                    // console.log(responce)
+                    $('#prName').html(responce.product.food_name)
+                    $('#prCategory').html(responce.product.catagory)
+                    $('#prDecreption').html(responce.product.food_deatails)
+                    $('#perhead').html(responce.product.priceper_head)
+                    $('#perkg').html(responce.product.priceper_kg)
+                }
+
+            })
+        }
+        function editdata(id) {
+            console.log(id)
+            $.ajax({
+                url: "/user/editProductdata/" + id,
+                type: 'GET',
+
+                success: function (responce) {
+
+
+                    // console.log(responce)
+                    $('#editfood').val(responce.product.food_name)
+                    $('#editcat').val(responce.product.catagory)
+                    $('#editdecrption').val(responce.product.food_deatails)
+                    $('#editperhead').val(responce.product.priceper_head)
+                    $('#editperkg').val(responce.product.priceper_kg)
+                }
+
+            })
+
+            $('#update').click(() => {
+                console.log('hello')
+                $.ajax({
+                    url: "/user/updateproduct/" + id,
+                    type: 'post',
+                    data: {
+                        'editfood': $('#editfood').val(),
+                        'editcat': $('#editcat').val(),
+                        'editdecrption': $('#editdecrption').val(),
+                        'editperhead': $('#editperhead').val(),
+                        'editperkg': $('#editperkg').val()
+                    },
+
+                })
+            })
+        }
+
+    // })
+
+</script>
 {% endblock %}
