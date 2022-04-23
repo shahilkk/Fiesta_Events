@@ -14,7 +14,11 @@ def index(req):
     return render(req,'index.html',context)  
 
 def customer(req):
-    context={"is_customer":True}
+    # context={"is_customer":True}
+    customerlist=Client.objects.all()
+    context={"is_customer":True,
+     "customerlist":customerlist
+    }
     return render(req,'customer.html',context)
 
 
@@ -45,10 +49,7 @@ def addcustomer(request):
     return render(request,'addcustomer.html',context) 
 
 def viewcustomer(req):
-    customerlist=Client.objects.all()
-    context={"is_customer":True,
-     "customerlist":customerlist
-    }
+    
     return render(req,'viewcustomer.html',context) 
 
 def editcustomer(req):

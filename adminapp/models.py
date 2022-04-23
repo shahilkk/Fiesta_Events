@@ -12,8 +12,8 @@ class Client(models.Model):
     client_state = models.CharField(max_length=30)
     client_district = models.CharField(max_length=30)
     client_zipcode = models.CharField(max_length=30)
-    client_address = models.CharField(max_length=30)
-    client_contact_type = models.CharField(max_length=10,default="")
+    client_address = models.CharField(max_length=60)
+    client_contact_type = models.CharField(max_length=40,default="")
     client_status = models.CharField(max_length=30,default="")
     class Meta:
         db_table = 'client'
