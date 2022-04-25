@@ -43,12 +43,16 @@ def addcustomer(request):
         client_district=request.POST['client_district']
         client_zipcode=request.POST['client_zipcode']
         client_address=request.POST['client_address']
+        client_bankholder=request.POST['client_bankholder']
+        client_bankname=request.POST['client_bankname']
+        client_ifsc=request.POST['client_ifsc']
+        client_actnnumber=request.POST['client_actnnumber']
         client_contact_type=request.POST['client_contact_type']
         print(client_name)
         client_add=Client(client_name=client_name,client_gst_number=client_gst_number
         ,client_id=client_uid,client_phone=client_phone,client_email=client_email,
         client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
-        ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
+        ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp,client_actnnumber=client_actnnumber, client_ifsc=client_ifsc, client_bankname=client_bankname, client_bankholder=client_bankholder )
         client_add.save()
         return redirect('/user/customer')
        
@@ -93,6 +97,11 @@ def viewcustomer(request,id):
         "details":details
         }
     return render(request,'viewcustomer.html',context)  
+
+
+def deletecustomer(request,id):
+    Client.objects.filter(id=id).update(client_status='InActive')
+    return redirect ('/user/customer')
 
 
 def viewemployee(requsest,id):
@@ -158,17 +167,27 @@ def editstaff(request,staff_id):
         'staffdetails':staffdetails,
         'status':0
         }
-    return render(request,'editstaff.html',context)    
+    return render(request,'editstaff.html',context)  
+
+def deletestaff(request,id):
+    Employee.objects.filter(id=id).update(employee_status='Inactive')   
+    return redirect('/user/marketingstaff')  
 
 
 
-def Estimate(req):
+def Estimate(request):
     context={"is_estimate":True}
-    return render(req,'Estimate.html',context)   
+    
+    return render(request,'Estimate.html',context)   
 
 
 def addestimate(req):
-    context={"is_estimate":True}
+    
+    cust = Client.objects.all()
+    context={
+        "is_estimate":True,
+        'cust':cust
+        }
     return render(req,'addestimate.html',context) 
 
 
@@ -244,7 +263,7 @@ def products(request):
         return redirect('/user/products')
         # msg = " product added"
 
-    view_product = Product.objects.all()    
+    view_product = Product.objects.filter(food_status=True).all()  
     context={
         "is_product":True,
         'view_product': view_product
@@ -303,18 +322,20 @@ def editProductdata(request,id):
     return JsonResponse({'product': data})
           
 @csrf_exempt
-def updateproduct(request,id):
-    print(id)
+def updateproduct(request):
+    id=request.POST['producId']
     food_name = request.POST['editfood']
     catagory = request.POST['editcat']
-    priceper_head = request.POST['editdecrption']
-    priceper_kg = request.POST['editperhead']
-    food_deatails = request.POST['editperkg']
+    priceper_head = request.POST['editperhead']
+    priceper_kg = request.POST['editperkg']
+    food_deatails = request.POST['editdecrption']
     Product.objects.filter(id=id).update(food_name=food_name, catagory=catagory, priceper_head=priceper_head ,priceper_kg=priceper_kg,food_deatails=food_deatails )
-    return redirect('/user/product')
+    return JsonResponse({'message': 'sucesses'})
     
  
-      
+def delete(request,id):
+    Product.objects.filter(id=id).update(food_status=False)  
+    return redirect('/user/products')    
 
 
 

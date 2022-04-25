@@ -1,4 +1,5 @@
 
+from xmlrpc.client import Boolean
 from django.db import models
 
 
@@ -15,7 +16,11 @@ class Client(models.Model):
     client_address = models.CharField(max_length=60)
     client_whsatpp = models.CharField(max_length=60)
     client_contact_type = models.CharField(max_length=40,default="")
-    client_status = models.BooleanField(default=False)
+    client_status = models.CharField(max_length=30 ,default="Active")
+    client_bankholder = models.CharField(max_length=60,default="")
+    client_bankname = models.CharField(max_length=60,default="")
+    client_ifsc = models.CharField(max_length=60,default="")
+    client_actnnumber = models.CharField(max_length=60,default="")
     class Meta:
         db_table = 'client'
     def __str__(self):
@@ -28,6 +33,7 @@ class Product(models.Model):
     priceper_head = models.IntegerField()
     priceper_kg = models.IntegerField()
     food_deatails = models.CharField(max_length=50)
+    food_status = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'product'

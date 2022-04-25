@@ -81,8 +81,7 @@
                                             <a class="btn btn-sm btn-white text-primary" href="#"
                                                 onclick="viewdata({{i.id}})" data-bs-toggle="modal"
                                                 data-bs-target="#view_paid"><i class="fa fa-eye me-1"></i>View</a>
-                                            <a class="btn btn-sm btn-white text-danger" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#delete_paid"><i
+                                            <a class="btn btn-sm btn-white text-danger" href="delete/{{i.id}}" ><i
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>
                                     </tr>
@@ -269,7 +268,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label>Category</label>
-                                <select class="form-select form-control" name="editcat">
+                                <select class="form-select form-control" id="editcat" name="editcat">
 
                                     <option>Select Category</option>
                                     <option value="Welcome Drink">Welcome Drink</option>
@@ -335,64 +334,68 @@
 
 
 
-    // $(document).ready(() => {
 
 
-        function viewdata(id) {
+    function viewdata(id) {
+        $.ajax({
+            url: "/user/getproductGet/" + id,
+            type: 'GET',
+
+            success: function (responce) {
+
+
+                // console.log(responce)
+                $('#prName').html(responce.product.food_name)
+                $('#prCategory').html(responce.product.catagory)
+                $('#prDecreption').html(responce.product.food_deatails)
+                $('#perhead').html(responce.product.priceper_head)
+                $('#perkg').html(responce.product.priceper_kg)
+            }
+
+        })
+    }
+    function editdata(id) {
+        console.log(id)
+        $.ajax({
+            url: "/user/editProductdata/" + id,
+            type: 'GET',
+
+            success: function (responce) {
+
+
+                // console.log(responce)
+                $('#editfood').val(responce.product.food_name)
+                $('#editcat').val(responce.product.catagory)
+                $('#editdecrption').val(responce.product.food_deatails)
+                $('#editperhead').val(responce.product.priceper_head)
+                $('#editperkg').val(responce.product.priceper_kg)
+            }
+
+        })
+
+        $('#update').click(() => {
+            console.log('hello')
             $.ajax({
-                url: "/user/getproductGet/" + id,
-                type: 'GET',
-
+                url: "/user/updateproduct/",
+                type: 'post',
+                data: {
+                    'producId': id,
+                    'editfood': $('#editfood').val(),
+                    'editcat': $('#editcat').val(),
+                    'editdecrption': $('#editdecrption').val(),
+                    'editperhead': $('#editperhead').val(),
+                    'editperkg': $('#editperkg').val()
+                },
                 success: function (responce) {
 
-
-                    // console.log(responce)
-                    $('#prName').html(responce.product.food_name)
-                    $('#prCategory').html(responce.product.catagory)
-                    $('#prDecreption').html(responce.product.food_deatails)
-                    $('#perhead').html(responce.product.priceper_head)
-                    $('#perkg').html(responce.product.priceper_kg)
+                    window.location.reload()
                 }
 
-            })
-        }
-        function editdata(id) {
-            console.log(id)
-            $.ajax({
-                url: "/user/editProductdata/" + id,
-                type: 'GET',
-
-                success: function (responce) {
-
-
-                    // console.log(responce)
-                    $('#editfood').val(responce.product.food_name)
-                    $('#editcat').val(responce.product.catagory)
-                    $('#editdecrption').val(responce.product.food_deatails)
-                    $('#editperhead').val(responce.product.priceper_head)
-                    $('#editperkg').val(responce.product.priceper_kg)
-                }
 
             })
+        })
+    }
 
-            $('#update').click(() => {
-                console.log('hello')
-                $.ajax({
-                    url: "/user/updateproduct/" + id,
-                    type: 'post',
-                    data: {
-                        'editfood': $('#editfood').val(),
-                        'editcat': $('#editcat').val(),
-                        'editdecrption': $('#editdecrption').val(),
-                        'editperhead': $('#editperhead').val(),
-                        'editperkg': $('#editperkg').val()
-                    },
-
-                })
-            })
-        }
-
-    // })
 
 </script>
 {% endblock %}

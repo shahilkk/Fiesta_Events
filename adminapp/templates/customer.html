@@ -84,7 +84,7 @@
                                                 data-cfemail="6705150e06090d080f0914080927021f060a170b024904080a"></a>
                                         </td>
                                         <td>{{ i.client_phone }}</td>
-                                        <td > {% if i.client_status == True  %} <span class="badge badge-pill bg-success-light">{{ i.client_status }}</span> {% else %} <span class="badge badge-pill bg-danger-light">{{ i.client_status }}</span> {% endif %}  </td>
+                                        <td > {% if i.client_status == 'Active'  %} <span class="badge badge-pill bg-success-light">{{ i.client_status }}</span> {% else %} <span class="badge badge-pill bg-danger-light">{{ i.client_status }}</span> {% endif %}  </td>
 
                                         <td class="text-end">
                                             <a href="/user/viewcustomer/{{ i.id }}"
@@ -92,7 +92,7 @@
                                                     class="far fa-eye me-1"></i> view</a>
                                             <a href="/user/editcustomer/{{ i.id }}" class="btn btn-sm btn-white text-success me-2"><i
                                                     class="far fa-edit me-1"></i> Edit</a>
-                                            <a href="javascript:void(0);"
+                                            <a href="deletecustomer/{{ i.id }}"
                                                 class="btn btn-sm btn-white text-danger me-2"><i
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>

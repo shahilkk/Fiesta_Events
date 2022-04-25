@@ -35,7 +35,10 @@ urlpatterns = [
     path('getproductGet/<int:id>',views.getproductGet,name="getproductGet"),
     path('profitandloss',views.profitandloss,name="profitandloss"),
     path('editProductdata/<int:id>',views.editProductdata,name="editProductdata"),
-    path('updateproduct/<int:id>',views.updateproduct,name="updateproduct"),
+    path('updateproduct/',views.updateproduct,name="updateproduct"),
+    path('delete/<str:id>',views.delete,name="delete"),
+    path('deletestaff/<str:id>',views.deletestaff,name="deletestaff"),
+    path('deletecustomer/<str:id>',views.deletecustomer,name="deletecustomer"),
 
 
     
