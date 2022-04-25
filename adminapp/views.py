@@ -191,9 +191,11 @@ def addestimate(request):
         return redirect ('/user/addestimate')
     else:
         cust = Client.objects.all()
+        pro = Product.objects.all()
         context={
             "is_estimate":True,
-            'cust':cust
+            'cust':cust,
+            'pro':pro
             }
     return render(request,'addestimate.html',context) 
 
@@ -424,6 +426,20 @@ def demo(request):
     return render(request,'demo/index.html')
 
 
+@csrf_exempt
+def bill (request):
+    productname = request.POST['productname']
+    print(productname)
+    viewpro=Product.objects.get(food_name=productname)
+    data={
+        # "food_name":viewpro.food_name,
+        "catagory":viewpro.catagory,
+        "priceper_head":viewpro.priceper_head,
+        "priceper_kg":viewpro.priceper_kg,
+        "food_deatails":viewpro.food_deatails
+    }
+    return JsonResponse({'product': data})
+    
 
     
         
