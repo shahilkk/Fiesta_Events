@@ -181,16 +181,32 @@ def Estimate(request):
     return render(request,'Estimate.html',context)   
 
 
-def addestimate(req):
-    
-    cust = Client.objects.all()
-    context={
-        "is_estimate":True,
-        'cust':cust
-        }
-    return render(req,'addestimate.html',context) 
+def addestimate(request):
+    if request.method=='POST':
+        checkname=request.POST['checkname']
+        check_id=request.POST['cliend_id']
+        fromdate=request.POST['dataform']
+        todate=request.POST['todate']
+        print(checkname,fromdate,todate,check_id)
+        return redirect ('/user/addestimate')
+    else:
+        cust = Client.objects.all()
+        context={
+            "is_estimate":True,
+            'cust':cust
+            }
+    return render(request,'addestimate.html',context) 
 
 
+# @csrf_exempt
+# def estimatedetailsadd(request):
+#     checkname=request.POST['checkname']
+#     check_id=request.POST['cliend_id']
+#     fromdate=request.POST['dataform']
+#     todate=request.POST['todate']
+#     print(checkname,fromdate,todate,check_id)
+#     return redirect ('/user/addestimate')
+  
 
 
 def editestimate(req):
