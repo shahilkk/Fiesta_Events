@@ -26,16 +26,17 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="#">
+                        <form action="addestimate" method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Customer:</label>
-                                        <input type="text" class="form-control" name="customer" list="customer">
+                                        <input type="text" class="form-control" name="checkname"  list="customer">
                                         <datalist id="customer">
                                             {% for i in cust %}
                                             <option value="{{i.client_name}}">{{i.client_name}}
-                                                <input type="text" value="{{i.id}}" hidden name="" id="">
+                                                <input type="text" value="{{i.id}}" name="cliend_id" >
 
                                             </option>
                                             {% endfor %}
@@ -47,7 +48,7 @@
                                     <div class="form-group">
                                         <label>From</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" type="text">
+                                            <input class="form-control datetimepicker" name="dataform"type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +56,7 @@
                                     <div class="form-group">
                                         <label>To</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" type="text">
+                                            <input class="form-control datetimepicker" name="todate" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +116,7 @@
                                                         class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                      
+
                                     </tbody>
                                 </table>
                             </div>
@@ -216,7 +217,7 @@
 
                             </div>
                             <div class="text-end mt-4">
-                                <button type="submit" class="btn btn-primary">Add Estimate</button>
+                                <button type="submit" id="addbutton" class="btn btn-primary">Add Estimate</button>
                             </div>
                         </form>
                     </div>
@@ -279,8 +280,43 @@
     </div>
 </div>
 
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
-   
+
+    // $(document).ready(() => {
+    //     console.log('page loaded')
+    //     $('#addbutton').click(() => {
+    //         console.log('hi')
+    //         $.ajax({
+    //             url: "/user/estimatedetailsadd",
+    //             type: 'POST',
+    //             data: {
+    //                 'checkname': $('#checkname').val(),
+    //                 'check_id': $('#cliend_id').val(),
+    //                 'fromdate': $('#formdata').val(),
+    //                 'todate': $('#todata').val(),
+    //             },
+    //             // success: function(responce){
+    //             //     console.log(responce.IsExist)
+
+    //             //     if (responce.IsExist==true){
+    //             //         document.getElementById('msg').innerHTML = 'user already Exist'
+    //             //         alert('user already Exist')
+    //             //         $('#subtn').prop('disabled',true)
+    //             //     }
+    //             //     else{
+    //             //         document.getElementById('msg').innerHTML = ''
+    //             //         $('#subtn').prop('disabled',false)
+    //             //     }
+    //             // }
+
+    //         })
+    //     })
+    // })
+
 </script>
 
 

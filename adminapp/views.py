@@ -1,7 +1,7 @@
 
 from django.shortcuts import render , redirect
 
-from . models import Employee,Product,Client
+from . models import Employee,Product,Client,AddBank,Category
 import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -181,17 +181,44 @@ def Estimate(request):
     return render(request,'Estimate.html',context)   
 
 
-def addestimate(req):
-    
-    cust = Client.objects.all()
-    context={
-        "is_estimate":True,
-        'cust':cust
-        }
-    return render(req,'addestimate.html',context) 
+def addestimate(request):
+    if request.method=='POST':
+        checkname=request.POST['checkname']
+        check_id=request.POST['cliend_id']
+        fromdate=request.POST['dataform']
+        todate=request.POST['todate']
+        print(checkname,fromdate,todate,check_id)
+        return redirect ('/user/addestimate')
+    else:
+        cust = Client.objects.all()
+        context={
+            "is_estimate":True,
+            'cust':cust
+            }
+    return render(request,'addestimate.html',context) 
+
+
+# @csrf_exempt
+# def estimatedetailsadd(request):
+#     checkname=request.POST['checkname']
+#     check_id=request.POST['cliend_id']
+#     fromdate=request.POST['dataform']
+#     todate=request.POST['todate']
+#     print(checkname,fromdate,todate,check_id)
+#     return redirect ('/user/addestimate')
+  
 
 
 
+def addcat(request):
+    if request.method=='POST':
+        catagory_name=request.POST['catagory_name']
+        obj= Category(category=catagory_name)
+        obj.save()
+        return redirect ('/user/products')
+
+
+   
 
 def editestimate(req):
     context={"is_estimate":True}
@@ -263,11 +290,14 @@ def products(request):
         return redirect('/user/products')
         # msg = " product added"
 
-    view_product = Product.objects.filter(food_status=True).all()  
-    context={
-        "is_product":True,
-        'view_product': view_product
-    }
+    else:
+        view_product = Product.objects.filter(food_status=True).all() 
+        view_cat = Category.objects.all() 
+        context={
+            "is_product":True,
+            'view_product': view_product,
+            'view_cat':view_cat
+        }
     return render(request,'products.html',context) 
 
 # @csrf_exempt
