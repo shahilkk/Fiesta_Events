@@ -1,7 +1,7 @@
 
 from django.shortcuts import render , redirect
 
-from . models import Employee,Product,AddBank,Client
+from . models import Employee,Product,Client
 import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -217,7 +217,7 @@ def bank(request):
         bank_accountname = request.POST['bank_accountname']
         bank_ifsc = request.POST['bank_ifsc']
         bank_branch = request.POST['bank_branch']
-        addbank= AddBank(bank_name=bank_name, bank_holdername=bank_holdername, bank_accountname=bank_accountname, bank_ifsc=bank_ifsc, bank_branch=bank_branch, bank_balance=0)
+        addbank = AddBank(bank_name=bank_name, bank_holdername=bank_holdername, bank_accountname=bank_accountname, bank_ifsc=bank_ifsc, bank_branch=bank_branch, bank_balance=0)
         addbank.save()
         return render(request,'addbank.html',{'status':1,})
     else:
@@ -225,7 +225,7 @@ def bank(request):
         "is_bank":True,
         'status':0,
         }
-        return render(request,'addbank.html',context)
+    return render(request,'addbank.html',context)
         
  
 

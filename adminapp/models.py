@@ -62,6 +62,7 @@ class AddBank(models.Model):
 
     class Meta:
         db_table = 'addbank'
+        
     def __str__(self):
         return self.bank_name    
 
