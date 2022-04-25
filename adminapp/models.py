@@ -68,6 +68,7 @@ class AddBank(models.Model):
 
     class Meta:
         db_table = 'addbank'
+        
     def __str__(self):
         return self.bank_name    
 
@@ -79,6 +80,10 @@ class Estimate(models.Model):
     est_id = models.CharField(max_length=50)
 
 
+
+
+class Category(models.Model):
+    category = models.CharField(max_length=50)
 
 
 

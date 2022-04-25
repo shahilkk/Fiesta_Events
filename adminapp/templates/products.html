@@ -81,7 +81,7 @@
                                             <a class="btn btn-sm btn-white text-primary" href="#"
                                                 onclick="viewdata({{i.id}})" data-bs-toggle="modal"
                                                 data-bs-target="#view_paid"><i class="fa fa-eye me-1"></i>View</a>
-                                            <a class="btn btn-sm btn-white text-danger" href="delete/{{i.id}}" ><i
+                                            <a class="btn btn-sm btn-white text-danger" href="delete/{{i.id}}"><i
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>
                                     </tr>
@@ -128,28 +128,17 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
-                                <label>Category</label>
+
+                               
+
+                                <label>Category</label>  <a class="btn btn-primary me-1 text-end"  data-bs-toggle="modal" data-bs-target="#addcategory">
+                                    <i class="fas fa-plus"> </i> Add Category
+                                </a>
                                 <select class="form-select form-control" name="catagory">
                                     <option>Select Category</option>
-                                    <option value="Welcome Drink">Welcome Drink</option>
-                                    <option value="Soups">Soups</option>
-                                    <option value="SoupApetizers">Apetizer</option>
-                                    <option value="Breads">Breads</option>
-                                    <option value="Salads">Salads</option>
-                                    <option value="Contintal Snacks">Contintal Snacks</option>
-                                    <option value="Main Course">Main Course</option>
-                                    <option value="Biriyani">Biriyani</option>
-                                    <option value="Noodles">Noodles</option>
-                                    <option value="Beef Dishes">Beef Dishes</option>
-                                    <option value="Chiken Dishes">Chiken Dishes</option>
-                                    <option value="Mutton Dishes">Mutton Dishes</option>
-                                    <option value="Fish Dishes">Fish Dishes</option>
-                                    <option value="Prawns Dishes">Prawns Dishes</option>
-                                    <option value="Thandoories">Thandoories</option>
-                                    <option value="Desserts">Desserts</option>
-                                    <option value="Pastries">Pastries</option>
-                                    <option value="Sweets">Sweets</option>
-
+                                    {% for i in view_cat %}
+                                    <option value="{{i.category}}">{{i.category}}</option>
+                                    {% endfor %}
 
                                 </select>
                             </div>
@@ -191,7 +180,7 @@
 </div>
 
 
-<div class="modal custom-modal fade" id="delete_paid" role="dialog">
+<!-- <div class="modal custom-modal fade" id="delete_paid" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
@@ -213,8 +202,47 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
+
+
+
+
+<!-- add cat -->
+<div class="modal custom-modal fade" id="addcategory" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="addcat" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+
+                        <div class="col-lg-12 ">
+
+                            <div class="form-group">
+                                <label>Catagory Name</label>
+                                <input type="text" class="form-control" name="catagory_name">
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="bank-details-btn">
+                                <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                    class="btn bank-cancel-btn me-2">Cancel</a>
+                                <button class=" btn bank-save-btn" type="submit"> save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+</div>
 
 <!-- view -->
 <div class="modal custom-modal fade" id="view_paid" role="dialog">

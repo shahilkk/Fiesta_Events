@@ -1,7 +1,7 @@
 
 from django.shortcuts import render , redirect
 
-from . models import Employee,Product,AddBank,Client
+from . models import Employee,Product,Client,AddBank,Category
 import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -209,6 +209,17 @@ def addestimate(request):
   
 
 
+
+def addcat(request):
+    if request.method=='POST':
+        catagory_name=request.POST['catagory_name']
+        obj= Category(category=catagory_name)
+        obj.save()
+        return redirect ('/user/products')
+
+
+   
+
 def editestimate(req):
     context={"is_estimate":True}
     return render(req,'editestimate.html',context)   
@@ -252,7 +263,7 @@ def bank(request):
         bank_accountname = request.POST['bank_accountname']
         bank_ifsc = request.POST['bank_ifsc']
         bank_branch = request.POST['bank_branch']
-        addbank= AddBank(bank_name=bank_name, bank_holdername=bank_holdername, bank_accountname=bank_accountname, bank_ifsc=bank_ifsc, bank_branch=bank_branch, bank_balance=0)
+        addbank = AddBank(bank_name=bank_name, bank_holdername=bank_holdername, bank_accountname=bank_accountname, bank_ifsc=bank_ifsc, bank_branch=bank_branch, bank_balance=0)
         addbank.save()
         return render(request,'addbank.html',{'status':1,})
     else:
@@ -260,7 +271,7 @@ def bank(request):
         "is_bank":True,
         'status':0,
         }
-        return render(request,'addbank.html',context)
+    return render(request,'addbank.html',context)
         
  
 
@@ -279,11 +290,14 @@ def products(request):
         return redirect('/user/products')
         # msg = " product added"
 
-    view_product = Product.objects.filter(food_status=True).all()  
-    context={
-        "is_product":True,
-        'view_product': view_product
-    }
+    else:
+        view_product = Product.objects.filter(food_status=True).all() 
+        view_cat = Category.objects.all() 
+        context={
+            "is_product":True,
+            'view_product': view_product,
+            'view_cat':view_cat
+        }
     return render(request,'products.html',context) 
 
 # @csrf_exempt
