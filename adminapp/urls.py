@@ -40,6 +40,7 @@ urlpatterns = [
     path('deletestaff/<str:id>',views.deletestaff,name="deletestaff"),
     path('deletecustomer/<str:id>',views.deletecustomer,name="deletecustomer"),
     path('addcat',views.addcat,name="addcat"),
+    path('bill',views.bill,name="bill"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),
 
 

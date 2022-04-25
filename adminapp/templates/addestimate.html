@@ -79,7 +79,7 @@
                                 <table class="table table-hover add-table-items">
                                     <thead>
                                         <tr>
-                                            <th>Products</th>
+                                            <th>Food Name</th>
                                             <th>Category</th>
                                             <th>Quantity</th>
                                             <th>Price per Head / per Kg</th>
@@ -91,16 +91,28 @@
                                     <tbody>
                                         <tr class="add-row">
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="productname"  list="food">
+                                                <datalist id="food">
+                                                    {% for i in pro %}
+                                                    <option value="{{i.food_name}}">{{i.food_name}}
+                                                      
+                                                    </option>
+                                                    {% endfor %}
+                                                </datalist>
+                                            
+                                                <!-- <input type="text" id="productname" class="form-control"> -->
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="text" id="category" class="form-control">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="text" id="" class="form-control">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control">
+                                               
+                                               <select name="" id="priceselect" class="form-control">
+                                                   
+                                               </select>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control">
@@ -286,36 +298,31 @@
 
 <script>
 
-    // $(document).ready(() => {
-    //     console.log('page loaded')
-    //     $('#addbutton').click(() => {
-    //         console.log('hi')
-    //         $.ajax({
-    //             url: "/user/estimatedetailsadd",
-    //             type: 'POST',
-    //             data: {
-    //                 'checkname': $('#checkname').val(),
-    //                 'check_id': $('#cliend_id').val(),
-    //                 'fromdate': $('#formdata').val(),
-    //                 'todate': $('#todata').val(),
-    //             },
-    //             // success: function(responce){
-    //             //     console.log(responce.IsExist)
+    $(document).ready(() => {
+        console.log('page loaded')
+        $('#productname').keyup(() => {
+            console.log('hi')
+            $.ajax({
+                url: "bill",
+                type: 'POST',
+                data: {
+                    'productname': $('#productname').val(),
+                    
+                },
+                success: function(responce){
+                $('#category').val(responce.product.catagory)
+                $('#priceselect').append('<option value="'+responce.product.priceper_head+'">'+responce.product.priceper_head+' Per head</option>')
+                $('#priceselect').append('<option value="'+responce.product.priceper_kg+'">'+responce.product.priceper_kg+' Per KG</option>')
+                $('#head').val(responce.product.priceper_head)
+                $('#kg').val(responce.product.priceper_kg)
+                // $('#prCategory').html(responce.product.catagory)
+                $('#').val(responce.product.food_deatails)
+               
+                }
 
-    //             //     if (responce.IsExist==true){
-    //             //         document.getElementById('msg').innerHTML = 'user already Exist'
-    //             //         alert('user already Exist')
-    //             //         $('#subtn').prop('disabled',true)
-    //             //     }
-    //             //     else{
-    //             //         document.getElementById('msg').innerHTML = ''
-    //             //         $('#subtn').prop('disabled',false)
-    //             //     }
-    //             // }
-
-    //         })
-    //     })
-    // })
+            })
+        })
+    })
 
 </script>
 

@@ -424,7 +424,7 @@ Version      : 1.0
     $(document).on("click",".add-btn",function () {
 		var experiencecontent = '<tr class="add-row">' +
 			'<td>' +
-				'<input type="text" class="form-control">' +
+				'<input type="text" class="form-control ">' +
 			'</td>' +
 			'<td>' +
 				'<input type="text" class="form-control">' +
