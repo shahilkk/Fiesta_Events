@@ -31,14 +31,16 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Customer:</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>Select Customer</option>
-                                            <option>Brian Johnson</option>
-                                            <option>Marie Canales</option>
-                                            <option>Barbara Moore</option>
-                                            <option>Greg Lynch</option>
-                                            <option>Karlene Chaidez</option>
-                                        </select>
+                                        <input type="text" class="form-control" name="customer" list="customer">
+                                        <datalist id="customer">
+                                            {% for i in cust %}
+                                            <option value="{{i.client_name}}">{{i.client_name}}
+                                                <input type="text" value="{{i.id}}" hidden name="" id="">
+
+                                            </option>
+                                            {% endfor %}
+                                        </datalist>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -57,63 +59,42 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mt-3">
+                                <!-- <div class="col-md-4 mt-3">
                                     <div class="form-group">
                                         <label>Estimate Number</label>
                                         <input type="text" class="form-control">
                                     </div>
-                                </div>
-                                <div class="col-md-4 mt-3">
+                                </div> -->
+                                <!-- <div class="col-md-4 mt-3">
                                     <div class="form-group">
                                         <label>Gst Number</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text"  class="form-control">
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Staff Name</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>Select Staff</option>
-                                            <option>Brian Johnson</option>
-                                            <option>Marie Canales</option>
-                                            <option>Barbara Moore</option>
-                                            <option>Greg Lynch</option>
-                                            <option>Karlene Chaidez</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                </div> -->
+
 
                             </div>
                             <div class="table-responsive mt-4">
-                                <table class="table table-hover">
+                                <table class="table table-hover add-table-items">
                                     <thead>
                                         <tr>
                                             <th>Products</th>
+                                            <th>Category</th>
                                             <th>Quantity</th>
                                             <th>Price per Head / per Kg</th>
                                             <th>Amount</th>
+                                            <th>Total Amount</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr class="add-row">
                                             <td>
                                                 <input type="text" class="form-control">
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control">
                                             </td>
-                                            <td>
-                                                <input type="text" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" disabled>
-                                            </td>
-                                            <td class="add-remove text-end">
-                                                <i class="fas fa-plus-circle"></i> <i class="fas fa-minus-circle"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>
                                                 <input type="text" class="form-control">
                                             </td>
@@ -127,9 +108,14 @@
                                                 <input type="text" class="form-control" disabled>
                                             </td>
                                             <td class="add-remove text-end">
-                                                <i class="fas fa-plus-circle"></i> <i class="fas fa-minus-circle"></i>
+                                                <a href="javascript:void(0);" class="add-btn me-2"><i
+                                                        class="fas fa-plus-circle"></i></a>
+                                                <a href="#" class="copy-btn me-2"><i class="fa fa-copy"></i></a><a
+                                                    href="javascript:void(0);" class="remove-btn"><i
+                                                        class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
+                                      
                                     </tbody>
                                 </table>
                             </div>
@@ -154,7 +140,7 @@
 
                                         <tr>
                                             <td>
-                                               
+
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -167,7 +153,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-lg-7 col-md-6">
-                                    <div class="invoice-fields">
+                                    <!-- <div class="invoice-fields">
                                         <div class="field-box">
                                             <p>Payment Details</p>
                                             <a class="btn btn-primary" href="#"
@@ -176,65 +162,50 @@
                                                     class="fas fa-plus-circle me-2"></i>Add Bank
                                                 Details</a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="invoice-faq">
                                         <div class="panel-group" id="accordion" role="tablist"
                                             aria-multiselectable="true">
                                             <div class="faq-tab">
                                                 <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab"
-                                                        id="headingTwo">
+                                                    <div class="panel-heading" role="tab" id="headingTwo">
                                                         <p class="panel-title">
-                                                            <a class="collapsed"
-                                                                data-bs-toggle="collapse"
-                                                                data-bs-parent="#accordion"
-                                                                href="#collapseTwo"
-                                                                aria-expanded="false"
-                                                                aria-controls="collapseTwo">
-                                                                <i
-                                                                    class="fas fa-plus-circle me-1"></i>
+                                                            <a class="collapsed" data-bs-toggle="collapse"
+                                                                data-bs-parent="#accordion" href="#collapseTwo"
+                                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                                <i class="fas fa-plus-circle me-1"></i>
                                                                 Add
                                                                 Terms & Conditions
                                                             </a>
                                                         </p>
                                                     </div>
-                                                    <div id="collapseTwo"
-                                                        class="panel-collapse collapse"
+                                                    <div id="collapseTwo" class="panel-collapse collapse"
                                                         role="tabpanel" aria-labelledby="headingTwo"
                                                         data-bs-parent="#accordion">
                                                         <div class="panel-body">
-                                                            <textarea
-                                                                class="form-control"></textarea>
+                                                            <textarea class="form-control"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="faq-tab">
                                                 <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab"
-                                                        id="headingThree">
+                                                    <div class="panel-heading" role="tab" id="headingThree">
                                                         <p class="panel-title">
-                                                            <a class="collapsed"
-                                                                data-bs-toggle="collapse"
-                                                                data-bs-parent="#accordion"
-                                                                href="#collapseThree"
-                                                                aria-expanded="false"
-                                                                aria-controls="collapseThree">
-                                                                <i
-                                                                    class="fas fa-plus-circle me-1"></i>
+                                                            <a class="collapsed" data-bs-toggle="collapse"
+                                                                data-bs-parent="#accordion" href="#collapseThree"
+                                                                aria-expanded="false" aria-controls="collapseThree">
+                                                                <i class="fas fa-plus-circle me-1"></i>
                                                                 Add
                                                                 Notes
                                                             </a>
                                                         </p>
                                                     </div>
-                                                    <div id="collapseThree"
-                                                        class="panel-collapse collapse"
-                                                        role="tabpanel"
-                                                        aria-labelledby="headingThree"
+                                                    <div id="collapseThree" class="panel-collapse collapse"
+                                                        role="tabpanel" aria-labelledby="headingThree"
                                                         data-bs-parent="#accordion">
                                                         <div class="panel-body">
-                                                            <textarea
-                                                                class="form-control"></textarea>
+                                                            <textarea class="form-control"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -300,8 +271,7 @@
             </div>
             <div class="modal-footer">
                 <div class="bank-details-btn">
-                    <a href="javascript:void(0);" data-bs-dismiss="modal"
-                        class="btn bank-cancel-btn me-2">Cancel</a>
+                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn bank-cancel-btn me-2">Cancel</a>
                     <a href="javascript:void(0);" class="btn bank-save-btn">Save Item</a>
                 </div>
             </div>
@@ -309,6 +279,9 @@
     </div>
 </div>
 
+<script>
+   
+</script>
 
 
 {% endblock %}
