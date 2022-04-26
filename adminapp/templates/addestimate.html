@@ -79,17 +79,20 @@
                                 <table class="table table-hover add-table-items">
                                     <thead>
                                         <tr>
+                                            <th>SL.No</th>
                                             <th>Food Name</th>
                                             <th>Category</th>
                                             <th>Quantity</th>
                                             <th>Price per Head / per Kg</th>
                                             <th>Amount</th>
-                                            <th>Total Amount</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="add-row">
+                                             <td>
+                                                <input type="text" class="form-control" >
+                                            </td>
                                             <td>
                                                 <input type="text" class="form-control" id="productname"  list="food">
                                                 <datalist id="food">
@@ -106,7 +109,7 @@
                                                 <input type="text" id="category" class="form-control">
                                             </td>
                                             <td>
-                                                <input type="text" id="" class="form-control">
+                                                <input type="text" id="Quantity" class="form-control">
                                             </td>
                                             <td>
                                                
@@ -115,13 +118,13 @@
                                                </select>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="text" id="amount" class="form-control">
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 <input type="text" class="form-control" disabled>
-                                            </td>
+                                            </td> -->
                                             <td class="add-remove text-end">
-                                                <a href="javascript:void(0);" class="add-btn me-2"><i
+                                                <a href="javascript:void(0);" id="add" class="add-btn me-2"><i
                                                         class="fas fa-plus-circle"></i></a>
                                                 <a href="#" class="copy-btn me-2"><i class="fa fa-copy"></i></a><a
                                                     href="javascript:void(0);" class="remove-btn"><i
@@ -298,6 +301,8 @@
 
 <script>
 
+
+
     $(document).ready(() => {
         console.log('page loaded')
         $('#productname').keyup(() => {
@@ -313,16 +318,28 @@
                 $('#category').val(responce.product.catagory)
                 $('#priceselect').append('<option value="'+responce.product.priceper_head+'">'+responce.product.priceper_head+' Per head</option>')
                 $('#priceselect').append('<option value="'+responce.product.priceper_kg+'">'+responce.product.priceper_kg+' Per KG</option>')
-                $('#head').val(responce.product.priceper_head)
-                $('#kg').val(responce.product.priceper_kg)
-                // $('#prCategory').html(responce.product.catagory)
-                $('#').val(responce.product.food_deatails)
+                
                
                 }
 
             })
         })
+
+
+
+        $('#add').click(() => {
+            console.log('hi')
+            productquantity= $('#Quantity').val()
+            productprice= $('#priceselect').val()
+            console.log(productprice)
+            Total = productquantity*productprice
+            console.log(Total)
+            $('#amount').val(Total)
+          
+        })
     })
+
+
 
 </script>
 
