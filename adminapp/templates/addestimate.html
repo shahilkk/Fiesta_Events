@@ -26,19 +26,17 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="addestimate" method="post">
+                        <form action="" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Customer:</label>
-                                        <input type="text" class="form-control" name="checkname"  list="customer">
+                                        
+                                        <input type="text" class="form-control" name="checkname" list="customer">
                                         <datalist id="customer">
                                             {% for i in cust %}
-                                            <option value="{{i.client_name}}">{{i.client_name}}
-                                                <input type="text" value="{{i.id}}" name="cliend_id" >
-
-                                            </option>
+                                            <option value="{{i.id}}">{{i.client_name}}</option>
                                             {% endfor %}
                                         </datalist>
 
@@ -48,7 +46,7 @@
                                     <div class="form-group">
                                         <label>From</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" name="dataform"type="text">
+                                            <input class="form-control datetimepicker" name="dataform" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -75,71 +73,78 @@
 
 
                             </div>
-                            <div class="table-responsive mt-4">
-                                <table class="table table-hover add-table-items">
-                                    <thead>
-                                        <tr>
-                                            <th>SL.No</th>
-                                            <th>Food Name</th>
-                                            <th>Category</th>
-                                            <th>Quantity</th>
-                                            <th>Price per Head / per Kg</th>
-                                            <th>Amount</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="add-row">
-                                             <td>
-                                                <input type="text" class="form-control" >
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" id="productname"  list="food">
-                                                <datalist id="food">
-                                                    {% for i in pro %}
-                                                    <option value="{{i.food_name}}">{{i.food_name}}
-                                                      
-                                                    </option>
-                                                    {% endfor %}
-                                                </datalist>
-                                            
-                                                <!-- <input type="text" id="productname" class="form-control"> -->
-                                            </td>
-                                            <td>
-                                                <input type="text" id="category" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="text" id="Quantity" class="form-control">
-                                            </td>
-                                            <td>
-                                               
-                                               <select name="" id="priceselect" class="form-control">
-                                                   
-                                               </select>
-                                            </td>
-                                            <td>
-                                                <input type="text" id="amount" class="form-control">
-                                            </td>
-                                            <!-- <td>
+                            <div class="text-end mt-4">
+                                <button type="submit"  class="btn btn-primary">Create Estimate</button>
+                            </div>
+                        </form>
+                        <div class="table-responsive mt-4">
+                            <table class="table table-hover add-table-items">
+                                <thead>
+                                    <tr>
+                                        <th>SL.No</th>
+                                        <th>Food Name</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Price per Head / per Kg</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="add-row">
+                                        <td>
+                                            <input type="text" value="1" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="hidden" class="form-control" id="productId1">
+                                            <input type="text" class="form-control" id="productName1" list="food"
+                                                onChange=changedProductname(1)>
+                                            <datalist id="food">
+                                                {% for i in pro %}
+                                                <option value="{{i.food_name}}">{{i.food_name}}
+
+                                                </option>
+                                                {% endfor %}
+                                            </datalist>
+
+                                            <!-- <input type="text" id="productname" class="form-control"> -->
+                                        </td>
+                                        <td>
+                                            <input type="text" id="category1" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" id="qty1" onChange=changeqty(1) class="form-control">
+                                        </td>
+                                        <td>
+
+                                            <select name="" id="priceselect1" onChange=changeqty(1)
+                                                class="form-control">
+
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="amount1" class="form-control">
+                                        </td>
+                                        <!-- <td>
                                                 <input type="text" class="form-control" disabled>
                                             </td> -->
-                                            <td class="add-remove text-end">
-                                                <a href="javascript:void(0);" id="add" class="add-btn me-2"><i
-                                                        class="fas fa-plus-circle"></i></a>
-                                                <a href="#" class="copy-btn me-2"><i class="fa fa-copy"></i></a><a
-                                                    href="javascript:void(0);" class="remove-btn"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </td>
-                                        </tr>
+                                        <td class="add-remove text-end">
+                                            <a href="javascript:void(0);" id="add" class="add-btn me-2"><i
+                                                    class="fas fa-plus-circle"></i></a>
+                                            <a href="#" class="copy-btn me-2"><i class="fa fa-copy"></i></a><a
+                                                href="javascript:void(0);" class="remove-btn"><i
+                                                    class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
 
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="table-responsive mt-4">
-                                <table class="table table-stripped table-center table-hover">
-                                    <thead></thead>
-                                    <tbody>
-                                        <!-- <tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive mt-4">
+                            <table class="table table-stripped table-center table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <!-- <tr>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -154,22 +159,22 @@
                                             <td class="text-end">0</td>
                                         </tr> -->
 
-                                        <tr>
-                                            <td>
+                                    <tr>
+                                        <td>
 
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-end">Total</td>
-                                            <td class="text-end">0</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-lg-7 col-md-6">
-                                    <!-- <div class="invoice-fields">
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-end">Total</td>
+                                        <td class="text-end">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-6">
+                                <!-- <div class="invoice-fields">
                                         <div class="field-box">
                                             <p>Payment Details</p>
                                             <a class="btn btn-primary" href="#"
@@ -179,62 +184,61 @@
                                                 Details</a>
                                         </div>
                                     </div> -->
-                                    <div class="invoice-faq">
-                                        <div class="panel-group" id="accordion" role="tablist"
-                                            aria-multiselectable="true">
-                                            <div class="faq-tab">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="headingTwo">
-                                                        <p class="panel-title">
-                                                            <a class="collapsed" data-bs-toggle="collapse"
-                                                                data-bs-parent="#accordion" href="#collapseTwo"
-                                                                aria-expanded="false" aria-controls="collapseTwo">
-                                                                <i class="fas fa-plus-circle me-1"></i>
-                                                                Add
-                                                                Terms & Conditions
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                    <div id="collapseTwo" class="panel-collapse collapse"
-                                                        role="tabpanel" aria-labelledby="headingTwo"
-                                                        data-bs-parent="#accordion">
-                                                        <div class="panel-body">
-                                                            <textarea class="form-control"></textarea>
-                                                        </div>
+                                <div class="invoice-faq">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="faq-tab">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingTwo">
+                                                    <p class="panel-title">
+                                                        <a class="collapsed" data-bs-toggle="collapse"
+                                                            data-bs-parent="#accordion" href="#collapseTwo"
+                                                            aria-expanded="false" aria-controls="collapseTwo">
+                                                            <i class="fas fa-plus-circle me-1"></i>
+                                                            Add
+                                                            Terms & Conditions
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                                    aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                                                    <div class="panel-body">
+                                                        <textarea class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="faq-tab">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="headingThree">
-                                                        <p class="panel-title">
-                                                            <a class="collapsed" data-bs-toggle="collapse"
-                                                                data-bs-parent="#accordion" href="#collapseThree"
-                                                                aria-expanded="false" aria-controls="collapseThree">
-                                                                <i class="fas fa-plus-circle me-1"></i>
-                                                                Add
-                                                                Notes
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                    <div id="collapseThree" class="panel-collapse collapse"
-                                                        role="tabpanel" aria-labelledby="headingThree"
-                                                        data-bs-parent="#accordion">
-                                                        <div class="panel-body">
-                                                            <textarea class="form-control"></textarea>
-                                                        </div>
+                                        </div>
+                                        <div class="faq-tab">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingThree">
+                                                    <p class="panel-title">
+                                                        <a class="collapsed" data-bs-toggle="collapse"
+                                                            data-bs-parent="#accordion" href="#collapseThree"
+                                                            aria-expanded="false" aria-controls="collapseThree">
+                                                            <i class="fas fa-plus-circle me-1"></i>
+                                                            Add
+                                                            Notes
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                                    aria-labelledby="headingThree" data-bs-parent="#accordion">
+                                                    <div class="panel-body">
+                                                        <textarea class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                            </div>
-                            <div class="text-end mt-4">
-                                <button type="submit" id="addbutton" class="btn btn-primary">Add Estimate</button>
-                            </div>
-                        </form>
+                        </div>
+
+
+                        <div class="text-end mt-4">
+                            <button type="button" id="estimatebutton" class="btn btn-primary">Add
+                                Estimate</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -296,7 +300,10 @@
 </div>
 
 
+{% endblock %}
 
+
+{% block JS %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
@@ -305,43 +312,116 @@
 
     $(document).ready(() => {
         console.log('page loaded')
-        $('#productname').keyup(() => {
-            console.log('hi')
-            $.ajax({
-                url: "bill",
-                type: 'POST',
-                data: {
-                    'productname': $('#productname').val(),
-                    
-                },
-                success: function(responce){
-                $('#category').val(responce.product.catagory)
-                $('#priceselect').append('<option value="'+responce.product.priceper_head+'">'+responce.product.priceper_head+' Per head</option>')
-                $('#priceselect').append('<option value="'+responce.product.priceper_kg+'">'+responce.product.priceper_kg+' Per KG</option>')
-                
-               
-                }
+        // $('#productname').keyup(() => {
+        //     console.log('hi')
+        //     $.ajax({
+        //         url: "bill",
+        //         type: 'POST',
+        //         data: {
+        //             'productname': $('#productname').val(),
 
-            })
-        })
+        //         },
+        //         success: function (responce) {
+        //             $('#category').val(responce.product.catagory)
+        //             $('#priceselect').append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per head</option>')
+        //             $('#priceselect').append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
+
+
+        //         }
+
+        //     })
+        // })
 
 
 
         $('#add').click(() => {
             console.log('hi')
-            productquantity= $('#Quantity').val()
-            productprice= $('#priceselect').val()
-            console.log(productprice)
-            Total = productquantity*productprice
+            productquantity = $('#Quantity').val()
+            productprice = $('#priceselect').val()
+            Total = productquantity * productprice
             console.log(Total)
             $('#amount').val(Total)
-          
+
         })
+
+
     })
+    $(document).on("click", ".add-btn", function () {
+        var rowCount = $(".add-table-items tr").length;
+        var experiencecontent = '<tr class="add-row">' +
+            '<td>' +
+            '<input type="text" class="form-control" value="' + rowCount + '">' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" list="food" id="productName' + rowCount + '" onChange="changedProductname(' + rowCount + ')" class="form-control productname">' +
+            '<input type="hidden"  id="productId' + rowCount + '" class="form-control">' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" id="category' + rowCount + '" class="form-control">' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" id="qty' + rowCount + '" onChange="changeqty(' + rowCount + ')" class="form-control">' +
+            '</td>' +
+            '<td>' +
+            ' <select name="" id="priceselect' + rowCount + '"      ="changeqty(' + rowCount + ')" class="form-control"> </select>' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" id="amount' + rowCount + '" class="form-control">' +
+            '</td>' +
+            '<td class="add-remove text-end">' +
+            '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
+            '<a href="#" class="copy-btn me-2"><i class="fas fa-copy"></i></a>' +
+            '<a href="javascript:void(0);" class="remove-btn"><i class="fas fa-trash"></i></a>' +
+            '</td>' +
+            '</tr>';
+
+        $(".add-table-items").append(experiencecontent);
+
+        return false;
+    });
+
+    function changeqty(id) {
+        var unitprice = $('#priceselect' + id).val()
+        var qty = $('#qty' + id).val()
+        var amount = unitprice * qty
+        $("#amount" + id).val(amount)
+    }
+
+
+    $(this).find('td').each(function () {
+        //do your cool stuff
+    });
+
+
+
+
+    function changedProductname(id) {
+
+        $.ajax({
+            url: "bill",
+            type: 'POST',
+            data: {
+                'productname': $('#productName' + id).val(),
+
+            },
+            success: function (responce) {
+                $('#category' + id).val(responce.product.catagory)
+                $('#productId' + id).val(responce.product.id)
+                $('#priceselect' + id).append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per Head</option>')
+                $('#priceselect' + id).append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
+                $("#amount" + id).val(responce.product.priceper_head)
+
+
+            }
+
+        })
+    }
+
+
 
 
 
 </script>
-
+<script src="{% static 'js/estimate.js' %}"></script>
 
 {% endblock %}
