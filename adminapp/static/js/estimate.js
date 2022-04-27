@@ -103,8 +103,9 @@ function changeqty(id) {
     var unitprice = $('#priceselect' + id).val()
     var qty = $('#qty' + id).val()
     var amount = unitprice * qty
-    price=$("#amount" + id).val(amount)
-    completeTotal = completeTotal + price
+    $("#amount" + id).val(amount)
+    var total=$("#total" ).html()
+    completeTotal = parseInt(total) + amount
     $("#total" ).html(completeTotal)
 }
 
