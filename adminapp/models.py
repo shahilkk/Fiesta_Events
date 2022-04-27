@@ -73,17 +73,30 @@ class AddBank(models.Model):
         return self.bank_name    
 
 
-class Estimate(models.Model):
-    clientlogin = models.ForeignKey(Client,on_delete=models.CASCADE )
+class Estimates(models.Model):
+    clientd = models.ForeignKey(Client,on_delete=models.CASCADE )
     est_fromdate = models.CharField(max_length=50)
     est_todate = models.CharField(max_length=50)
-    est_id = models.CharField(max_length=50)
+    # est_id = models.CharField(max_length=50)
+    class Meta:
+        db_table = 'estimates'
+
 
 
 
 
 class Category(models.Model):
     category = models.CharField(max_length=50)
+
+
+class EstimateProduct(models.Model):
+    est_category = models.CharField(max_length=50)
+    est_amount = models.CharField(max_length=50)
+    est_qty = models.CharField(max_length=50)
+    est_price = models.CharField(max_length=50)
+    estimate_id = models.ForeignKey(Estimates,on_delete=models.CASCADE )
+
+        
 
 
 

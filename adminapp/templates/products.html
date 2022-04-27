@@ -123,15 +123,17 @@
                                 <form action="" method="POST">
                                     {% csrf_token %}
                                     <label>Food Name</label>
-                                    <input type="text" class="form-control" placeholder="Add New Item" name="food_name">
+                                    <input type="text" class="form-control" id="foodname" placeholder="Add New Item" name="food_name">
+                                    <p id="msg"></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
 
-                               
 
-                                <label>Category</label>  <a class="btn btn-primary me-1 text-end"  data-bs-toggle="modal" data-bs-target="#addcategory">
+
+                                <label>Category</label> <a class="btn btn-primary me-1 text-end" data-bs-toggle="modal"
+                                    data-bs-target="#addcategory">
                                     <i class="fas fa-plus"> </i> Add Category
                                 </a>
                                 <select class="form-select form-control" name="catagory">
@@ -171,7 +173,7 @@
             <div class="modal-footer">
                 <div class="bank-details-btn">
                     <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn bank-cancel-btn me-2">Cancel</a>
-                    <button class=" btn bank-save-btn" type="submit"> save</button>
+                    <button class=" btn bank-save-btn" id="subtn" type="submit"> save</button>
                 </div>
             </div>
             </form>
@@ -424,6 +426,33 @@
         })
     }
 
+
+
+    $('#foodname').change(() => {
+      
+                console.log(($('#foodname').val()))
+                $.ajax({
+                    url: "checkexist",
+                    type: 'post',
+                    data: {
+                        'checkname': $('#foodname').val()
+                    },
+                    success: function(responce){
+                        console.log(responce.IsExist)
+                       
+                        if (responce.IsExist==true){
+                            document.getElementById('msg').innerHTML = 'Food Already Exist '
+                            
+                            $('#subtn').prop('disabled',true)
+                        }
+                        else{
+                            document.getElementById('msg').innerHTML = ''
+                            $('#subtn').prop('disabled',false)
+                        }
+                    }
+
+                })
+            })
 
 </script>
 {% endblock %}

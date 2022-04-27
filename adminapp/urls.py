@@ -41,6 +41,8 @@ urlpatterns = [
     path('deletecustomer/<str:id>',views.deletecustomer,name="deletecustomer"),
     path('addcat',views.addcat,name="addcat"),
     path('bill',views.bill,name="bill"),
+    path('checkexist',views.checkexist,name="checkexist"),
+    path('est_product',views.est_product,name="est_product"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),
 
 

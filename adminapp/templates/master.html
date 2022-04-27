@@ -51,13 +51,12 @@
     <!-- bank settings -->
 
 
-<!-- boostrap icon -->
-<style>
-      
+    <!-- boostrap icon -->
+    <style>
         @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
-</style>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css"> -->
-<!-- @import url(""); -->
+    </style>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css"> -->
+    <!-- @import url(""); -->
 
 
 
@@ -131,7 +130,7 @@
                             <a href="/user/invoiceList"><i class="fa fa-clipboard" data-bs-toggle="tooltip"
                                     title="fa fa-clipboard"></i><span>Invoices </span></a>
                         </li>
-                        
+
                         </li>
                         <li {% if is_product %} class="active" {% endif %}>
                             <a href="/user/products"><i class="fa fa-coffee" data-bs-toggle="tooltip"
@@ -152,12 +151,13 @@
                             <a href="/user/bank"><i class="fa fa-university"></i> <span> Add Bank</span></a>
                         </li>
                         <li {% if is_profitandloss %} class="active" {% endif %}>
-                            <a href="/user/profitandloss"><i class="fas fa-sitemap"></i> <span> Profit And Loss </span></a>
+                            <a href="/user/profitandloss"><i class="fas fa-sitemap"></i> <span> Profit And Loss
+                                </span></a>
                         </li>
                         <li {% if is_filter %} class="active" {% endif %}>
                             <a href="/user/filter"><i class="fa fa-filter"></i> <span> Advace filter </span></a>
                         </li>
-                       
+
                     </ul>
                 </div>
             </div>
@@ -172,186 +172,220 @@
     </div>
 
 
-    <!-- index -->
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/feather.min.js' %}"></script>
-    <script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
-    <script src="{% static 'plugins/apexchart/apexcharts.min.js' %}"></script>
-    <script src="{% static 'plugins/apexchart/chart-data.js' %}"></script>
-    <script src="{% static 'js/script.js' %}"></script>
-    <!-- end index -->
+   
+
+</body>
 
 
-    <!-- customer -->
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'plugins/datatables/datatables.min.js' %}"></script>
-    <!-- end customer -->
+ <!-- index -->
+ <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+ <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+ <script src="{% static 'js/feather.min.js' %}"></script>
+ <script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+ <script src="{% static 'plugins/apexchart/apexcharts.min.js' %}"></script>
+ <script src="{% static 'plugins/apexchart/chart-data.js' %}"></script>
+ <script src="{% static 'js/script.js' %}"></script>
+ 
+ <!-- end index -->
 
 
-
-    <!-- add customer -->
-    <script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
-    <!-- end add customer -->
-
-
-    <!-- estimate -->
-    <!-- end estimate -->
-
-    <!-- invoice list -->
-    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
-    <!-- end invoice list -->
+ <!-- customer -->
+ <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+ <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+ <script src="{% static 'plugins/datatables/datatables.min.js' %}"></script>
+ <!-- end customer -->
 
 
 
-    <!-- invoice grid -->
-    <!-- end invoice grid -->
-
-    <!-- edit invoice -->
-    <!-- end edit invoice -->
-
-    <!-- invoice settings -->
-    <!-- end invoice settings -->
-
-    <!-- editcustomer -->
-    <!-- edit customer -->
+ <!-- add customer -->
+ <script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
+ <!-- end add customer -->
 
 
+ <!-- estimate -->
+ <!-- end estimate -->
 
+ <!-- invoice list -->
+ <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+ <script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
+ <!-- end invoice list -->
 
 
 
-    <script>
+ <!-- invoice grid -->
+ <!-- end invoice grid -->
 
+ <!-- edit invoice -->
+ <!-- end edit invoice -->
 
-        if ($('.datetimepicker').length > 0) {
-            $('.datetimepicker').datetimepicker({
-                format: 'DD-MM-YYYY',
-                icons: {
-                    up: "fas fa-angle-up",
-                    down: "fas fa-angle-down",
-                    next: 'fas fa-angle-right',
-                    previous: 'fas fa-angle-left'
-                }
-            });
-        }
+ <!-- invoice settings -->
+ <!-- end invoice settings -->
 
-
-
-      
-
-
-        //    toggle
-        $(document).on('click', '#toggle_btn', function () {
-            if ($('body').hasClass('mini-sidebar')) {
-                $('body').removeClass('mini-sidebar');
-                $('.subdrop + ul').slideDown();
-            } else {
-                $('body').addClass('mini-sidebar');
-                $('.subdrop + ul').slideUp();
-            }
-            setTimeout(function () {
-                mA.redraw();
-                mL.redraw();
-            }, 300);
-            return false;
-        });
-        // end toggle
-
-        // filters
-        $(document).on('click', '#filter_search', function () {
-            $('#filter_inputs').slideToggle("slow");
-        });
-
-        // endfilter
-
-
-
-        // datatable
-        if ($('.datatable').length > 0) {
-            $('.datatable').DataTable({
-                language: {
-                    search: '<i class="fas fa-search"></i>',
-                    searchPlaceholder: "Search"
-                }
-            });
-        }
-        // end datatable
+ <!-- editcustomer -->
+ <!-- edit customer -->
 
 
 
 
-        //    add + in add invoice
-        $(document).on("click", ".add-btn", function () {
-            var experiencecontent = '<tr class="add-row">' +
-                '<td>' +
-                '<input type="text" class="form-control">' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" class="form-control">' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" class="form-control">' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" class="form-control">' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" class="form-control">' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" class="form-control">' +
-                '</td>' +
-                '<td class="add-remove text-end">' +
-                '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
-                '<a href="#" class="copy-btn me-2"><i class="fas fa-copy"></i></a>' +
-                '<a href="javascript:void(0);" class="remove-btn"><i class="fas fa-trash"></i></a>' +
-                '</td>' +
-                '</tr>';
 
-            $(".add-table-items").append(experiencecontent);
-            return false;
-        });
-        // end  + in add invoice
+
+ <script>
+
+
+     if ($('.datetimepicker').length > 0) {
+         $('.datetimepicker').datetimepicker({
+             format: 'DD-MM-YYYY',
+             icons: {
+                 up: "fas fa-angle-up",
+                 down: "fas fa-angle-down",
+                 next: 'fas fa-angle-right',
+                 previous: 'fas fa-angle-left'
+             }
+         });
+     }
 
 
 
 
-        // selectbox
-        $('.app-listing .selectBox').on("click", function () {
-            $(this).parent().find('#checkBoxes').fadeToggle();
-            $(this).parent().parent().siblings().find('#checkBoxes').fadeOut();
-        });
-
-        $('.invoices-main-form .selectBox').on("click", function () {
-            $(this).parent().find('#checkBoxes-one').fadeToggle();
-            $(this).parent().parent().siblings().find('#checkBoxes-one').fadeOut();
-        });
-        // end selectbox
 
 
+     //    toggle
+     $(document).on('click', '#toggle_btn', function () {
+         if ($('body').hasClass('mini-sidebar')) {
+             $('body').removeClass('mini-sidebar');
+             $('.subdrop + ul').slideDown();
+         } else {
+             $('body').addClass('mini-sidebar');
+             $('.subdrop + ul').slideUp();
+         }
+         setTimeout(function () {
+             mA.redraw();
+             mL.redraw();
+         }, 300);
+         return false;
+     });
+     // end toggle
+
+     // filters
+     $(document).on('click', '#filter_search', function () {
+         $('#filter_inputs').slideToggle("slow");
+     });
+
+     // endfilter
 
 
-        $(".add-table-items").on('click','.remove-btn', function () {
-		$(this).closest('.add-row').remove();
-		return false;
+
+     // datatable
+     if ($('.datatable').length > 0) {
+         $('.datatable').DataTable({
+             language: {
+                 search: '<i class="fas fa-search"></i>',
+                 searchPlaceholder: "Search"
+             }
+         });
+     }
+     // end datatable
 
 
 
 
-    });
+     //    add + in add invoice
+     $(document).on("click", ".add-btn", function () {
+         var rowCount = $(".add-table-items tr").length;
+         var experiencecontent = '<tr class="add-row">' +
+             '<td>' +
+             '<input type="text" class="form-control" value="' + rowCount + '">' +
+             '</td>' +
+             '<td>' +
+             '<input type="text" list="food" id="productName' + rowCount + '" onChange="changedProductname(' + rowCount + ')" class="form-control productname">' +
+             '<input type="hidden"  id="productId' + rowCount + '" class="form-control">' +
+             '</td>' +
+             '<td>' +
+             '<input type="text" id="category' + rowCount + '" class="form-control">' +
+             '</td>' +
+             '<td>' +
+             '<input type="text" id="qty' + rowCount + '" onChange="changeqty(' + rowCount + ')" class="form-control">' +
+             '</td>' +
+             '<td>' +
+             ' <select name="" id="priceselect' + rowCount + '"      ="changeqty(' + rowCount + ')" class="form-control"> </select>' +
+             '</td>' +
+             '<td>' +
+             '<input type="text" id="amount' + rowCount + '" class="form-control">' +
+             '</td>' +
+             '<td class="add-remove text-end">' +
+             '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
+             '<a href="#" class="copy-btn me-2"><i class="fas fa-copy"></i></a>' +
+             '<a href="javascript:void(0);" class="remove-btn"><i class="fas fa-trash"></i></a>' +
+             '</td>' +
+             '</tr>';
+
+         $(".add-table-items").append(experiencecontent);
+
+         return false;
+     });
+     // end  + in add invoice
+
+
+
+
+     // selectbox
+     $('.app-listing .selectBox').on("click", function () {
+         $(this).parent().find('#checkBoxes').fadeToggle();
+         $(this).parent().parent().siblings().find('#checkBoxes').fadeOut();
+     });
+
+     $('.invoices-main-form .selectBox').on("click", function () {
+         $(this).parent().find('#checkBoxes-one').fadeToggle();
+         $(this).parent().parent().siblings().find('#checkBoxes-one').fadeOut();
+     });
+     // end selectbox
+
+
+
+
+     $(".add-table-items").on('click', '.remove-btn', function () {
+         $(this).closest('.add-row').remove();
+         return false;
+
+     });
+
+
+     function changedProductname(id) {
+
+         $.ajax({
+             url: "bill",
+             type: 'POST',
+             data: {
+                 'productname': $('#productName' + id).val(),
+
+             },
+             success: function (responce) {
+                 $('#category' + id).val(responce.product.catagory)
+                 $('#productId' + id).val(responce.product.id)
+                 $('#priceselect' + id).append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per Head</option>')
+                 $('#priceselect' + id).append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
+                 $("#amount" + id).val(responce.product.priceper_head)
+
+
+             }
+
+         })
+     }
+
+
+     function changeqty(id) {
+         var unitprice = $('#priceselect' + id).val()
+         var qty = $('#qty' + id).val()
+         var amount = unitprice * qty
+         $("#amount" + id).val(amount)
+     }
 
 
     
+ // bank settings
+ // end bank settings
+ </script>
+ {% block JS %}
 
-
-
-
-    // bank settings
-    // end bank settings
-    </script>
-</body>
-
+ {% endblock %}
 </html>
