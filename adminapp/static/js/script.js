@@ -422,6 +422,7 @@ Version      : 1.0
 	});
 
 	$(document).on("click", ".add-btn", function () {
+		alert("HI")
 		var experiencecontent = '<tr class="add-row">' +
 			'<td>' +
 			'<input type="text" class="form-control">' +

@@ -1,5 +1,5 @@
 
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect 
 from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates
 import random
 from django.views.decorators.csrf import csrf_exempt
@@ -186,14 +186,29 @@ def Estimate(request):
     return render(request,'Estimate.html',context)   
 
 
-def addestimate(request):
-    # if Estimate.objects.exists():
-    #     est = Estimate.objects.last().id
-    #     est_id = 'EST'+int(10+est)
-    # else:
-    #     est=0
-    #     est_id = 'EST'+int(10+est)
 
+# def formesmimate(request):
+    
+#         # return reverse('addestimate', args(order_id))
+#         # getid = Estimates.objects.get(clientd_id=clientid)
+#         # print(getid)
+#         return redirect('/user/addestimate/'+order_id)
+       
+#     else:
+#         cust = Client.objects.all()
+#         pro = Product.objects.all()
+#         context={
+#             "is_estimate":True,
+#             'cust':cust,
+#             'pro':pro
+#             }
+#     return render(request,'addestimate.html',locals())
+
+
+def addestimate(request):
+    
+    cust = Client.objects.all()
+    pro = Product.objects.all()
 
     if request.method=='POST':
         clientid=request.POST['checkname']
@@ -205,18 +220,58 @@ def addestimate(request):
         print(est_id)
         esti=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
         esti.save()
-        return redirect('/user/addestimate')
-       
-    else:
-        cust = Client.objects.all()
-        pro = Product.objects.all()
+        order_id = esti.id
         context={
+            "is_estimate":True,
+            'cust':cust,
+            'pro':pro,
+            "estimate":esti
+            }
+        return render(request,'addestimate.html',context)
+    # print(order_id)
+
+    # if Estimate.objects.exists():
+    #     est = Estimate.objects.last().id
+    #     est_id = 'EST'+int(10+est)
+    # else:
+    #     est=0
+    #     est_id = 'EST'+int(10+est)
+
+    
+    context={
             "is_estimate":True,
             'cust':cust,
             'pro':pro
             }
     return render(request,'addestimate.html',context) 
 
+
+def createestimate(request):
+    cust = Client.objects.all()
+    if request.method=='POST':
+        clientid=request.POST['checkname']
+        print(clientid)
+        
+        fromdate=request.POST['dataform']
+        todate=request.POST['todate']
+        est_id = Client.objects.get(id=clientid)
+        print(est_id)
+        estit=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
+        estit.save() 
+        context={
+            "is_estimate":True,
+            'cust':cust,
+            "estimate":estit
+            }
+        return render(request,'createestimate.html',context)
+          
+    else:
+        context={
+                "is_estimate":True,
+                'cust':cust,
+                
+                }
+        return render(request,'createestimate.html',context)      
 
 # @csrf_exempt      
 # def estimatedetailsadd(request):
@@ -444,13 +499,42 @@ def demo(request):
     return render(request,'demo/index.html')
 
 
+
+   
+def createestimate(request):
+    cust = Client.objects.all()
+    if request.method=='POST':
+        clientid=request.POST['checkname']
+        print(clientid)
+        
+        fromdate=request.POST['dataform']
+        todate=request.POST['todate']
+        est_id = Client.objects.get(id=clientid)
+        print(est_id)
+        esti=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
+        esti.save() 
+        return redirect('/user/createestimate') 
+
+
+    context={
+            "is_estimate":True,
+            'cust':cust,
+            
+            }
+    return render(request,'createestimate.html',context)    
+
+
 @csrf_exempt
 def bill (request):
     productname = request.POST['productname']
+    # estimateid = request.POST['estimateid']
     print(productname)
     viewpro=Product.objects.get(food_name=productname)
+    # estid=Estimates.objects.get(id=estimateid)
     data={
+        
         # "food_name":viewpro.food_name,
+        # "estimateid":estid.id,
         "id":viewpro.id,
         "catagory":viewpro.catagory,
         "priceper_head":viewpro.priceper_head,
@@ -485,12 +569,14 @@ def checkexist(request):
 
 @csrf_exempt
 def est_product(request):
-
+    estimateid = request.POST['estimateid']
+    print(estimateid)
     productId = request.POST['productId']
     est_category = request.POST['est_category']
     est_price = request.POST['est_price']
     est_amount = request.POST['est_amount']
     est_qty = request.POST['est_qty']
-    addest = EstimateProduct(estimate_id__id=productId,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
+    
+    addest = EstimateProduct(estimate_id__id=estimateid,product_id__id=productId,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     addest.save()
     return JsonResponse({'message': 'sucesses'})

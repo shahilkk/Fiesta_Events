@@ -43,6 +43,9 @@ urlpatterns = [
     path('bill',views.bill,name="bill"),
     path('checkexist',views.checkexist,name="checkexist"),
     path('est_product',views.est_product,name="est_product"),
+    path('createestimate',views.createestimate,name="createestimate"),
+    
+    # path('formesmimate',views.formesmimate,name="formesmimate"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),
 
 

@@ -184,7 +184,7 @@
  <script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
  <script src="{% static 'plugins/apexchart/apexcharts.min.js' %}"></script>
  <script src="{% static 'plugins/apexchart/chart-data.js' %}"></script>
- <script src="{% static 'js/script.js' %}"></script>
+ {% comment %} <script src="{% static 'js/script.js' %}"></script> {% endcomment %}
  
  <!-- end index -->
 
@@ -250,20 +250,7 @@
 
 
      //    toggle
-     $(document).on('click', '#toggle_btn', function () {
-         if ($('body').hasClass('mini-sidebar')) {
-             $('body').removeClass('mini-sidebar');
-             $('.subdrop + ul').slideDown();
-         } else {
-             $('body').addClass('mini-sidebar');
-             $('.subdrop + ul').slideUp();
-         }
-         setTimeout(function () {
-             mA.redraw();
-             mL.redraw();
-         }, 300);
-         return false;
-     });
+    
      // end toggle
 
      // filters
@@ -289,40 +276,7 @@
 
 
 
-     //    add + in add invoice
-     $(document).on("click", ".add-btn", function () {
-         var rowCount = $(".add-table-items tr").length;
-         var experiencecontent = '<tr class="add-row">' +
-             '<td>' +
-             '<input type="text" class="form-control" value="' + rowCount + '">' +
-             '</td>' +
-             '<td>' +
-             '<input type="text" list="food" id="productName' + rowCount + '" onChange="changedProductname(' + rowCount + ')" class="form-control productname">' +
-             '<input type="hidden"  id="productId' + rowCount + '" class="form-control">' +
-             '</td>' +
-             '<td>' +
-             '<input type="text" id="category' + rowCount + '" class="form-control">' +
-             '</td>' +
-             '<td>' +
-             '<input type="text" id="qty' + rowCount + '" onChange="changeqty(' + rowCount + ')" class="form-control">' +
-             '</td>' +
-             '<td>' +
-             ' <select name="" id="priceselect' + rowCount + '"      ="changeqty(' + rowCount + ')" class="form-control"> </select>' +
-             '</td>' +
-             '<td>' +
-             '<input type="text" id="amount' + rowCount + '" class="form-control">' +
-             '</td>' +
-             '<td class="add-remove text-end">' +
-             '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
-             '<a href="#" class="copy-btn me-2"><i class="fas fa-copy"></i></a>' +
-             '<a href="javascript:void(0);" class="remove-btn"><i class="fas fa-trash"></i></a>' +
-             '</td>' +
-             '</tr>';
-
-         $(".add-table-items").append(experiencecontent);
-
-         return false;
-     });
+   
      // end  + in add invoice
 
 
