@@ -32,6 +32,8 @@ $('#estimatebutton').click(function () {
         var est_price = $('#priceselect' + i).val()
         var est_amount = $('#amount' + i).val()
         var est_qty = $('#qty' + i).val()
+        
+
 
         var data = {
             "productId": productId,
@@ -97,9 +99,12 @@ $(document).on("click", ".add-btn", function () {
 });
 
 function changeqty(id) {
+    var completeTotal =0
     var unitprice = $('#priceselect' + id).val()
     var qty = $('#qty' + id).val()
     var amount = unitprice * qty
-    $("#amount" + id).val(amount)
+    price=$("#amount" + id).val(amount)
+    completeTotal = completeTotal + price
+    $("#total" ).html(completeTotal)
 }
 
