@@ -576,7 +576,6 @@ def est_product(request):
     est_price = request.POST['est_price']
     est_amount = request.POST['est_amount']
     est_qty = request.POST['est_qty']
-    
-    addest = EstimateProduct(estimate_id__id=estimateid,product_id__id=productId,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
+    addest = EstimateProduct(estimateid__id=estimateid,productid__id=productId,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     addest.save()
     return JsonResponse({'message': 'sucesses'})
