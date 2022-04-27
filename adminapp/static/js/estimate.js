@@ -23,6 +23,7 @@ function changedProductname(id) {
 
 
 $('#estimatebutton').click(function () {
+    var estimateid = $('#estimateid').val()
         var rowCount = $(".add-table-items tr").length;
         for (var i = 1; i < rowCount; i++) {
             var productId = $('#productId' + i).val()
@@ -30,12 +31,14 @@ $('#estimatebutton').click(function () {
             var est_price = $('#priceselect' + i).val()
             var est_amount = $('#amount' + i).val()
             var est_qty = $('#qty' + i).val()
+           
             var data = {
                 "productId": productId,
                 "est_category": est_category,
                 "est_price": est_price,
                 "est_amount": est_amount,
                 "est_qty": est_qty,
+                "estimateid":estimateid
 
             }
             console.log(data)

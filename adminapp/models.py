@@ -94,6 +94,7 @@ class EstimateProduct(models.Model):
     est_amount = models.CharField(max_length=50)
     est_qty = models.CharField(max_length=50)
     est_price = models.CharField(max_length=50)
+    product_id = models.ForeignKey(Product,on_delete=models.CASCADE )
     estimate_id = models.ForeignKey(Estimates,on_delete=models.CASCADE )
 
         
