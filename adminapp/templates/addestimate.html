@@ -361,7 +361,7 @@
 
 
 {% block JS %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
 <script>
 
@@ -391,104 +391,17 @@
         // })
 
 
-
-<<<<<<< HEAD
         $('#add').click(() => {
             console.log('hi')
-<<<<<<< HEAD
             productquantity= $('#Quantity').val()
             productprice= $('#priceselect').val()
             console.log(productprice)
             Total = productquantity*productprice 
-=======
-            productquantity = $('#Quantity').val()
-            productprice = $('#priceselect').val()
-            Total = productquantity * productprice
->>>>>>> df2dda0580e25f9d71cc47db77de0b75b226e91e
-            console.log(Total)
             $('#amount').val(Total)
 
         })
-=======
->>>>>>> 85d86b5b6625f7d744304a732f6cc49206ffc16a
-
-
     })
-    $(document).on("click", ".add-btn", function () {
-        var rowCount = $(".add-table-items tr").length;
-        var experiencecontent = '<tr class="add-row">' +
-            '<td>' +
-            '<input type="text" class="form-control" value="' + rowCount + '">' +
-            '</td>' +
-            '<td>' +
-            '<input type="text" list="food" id="productName' + rowCount + '" onChange="changedProductname(' + rowCount + ')" class="form-control productname">' +
-            '<input type="hidden"  id="productId' + rowCount + '" class="form-control">' +
-            '</td>' +
-            '<td>' +
-            '<input type="text" id="category' + rowCount + '" class="form-control">' +
-            '</td>' +
-            '<td>' +
-            '<input type="text" id="qty' + rowCount + '" onChange="changeqty(' + rowCount + ')" class="form-control">' +
-            '</td>' +
-            '<td>' +
-            ' <select name="" id="priceselect' + rowCount + '"      ="changeqty(' + rowCount + ')" class="form-control"> </select>' +
-            '</td>' +
-            '<td>' +
-            '<input type="text" id="amount' + rowCount + '" class="form-control">' +
-            '</td>' +
-            '<td class="add-remove text-end">' +
-            '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
-            '<a href="#" class="copy-btn me-2"><i class="fas fa-copy"></i></a>' +
-            '<a href="javascript:void(0);" class="remove-btn"><i class="fas fa-trash"></i></a>' +
-            '</td>' +
-            '</tr>';
-
-        $(".add-table-items").append(experiencecontent);
-
-        return false;
-    });
-
-    function changeqty(id) {
-        var unitprice = $('#priceselect' + id).val()
-        var qty = $('#qty' + id).val()
-        var amount = unitprice * qty
-        $("#amount" + id).val(amount)
-    }
-
-
-
-
-
-
-
-    function changedProductname(id) {
-
-        $.ajax({
-            url: "bill",
-            type: 'POST',
-            data: {
-                'productname': $('#productName' + id).val(),
-                // 'estimateid': $('#estimateid'+ id).val(),
-
-
-            },
-            success: function (responce) {
-                $('#category' + id).val(responce.product.catagory)
-                $('#productId' + id).val(responce.product.id)
-                $('#priceselect' + id).append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per Head</option>')
-                $('#priceselect' + id).append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
-                $("#amount" + id).val(responce.product.priceper_head)
-
-
-            }
-
-        })
-    }
-
-
-
-
-
+  
 </script>
 <script src="{% static 'js/estimate.js' %}"></script>
 
