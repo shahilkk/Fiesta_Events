@@ -78,6 +78,7 @@ class Estimates(models.Model):
     est_fromdate = models.CharField(max_length=50)
     est_todate = models.CharField(max_length=50)
     # est_id = models.CharField(max_length=50)
+
     class Meta:
         db_table = 'estimates'
 

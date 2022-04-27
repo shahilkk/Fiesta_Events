@@ -390,6 +390,16 @@
         //     })
         // })
 
+
+        $('#add').click(() => {
+            console.log('hi')
+            productquantity= $('#Quantity').val()
+            productprice= $('#priceselect').val()
+            console.log(productprice)
+            Total = productquantity*productprice 
+            $('#amount').val(Total)
+
+        })
     })
   
 </script>
