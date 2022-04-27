@@ -25,3 +25,9 @@ class AddBankAdmin(admin.ModelAdmin):
     list_display = ('bank_name',)
     search_fields=('bank_name',)
 admin.site.register(AddBank,AddBankAdmin)
+
+
+
+
+
+

@@ -5,6 +5,7 @@ import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
+from django.db.models import Avg, Count, Min, Sum
 # Create your views here.
 
 
@@ -181,7 +182,28 @@ def deletestaff(request,id):
 
 
 def Estimate(request):
-    context={"is_estimate":True}
+
+    est = Estimates.objects.all()
+    class EstimateList:
+        def __init__(self,estimate,total) :
+            self.estimate = estimate
+            self.total = total
+    estimatelist=[]
+    for e in est:
+        products=EstimateProduct.objects.filter(estimateid=e)
+        total=0
+        if products.exists():
+            for product in products:
+                total+=int(product.est_qty)+product.est_price
+
+        estimatelist.append(EstimateList(e,total))
+
+    context={
+        "is_estimate":True,
+        "estimate": estimatelist
+        }
+
+
     
     return render(request,'Estimate.html',context)   
 
@@ -575,9 +597,9 @@ def est_product(request):
     est_category = request.POST['est_category']
     est_price = request.POST['est_price']
     est_amount = request.POST['est_amount']
-    completeTotal = request.POST['completeTotal']
+    
     est_qty = request.POST['est_qty']
-    print(completeTotal)
+    
     pr=Product.objects.get(id=productId)
     estim=Estimates.objects.get(id=estimateid)
     addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
