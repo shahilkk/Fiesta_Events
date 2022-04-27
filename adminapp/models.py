@@ -77,8 +77,8 @@ class Estimates(models.Model):
     clientd = models.ForeignKey(Client,on_delete=models.CASCADE )
     est_fromdate = models.CharField(max_length=50)
     est_todate = models.CharField(max_length=50)
-    est_id = models.CharField(max_length=50)
-    
+    est_id = models.CharField(max_length=50,default=0)
+
     class Meta:
         db_table = 'estimates'
 
