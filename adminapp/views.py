@@ -251,7 +251,7 @@ def addinvoice(req):
 def invoicedetails(req):
     context={"is_invoice":True}
     return render(req,'invoicedetails.html',context) 
-
+**
 
 def editinvoice(req):
     context={"is_invoice":True}
