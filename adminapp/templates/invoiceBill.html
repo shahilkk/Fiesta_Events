@@ -1,0 +1,216 @@
+{% extends 'master.html' %}
+{% block content %}
+{% load static %}
+
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+
+
+        <div class="page-header invoices-page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Expenses</h3>
+                    <ul class="breadcrumb">
+                        <li><a href="/user/index">Dashboard /</a></li>
+                        <li> <a href="/user/addinvoice">Invoice /</a></li>
+                        <li class="breadcrumb-item active">Bill Invoice</li>
+                    </ul>
+                </div>
+                <div class="col-auto">
+                    <div class="invoices-create-btn">
+                        <a class="invoices-preview-link" href="/user/invoicedetails"
+                            data-bs-target="#invoices_preview"><i class="fe fe-eye"></i> Preview</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices_details"
+                            class="btn delete-invoice-btn">
+                            Delete Invoice
+                        </a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#save_invocies_details"
+                            class="btn save-invoice-btn">
+                            Save Draft
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="filter_inputs" class="card filter-card">
+            <div class="card-body pb-0">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Customer:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Category:</label>
+                            <select class="select form-control form-control-lg">
+                                <option>Select Category</option>
+                                <option>Advertising</option>
+                                <option>Marketing</option>
+                                <option>Software</option>
+                                <option>Travel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>From</label>
+                            <div class="cal-icon">
+                                <input class="form-control datetimepicker" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>To</label>
+                            <div class="cal-icon">
+                                <input class="form-control datetimepicker" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-center table-hover ">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Product name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in details %}
+                                    <tr>
+                                        <td>{{ i.productid.food_name }} </td>
+                                        <td> {{ i.est_category }}</td>
+                                        <td> {{ i.est_price }}</td>
+                                        <td> {{ i.est_qty }}</td>
+                                        <td> {{ i.est_amount }}</td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                                <div class="col-lg-7 col-md-6">
+                                    
+                                   
+                                </div>
+                                <div class="col-lg-5 col-md-6">
+                                    <div class="invoice-total-card">
+                                        <h4 class="invoice-total-title">Summary</h4>
+                                        <div class="invoice-total-box">
+                                            <div class="invoice-total-inner">
+                                                <p>Gst <span>5%</span></p>
+                                               
+                                                <div class="links-info-one">
+                                                    <div class="links-info">
+                                                        <div class="links-cont">
+                                                            <a href="#" class="service-trash">
+                                                                <i class="feather-trash-2"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="links-info-discount">
+                                                    <div class="links-cont-discount">
+                                                      
+                                                        <a href="#" class="service-trash-one">
+                                                            <i class="feather-trash-2"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="invoice-total-footer">
+                                                <h4>Total Amount <span>$ 894.00</span></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="upload-sign">
+                                      
+                                        <div class="form-group float-end mb-0">
+                                            <button class="btn btn-primary" type="submit">Save Invoice</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal custom-modal fade" id="delete_invoices_details" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-header">
+                    <h3>Delete Invoice Details</h3>
+                    <p>Are you sure want to delete?</p>
+                </div>
+                <div class="modal-btn delete-action">
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                class="btn btn-primary paid-continue-btn">Delete</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                class="btn btn-primary paid-cancel-btn">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal custom-modal fade" id="save_invocies_details" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-header">
+                    <h3>Save Invoice Details</h3>
+                    <p>Are you sure want to save?</p>
+                </div>
+                <div class="modal-btn delete-action">
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                class="btn btn-primary paid-continue-btn">Save</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                class="btn btn-primary paid-cancel-btn">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -44,12 +44,16 @@ urlpatterns = [
     path('checkexist',views.checkexist,name="checkexist"),
     path('est_product',views.est_product,name="est_product"),
     path('createestimate',views.createestimate,name="createestimate"),
+    path('invoicebill/<str:id>',views.invoicebill,name="invoicebill"),
 
 
     path('indexbill/<str:id>',views.indexbill,name="indexbill"),
     path('indexadvanced/<str:id>',views.indexadvanced,name="indexadvanced"),
     path('indexpartialy/<str:id>',views.indexpartialy,name="indexpartialy"),
     path('indexclosed/<str:id>',views.indexclosed,name="indexclosed"),
+
+
+    path('invoicegetdata',views.invoicegetdata,name="invoicegetdata"),
     
     # path('formesmimate',views.formesmimate,name="formesmimate"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),

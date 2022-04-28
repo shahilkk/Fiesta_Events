@@ -376,9 +376,12 @@ def invoiceList(req):
     return render(req,'invoiceList.html',context) 
 
 
-def addinvoice(req):
-    context={"is_invoice":True}
-    return render(req,'addinvoice.html',context)
+def addinvoice(request):
+
+    context={
+        "is_invoice":True,
+    }
+    return render(request,'addinvoice.html',context)
 
 
 def invoicedetails(req):
@@ -659,3 +662,64 @@ def est_product(request):
     print(totalvalue)
     total=Estimates.objects.filter(id=estimateid).update(est_balance=totalAmonut)
     return JsonResponse({'msg':'data inserted sucess'})
+
+
+@csrf_exempt
+def invoicegetdata(request):
+    clientphone = request.POST['clientphone']
+    viewpro=Client.objects.get(client_phone=clientphone)
+    estimatelist=[]
+    print(viewpro.id)
+    estID = Estimates.objects.filter(clientd=viewpro.id)
+    print(estID)
+
+    if estID.exists():
+        for value in estID:
+            clientdata={
+                "id":value.clientd.id,
+                "client_name":value.clientd.client_name
+            }
+            estdata={
+                "id":value.id,
+                "clientd":clientdata,
+                "est_fromdate":value.est_fromdate,
+                "est_todate":value.est_todate,
+                "est_balance":value.est_balance,
+                "est_status":value.est_status,
+            }
+            estimatelist.append(estdata)
+            print(value)
+
+
+
+    # viewProduct = EstimateProduct.objects.filter(estimateid_id=estID.id).last()
+    # print(viewProduct)
+    # for i in viewProduct:
+    #     print(i)
+    data={
+        
+        
+        "id":viewpro.id,
+        "gst":viewpro.client_gst_number,
+        "email":viewpro.client_email,
+        "state":viewpro.client_state,
+        "district":viewpro.client_district,
+        "zipcode":viewpro.client_zipcode,
+        "address":viewpro.client_address,
+        "estimatelist":estimatelist
+        
+    }
+    return JsonResponse({'details': data})   
+
+
+
+def invoicebill(request,id):
+
+    details = EstimateProduct.objects.filter(estimateid=id)
+    print(details)
+    context={
+            "is_estimate":True,
+            "details":details
+            
+            }
+    return render(request,'invoicebill.html',context)
