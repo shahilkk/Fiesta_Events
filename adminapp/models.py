@@ -93,7 +93,7 @@ class Category(models.Model):
 
 class EstimateProduct(models.Model):
     est_category = models.CharField(max_length=50)
-    est_amount = models.CharField(max_length=50)
+    est_amount = models.IntegerField()
     est_qty = models.CharField(max_length=50)
     est_price = models.IntegerField()
     productid = models.ForeignKey(Product,on_delete=models.CASCADE )

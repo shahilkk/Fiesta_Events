@@ -183,20 +183,20 @@ def deletestaff(request,id):
 
 def Estimate(request):
 
-    est = Estimates.objects.all()
+    estimates = Estimates.objects.all()
     class EstimateList:
         def __init__(self,estimate,total) :
             self.estimate = estimate
             self.total = total
     estimatelist=[]
-    for e in est:
-        products=EstimateProduct.objects.filter(estimateid=e)
+    for estimate in estimates:
+        products=EstimateProduct.objects.filter(estimateid=estimate)
         total=0
         if products.exists():
             for product in products:
                 total+=int(product.est_qty)+product.est_price
 
-        estimatelist.append(EstimateList(e,total))
+        estimatelist.append(EstimateList(estimate,total))
 
     context={
         "is_estimate":True,
@@ -596,12 +596,16 @@ def est_product(request):
     productId = request.POST['productId']
     est_category = request.POST['est_category']
     est_price = request.POST['est_price']
-    est_amount = request.POST['est_amount']
-    
+    est_amount = request.POST['est_amount']    
     est_qty = request.POST['est_qty']
-    
     pr=Product.objects.get(id=productId)
     estim=Estimates.objects.get(id=estimateid)
     addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     addest.save()
-    return JsonResponse({'message': 'sucesses'})
+
+    estid= EstimateProduct.objects.filter(estimateid=estimateid)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    print(totalvalue)
+    total=Estimates.objects.filter(id=estimateid).update(est_balance=totalAmonut)
+    return JsonResponse({'msg':'data inserted sucess'})
