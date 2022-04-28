@@ -11,11 +11,11 @@
     <div class="content container-fluid">
         <div class="row">
             <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card bg-primary text-white" >
-                    <div class="card-body" >
-                        <div class="dash-widget-header">  
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
                             <span class=" bg-1">
-                                
+
                             </span>
                             <div class="dash-count">
                                 <div class="dash-title" style="font-size: 12px; font-weight: 900;">State Bank Of India
@@ -35,7 +35,7 @@
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class=" bg-2">
-                                
+
                             </span>
                             <div class="dash-count">
                                 <div class="dash-title">Federal Bank</div>
@@ -53,7 +53,7 @@
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class=" bg-3">
-                                
+
                             </span>
                             <div class="dash-count">
                                 <div class="dash-title" style="font-size: 14px; font-weight: 900;">South Indian Bank
@@ -72,8 +72,8 @@
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class=" bg-4">
-                                
-                                
+
+
                             </span>
                             <div class="dash-count ">
                                 <div class="dash-title">Cash</div>
@@ -119,16 +119,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for i in billed %}
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        Barbara Moore
-                                                        <!-- <a href="profile.html">Barbara
-                                                                Moore</a> -->
+                                                        {{ i.clientd.client_name }}
                                                     </h2>
                                                 </td>
-                                                <td>$118</td>
-                                                <td>23 Nov 2020</td>
+                                                <td>{{ i.est_fromdate }}</td>
+                                                <td>{{ i.est_balance }}</td>
                                                 <td class="text-right">
                                                     <div class="dropleft dropdown-action">
                                                         <a href="#" class="action-icon dropdown-toggle"
@@ -137,21 +136,22 @@
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <a class="dropdown-item" href="/user/editinvoice"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/user/invoicedetails"><i
-                                                                    class="far fa-eye me-2"></i>View</a>
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            <a class="dropdown-item" href="/user/editestimate"><i
+                                                                    class="far fa-eye me-2"></i>View</a>
+                                                            <a class="dropdown-item" href="indexadvanced/{{ i.id }}"><i
                                                                     class="far fa-check-circle me-2"></i>Advance</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="far fa-paper-plane me-2"></i>Partialy
-                                                                Paid</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="far fa-copy me-2"></i>Closed</a>
+                                                            <a class="dropdown-item" href="indexpartialy/{{ i.id }}"><i
+                                                                    class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                            <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
+                                                                    class="far fa-times-circle me-2"></i>Closed</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            {% endfor %}
+                                          
 
 
                                         </tbody>
@@ -187,16 +187,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for i in advanced %}
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        Barbara Moore
-                                                        <!-- <a href="profile.html">Barbara
-                                                                Moore</a> -->
+                                                        {{ i.clientd.client_name }}
                                                     </h2>
                                                 </td>
-                                                <td>$118</td>
-                                                <td>23 Nov 2020</td>
+                                                <td>{{ i.est_fromdate }}</td>
+                                                <td>{{ i.est_balance }}</td>
                                                 <td class="text-right">
                                                     <div class="dropleft dropdown-action">
                                                         <a href="#" class="action-icon dropdown-toggle"
@@ -205,19 +204,19 @@
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <a class="dropdown-item" href="/user/editinvoice"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/user/invoicedetails"><i
-                                                                    class="far fa-eye me-2"></i>View</a>
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="far fa-paper-plane me-2"></i>Partialy
-                                                                Paid</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="far fa-copy me-2"></i>Closed</a>
+                                                            <a class="dropdown-item" href="/user/editestimate"><i
+                                                                    class="far fa-eye me-2"></i>View</a>
+                                                            <a class="dropdown-item" href="indexpartialy/{{ i.id }}"><i
+                                                                    class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                            <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
+                                                                    class="far fa-times-circle me-2"></i>Closed</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            {% endfor %}
 
 
                                         </tbody>
@@ -253,16 +252,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for i in paritialy %}
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        Barbara Moore
-                                                        <!-- <a href="profile.html">Barbara
-                                                                Moore</a> -->
+                                                        {{ i.clientd.client_name }}
                                                     </h2>
                                                 </td>
-                                                <td>$118</td>
-                                                <td>23 Nov 2020</td>
+                                                <td>{{ i.est_fromdate }}</td>
+                                                <td>{{ i.est_balance }}</td>
                                                 <td class="text-right">
                                                     <div class="dropleft dropdown-action">
                                                         <a href="#" class="action-icon dropdown-toggle"
@@ -271,16 +269,17 @@
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <a class="dropdown-item" href="/user/editinvoice"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/user/invoicedetails"><i
-                                                                    class="far fa-eye me-2"></i>View</a>
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="far fa-copy me-2"></i>Closed</a>
+                                                            <a class="dropdown-item" href="/user/editestimate"><i
+                                                                    class="far fa-eye me-2"></i>View</a>
+                                                            <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
+                                                                    class="far fa-times-circle me-2"></i>Closed</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            {% endfor %}
 
 
                                         </tbody>
@@ -316,32 +315,33 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for i in closed %}
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        Barbara Moore
-                                                        <!-- <a href="profile.html">Barbara
-                                                                Moore</a> -->
+                                                        {{ i.clientd.client_name }}
                                                     </h2>
                                                 </td>
-                                                <td>$118</td>
-                                                <td>23 Nov 2020</td>
+                                                <td>{{ i.est_fromdate }}</td>
+                                                <td>{{ i.est_balance }}</td>
                                                 <td class="text-right">
                                                     <div class="dropleft dropdown-action">
                                                         <a href="#" class="action-icon dropdown-toggle"
                                                             data-bs-toggle="dropdown" aria-expanded="false"><i
                                                                 class="fas fa-ellipsis-h"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="/admin/editinvoice"><i
+                                                            <a class="dropdown-item" href="/user/editinvoice"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/admin/invoicedetails"><i
-                                                                    class="far fa-eye me-2"></i>View</a>
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
+                                                            <a class="dropdown-item" href="/user/editestimate"><i
+                                                                    class="far fa-eye me-2"></i>View</a>
+                                                            
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            {% endfor %}
 
 
                                         </tbody>
@@ -381,14 +381,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for i in pending %}
                                     <tr>
                                         <td>
                                             <h2 class="table-avatar">
-                                                Greg Lynch
+                                                {{ i.clientd.client_name }}
                                             </h2>
                                         </td>
-                                        <td>5 Nov 2020</td>
-                                        <td>$175</td>
+                                        <td>{{ i.est_fromdate }}</td>
+                                        <td>{{ i.est_balance }}</td>
                                         <td class="text-right">
                                             <div class="dropleft dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle"
@@ -401,126 +402,26 @@
                                                             class="far fa-trash-alt me-2"></i>Delete</a>
                                                     <a class="dropdown-item" href="/user/editestimate"><i
                                                             class="far fa-eye me-2"></i>View</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    <a class="dropdown-item" href="indexbill/{{ i.id }}"><i
                                                             class="far fa-file-alt me-2"></i>Bill</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    <!-- <a class="dropdown-item" href=""><i
                                                             class="far fa-check-circle me-2"></i>Advance</a>
                                                     <a class="dropdown-item" href="javascript:void(0);"><i
                                                             class="far fa-paper-plane me-2"></i>Partialy Paid</a>
-                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                class="far fa-check-circle me-2"></i>Mark as
-                                                            Accepted</a> -->
+
                                                     <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-times-circle me-2"></i>Closed</a>
+                                                            class="far fa-times-circle me-2"></i>Closed</a> -->
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                               shahid
-                                            </h2>
-                                        </td>
-                                        <td>5 Nov 2020</td>
-                                        <td>$175</td>
-                                        <td class="text-right">
-                                            <div class="dropleft dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="fas fa-ellipsis-h"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="/user/editinvoice"><i
-                                                            class="far fa-edit me-2"></i>Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-trash-alt me-2"></i>Delete</a>
-                                                    <a class="dropdown-item" href="/user/editestimate"><i
-                                                            class="far fa-eye me-2"></i>View</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-file-alt me-2"></i>Bill</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-check-circle me-2"></i>Advance</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
-                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                class="far fa-check-circle me-2"></i>Mark as
-                                                            Accepted</a> -->
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-times-circle me-2"></i>Closed</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                anu
-                                            </h2>
-                                        </td>
-                                        <td>5 Nov 2020</td>
-                                        <td>$175</td>
-                                        <td class="text-right">
-                                            <div class="dropleft dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="fas fa-ellipsis-h"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="/admin/editinvoice"><i
-                                                            class="far fa-edit me-2"></i>Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-trash-alt me-2"></i>Delete</a>
-                                                    <a class="dropdown-item" href="/admin/editestimate"><i
-                                                            class="far fa-eye me-2"></i>View</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-file-alt me-2"></i>Bill</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-check-circle me-2"></i>Advance</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
-                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                class="far fa-check-circle me-2"></i>Mark as
-                                                            Accepted</a> -->
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-times-circle me-2"></i>Closed</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                shahil
-                                            </h2>
-                                        </td>
-                                        <td>5 Nov 2020</td>
-                                        <td>$175</td>
-                                        <td class="text-right">
-                                            <div class="dropleft dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="fas fa-ellipsis-h"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="/admin/editinvoice"><i
-                                                            class="far fa-edit me-2"></i>Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-trash-alt me-2"></i>Delete</a>
-                                                    <a class="dropdown-item" href="/admin/editestimate"><i
-                                                            class="far fa-eye me-2"></i>View</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-file-alt me-2"></i>Bill</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-check-circle me-2"></i>Advance</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
-                                                    <!-- <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                class="far fa-check-circle me-2"></i>Mark as
-                                                            Accepted</a> -->
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="far fa-times-circle me-2"></i>Closed</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {% endfor %}
+
+
+
+
+
+
 
                                 </tbody>
                             </table>
@@ -533,24 +434,24 @@
 
     </div>
 </div>
- 
+
 
 <script>
-   
+
     $(document).on('click', '#toggle_btn', function () {
-            if ($('body').hasClass('mini-sidebar')) {
-                $('body').removeClass('mini-sidebar');
-                $('.subdrop + ul').slideDown();
-            } else {
-                $('body').addClass('mini-sidebar');
-                $('.subdrop + ul').slideUp();
-            }
-            setTimeout(function () {
-                mA.redraw();
-                mL.redraw();
-            }, 300);
-            return false;
-        });
+        if ($('body').hasClass('mini-sidebar')) {
+            $('body').removeClass('mini-sidebar');
+            $('.subdrop + ul').slideDown();
+        } else {
+            $('body').addClass('mini-sidebar');
+            $('.subdrop + ul').slideUp();
+        }
+        setTimeout(function () {
+            mA.redraw();
+            mL.redraw();
+        }, 300);
+        return false;
+    });
 </script>
 
 {% endblock %}

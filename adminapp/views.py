@@ -13,8 +13,44 @@ def master(req):
     return render(req,'master.html')
 
 def index(req):
-    context={"is_index":True}
-    return render(req,'index.html',context)  
+    pending = Estimates.objects.filter(est_status ='Pending').all()
+    billed = Estimates.objects.filter(est_status ='Billed').all()
+    advanced = Estimates.objects.filter(est_status ='Advanced').all()
+    paritialy = Estimates.objects.filter(est_status ='Partialy Paid').all()
+    closed = Estimates.objects.filter(est_status ='Closed').all()
+
+    context={
+        "is_index":True,
+        'pending' : pending,
+        'billed':billed,
+        'advanced':advanced,
+        'paritialy':paritialy,
+        'closed':closed
+        }
+    return render(req,'index.html',context) 
+
+
+
+def indexbill(request,id):
+    Estimates.objects.filter(id=id).update(est_status ='Billed')
+    return redirect('/user/index')
+
+def indexadvanced(request,id):
+    Estimates.objects.filter(id=id).update(est_status ='Advanced')
+    return redirect('/user/index')
+
+def indexpartialy(request,id):
+    Estimates.objects.filter(id=id).update(est_status ='Partialy Paid')
+    return redirect('/user/index')
+
+def indexclosed(request,id):
+    Estimates.objects.filter(id=id).update(est_status ='Closed')
+    return redirect('/user/index')            
+
+
+
+
+
 
 def customer(req):
     # context={"is_customer":True}
@@ -182,30 +218,39 @@ def deletestaff(request,id):
 
 
 def Estimate(request):
-
     estimates = Estimates.objects.all()
-    class EstimateList:
-        def __init__(self,estimate,total) :
-            self.estimate = estimate
-            self.total = total
-    estimatelist=[]
-    for estimate in estimates:
-        products=EstimateProduct.objects.filter(estimateid=estimate)
-        total=0
-        if products.exists():
-            for product in products:
-                total+=int(product.est_qty)+product.est_price
-
-        estimatelist.append(EstimateList(estimate,total))
-
     context={
         "is_estimate":True,
-        "estimate": estimatelist
+        'estimateList':estimates
         }
 
 
     
     return render(request,'Estimate.html',context)   
+
+    # estimates = Estimates.objects.all()
+    # class EstimateList:
+    #     def __init__(self,estimate,total) :
+    #         self.estimate = estimate
+    #         self.total = total
+    # estimatelist=[]
+    # for estimate in estimates:
+    #     products=EstimateProduct.objects.filter(estimateid=estimate)
+    #     total=0
+    #     if products.exists():
+    #         for product in products:
+    #             total+=int(product.est_qty)+product.est_price
+
+    #     estimatelist.append(EstimateList(estimate,total))
+
+    # context={
+    #     "is_estimate":True,
+    #     "estimate": estimatelist
+    #     }
+
+
+    
+    # return render(request,'Estimate.html',context)   
 
 
 
@@ -295,14 +340,7 @@ def createestimate(request):
                 }
         return render(request,'createestimate.html',context)      
 
-# @csrf_exempt      
-# def estimatedetailsadd(request):
-#     checkname=request.POST['checkname']
-#     check_id=request.POST['cliend_id']
-#     fromdate=request.POST['dataform']
-#     todate=request.POST['todate']
-#     print(checkname,fromdate,todate,check_id)
-#     return redirect ('/user/addestimate')
+
   
 
 
@@ -503,7 +541,20 @@ def addprofit(req):
 
 
 def filter(req):
-    context={"is_filter":True}
+    alllist = Estimates.objects.all()
+    billed = Estimates.objects.filter(est_status ='Billed').all()
+    advanced = Estimates.objects.filter(est_status ='Advanced').all()
+    paritialy = Estimates.objects.filter(est_status ='Partialy Paid').all()
+    closed = Estimates.objects.filter(est_status ='Closed').all()
+
+    context={
+        "is_filter":True,
+        'alllist' : alllist,
+        'billed':billed,
+        'advanced':advanced,
+        'paritialy':paritialy,
+        'closed':closed
+        }
     return render(req,'filter.html',context) 
       
 
@@ -602,7 +653,6 @@ def est_product(request):
     estim=Estimates.objects.get(id=estimateid)
     addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     addest.save()
-
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']

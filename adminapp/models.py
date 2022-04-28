@@ -78,6 +78,7 @@ class Estimates(models.Model):
     est_fromdate = models.CharField(max_length=50)
     est_todate = models.CharField(max_length=50)
     est_balance = models.IntegerField(default=0)
+    est_status = models.CharField(max_length=50 , default='Pending' )
     class Meta:
         db_table = 'estimates'
 
