@@ -1,4 +1,5 @@
 
+from http import client
 from xmlrpc.client import Boolean
 from django.db import models
 
@@ -100,7 +101,11 @@ class EstimateProduct(models.Model):
     productid = models.ForeignKey(Product,on_delete=models.CASCADE )
     estimateid = models.ForeignKey(Estimates,on_delete=models.CASCADE )
 
-        
 
-
-
+class PaymentDetails(models.Model):
+    clientid = models.ForeignKey(Client,on_delete=models.CASCADE )
+    bankid = models.ForeignKey(AddBank,on_delete=models.CASCADE )
+    estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
+    paymentdate = models.CharField(max_length=50)
+    clientbank = models.CharField(max_length=50)
+    paymentamount = models.IntegerField()

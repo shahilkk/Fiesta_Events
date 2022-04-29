@@ -10,8 +10,8 @@
                 <div class="col-sm-12">
                     <h3 class="page-title">Payments</h3>
                     <ul class="breadcrumb">
-                        <li ><a href="/user/index">Dashboard /</a></li>
-                        <li ><a href="/user/payment">Payments /</a></li>
+                        <li><a href="/user/index">Dashboard /</a></li>
+                        <li><a href="/user/payment">Payments /</a></li>
                         <li class="breadcrumb-item active">Add Payments</li>
                     </ul>
                 </div>
@@ -22,64 +22,165 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="#">
+
+
+                        <!-- ---- -->
+                        {%if payment %}
+                 
+                         <div class="row align-items-center">
+
+                        <div class="col-auto">
+                            <div class="invoices-create-btn">
+
+                                <a href="/user/indexadvanced/{{ cusmoterdetails.id }}" class="btn badge bg-warning-light">
+                                    Advanced
+                                </a>
+                                <a href="/user/indexpartialy/{{ cusmoterdetails.id }}" class="btn badge bg-danger-light">
+                                    Partically Paid
+                                </a>
+
+                                <a href="/user/indexclosed/{{ cusmoterdetails.id }}" class="btn badge bg-primary-light">
+                                    Closed
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                        {% else %}
+                        <form action="#" method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Date:</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" type="text">
+                                            <input class="form-control datetimepicker" name="paymentdate" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Customer:</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>Select Customer</option>
-                                            <option>Brian Johnson</option>
-                                            <option>Marie Canales</option>
-                                            <option>Barbara Moore</option>
-                                            <option>Greg Lynch</option>
-                                            <option>Karlene Chaidez</option>
-                                        </select>
+                                        <label>Client Name:</label>
+                                        <input type="text" value="{{ cusmoterdetails.clientd.client_name }}" readonly
+                                            name="paymentclientname" class="form-control">
                                     </div>
                                     <div class="form-group">
+                                        <label>Client Bank:</label>
+                                        <input type="text" value="{{ cusmoterdetails.clientd.client_bankname }}"
+                                            readonly name="paymentclientbank" class="form-control">
+                                    </div>
+                                    <!-- <div class="form-group">
                                         <label>Address:</label>
                                         <textarea rows="5" cols="5" class="form-control"
                                             placeholder="Enter Address"></textarea>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Amount:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="paymentamount" class="form-control">
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label>Payment Number:</label>
                                         <input type="text" class="form-control">
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
-                                        <label>Invoice:</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>Select Invoice</option>
-                                            <option value="Afganistan">List Empty</option>
-                                        </select>
+                                        <label> Estimate ID:</label>
+                                        <input type="text" value="{{ cusmoterdetails.id }}" name="paymentestimateid"
+                                            readonly class="form-control">
+                                        <input type="hidden" value="{{ cusmoterdetails.clientd.id }}"
+                                            name="paymentclientid" readonly class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Payment Mode:</label>
-                                        <select class="select form-control form-control-lg">
+
+                                        <select class="select form-control form-control-lg" name="paymentcompanybank">
                                             <option>Select Payment Mode</option>
-                                            <option value="Afganistan">Cash</option>
-                                            <option value="Albania">Credit</option>
-                                            <option value="Algeria">Cheque</option>
+                                            {% for i in companybank %}
+                                            <option value="{{i.id}}">{{i.bank_name}} </option>
+                                            {% endfor %}
                                         </select>
                                     </div>
+
+                                   
                                     <div class="text-end mt-4">
                                         <button type="submit" class="btn btn-primary">Add Payments</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
+                        {% endif %}
+
+                        <!-- ------ -->
+                        <!-- <form action="#" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Date:</label>
+                                        <div class="cal-icon">
+                                            <input class="form-control datetimepicker" name="paymentdate" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Client Name:</label>
+                                        <input type="text" value="{{ cusmoterdetails.clientd.client_name }}" readonly
+                                            name="paymentclientname" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Client Bank:</label>
+                                        <input type="text" value="{{ cusmoterdetails.clientd.client_bankname }}"
+                                            readonly name="paymentclientbank" class="form-control">
+                                    </div>
+                                  
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Amount:</label>
+                                        <input type="text" name="paymentamount" class="form-control">
+                                    </div>
+                                
+                                    <div class="form-group">
+                                        <label> Estimate ID:</label>
+                                        <input type="text" value="{{ cusmoterdetails.id }}" name="paymentestimateid"
+                                            readonly class="form-control">
+                                        <input type="hidden" value="{{ cusmoterdetails.clientd.id }}"
+                                            name="paymentclientid" readonly class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Payment Mode:</label>
+
+                                        <select class="select form-control form-control-lg" name="paymentcompanybank">
+                                            <option>Select Payment Mode</option>
+                                            {% for i in companybank %}
+                                            <option value="{{i.id}}">{{i.bank_name}} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                   
+                                    <div class="text-end mt-4">
+                                        <button type="submit" class="btn btn-primary">Add Payments</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form> -->
                     </div>
+                    <!-- <div class="row align-items-center">
+
+                        <div class="col-auto">
+                            <div class="invoices-create-btn">
+
+                                <a href="/user/indexadvanced/{{ cusmoterdetails.id }}" class="btn badge bg-warning-light">
+                                    Advanced
+                                </a>
+                                <a href="#" class="btn badge bg-danger-light">
+                                    Partically Paid
+                                </a>
+
+                                <a href="#" class="btn badge bg-primary-light">
+                                    Closed
+                                </a>
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>

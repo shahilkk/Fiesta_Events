@@ -1,6 +1,7 @@
 
+from http import client
 from django.shortcuts import render , redirect 
-from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates
+from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails
 import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -512,9 +513,41 @@ def payment(req):
     return render(req,'payment.html',context)  
 
 
-def addpayment(req):
-    context={"is_payment":True}
-    return render(req,'addpayment.html',context)   
+def addpayment(request,id):
+    companybank = AddBank.objects.all()
+    cusmoterdetails = Estimates.objects.select_related('clientd').get(id=id)
+    if request.method == 'POST':
+        paymentdate = request.POST['paymentdate']
+        paymentclientname = request.POST['paymentclientname']
+        paymentclientbank = request.POST['paymentclientbank']
+        paymentamount = request.POST['paymentamount']
+        paymentestimateid = request.POST['paymentestimateid']
+        paymentcompanybank = request.POST['paymentcompanybank']
+        paymentclientid = request.POST['paymentclientid']
+        
+        # print(paymentcompanybank,paymentclientid,paymentestimateid,paymentdate,paymentclientname,paymentclientbank,paymentamount)
+        clientID= Client.objects.get(id=paymentclientid)  
+        
+        bank=AddBank.objects.get(id=paymentcompanybank)
+
+        estimate = Estimates.objects.get(id=paymentestimateid)
+        
+        print(bank.id)
+        payment = PaymentDetails(clientid=clientID,bankid=bank,estimateId=estimate,paymentdate=paymentdate,paymentamount=paymentamount,clientbank=paymentclientbank)
+        payment.save()
+        context={
+        "is_payment":True,
+        "cusmoterdetails":cusmoterdetails,
+        "companybank":companybank,
+        "payment":payment
+        }
+        return render(request,'addpayment.html',context) 
+    context={
+        "is_payment":True,
+        "cusmoterdetails":cusmoterdetails,
+        "companybank":companybank
+        }
+    return render(request,'addpayment.html',context)   
 
 
 
