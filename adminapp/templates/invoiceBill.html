@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-auto">
                     <div class="invoices-create-btn">
-                        <a class="invoices-preview-link" href="/user/invoicedetails"
+                        <a class="invoices-preview-link" href="/user/invoicedetails/{{ payment.id }}/{{ estime.id }}"
                             data-bs-target="#invoices_preview"><i class="fe fe-eye"></i> Preview</a>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices_details"
                             class="btn delete-invoice-btn">
@@ -86,7 +86,7 @@
                 <div class="card card-table">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-center table-hover ">
+                            <table class="table table-center table-hover .add-table-items1 ">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Product name</th>
@@ -103,7 +103,7 @@
                                         <td> {{ i.est_category }}</td>
                                         <td> {{ i.est_price }}</td>
                                         <td> {{ i.est_qty }}</td>
-                                        <td> {{ i.est_amount }}</td>
+                                        <td id="amount"> {{ i.est_amount }}</td>
                                     </tr>
                                     {% endfor %}
 
@@ -120,7 +120,8 @@
                                         <h4 class="invoice-total-title">Summary</h4>
                                         <div class="invoice-total-box">
                                             <div class="invoice-total-inner">
-                                                <p>Gst <span>5%</span></p>
+                                                <p>Sub Total <span></span></p> 
+                                                <p>Gst (5%)<span></span></p>
                                                
                                                 <div class="links-info-one">
                                                     <div class="links-info">
@@ -212,5 +213,35 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+// $(document).ready(function(){
+//     var rowCount = $(".add-table-items1 tr").length;
+//     alert(rowCount)
+// })
+    
+
+//     function changedqty(rowCount){
+
+
+//     var unitPrice=parseInt($('#price'+rowCount).val())
+//     var qty=parseInt($('#qty'+rowCount).val())
+//     var totalAmount=unitPrice*qty
+//     $('#itemtotal'+rowCount).val(totalAmount)
+
+    
+//     var Available_rowCount = $(".add-table-items tr ").length;
+//     var sum=0
+//     for(var i=1;i<Available_rowCount;i++){
+//         sum+=parseInt($('#itemtotal'+i).val())
+//     }
+//     var gst=sum*5/100;
+//     $('#gst').html(gst)
+//     $('#subtotal').html(sum);
+//     $('#total_amount').html(parseInt(gst+sum))
+// }
+</script>
 
 {% endblock %}

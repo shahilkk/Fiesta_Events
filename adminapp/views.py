@@ -387,9 +387,17 @@ def addinvoice(request):
     return render(request,'addinvoice.html',context)
 
 
-def invoicedetails(req):
-    context={"is_invoice":True}
-    return render(req,'invoicedetails.html',context) 
+def invoicedetails(request,id,estid):
+    print(id,estid)
+    details = EstimateProduct.objects.filter(estimateid=estid)
+    billing = PaymentDetails.objects.select_related('clientid','bankid').get(id=id)
+    
+    context={
+        "is_invoice":True,
+        'billing':billing,
+        "details":details
+        }
+    return render(request,'invoicedetails.html',context) 
 
 
 def editinvoice(req):
@@ -756,12 +764,17 @@ def invoicegetdata(request):
 
 
 def invoicebill(request,id):
-
+    payment = PaymentDetails.objects.get(estimateId_id=id)
+    print(payment)
     details = EstimateProduct.objects.filter(estimateid=id)
-    print(details)
+    estime = Estimates.objects.get(id=id) 
+
+    # print(details.est_amount)
     context={
             "is_estimate":True,
-            "details":details
+            "details":details,
+            "payment":payment,
+            "estime":estime
             
             }
     return render(request,'invoicebill.html',context)

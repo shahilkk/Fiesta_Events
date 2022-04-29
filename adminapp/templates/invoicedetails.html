@@ -1,4 +1,3 @@
-
 {% extends 'master.html' %}
 {% block content %}
 {% load static %}
@@ -45,14 +44,13 @@
                                 <div class="col-md-6">
                                     <div class="invoice-info">
                                         <strong class="customer-text-one">Billed to</strong>
-                                        <h6 class="invoice-name">Customer Name</h6>
+                                        <h6 class="invoice-name">{{ billing.clientid.client_name }}</h6>
                                         <p class="invoice-details invoice-details-two">
-                                            Morayur <br>
-                                            673435 <br>
-                                            GSTIN : 32AAGCE7654A1ZA2 <br>
-                                            Zip code ,City - Country <br>
-                                            9087484288 <br>
-                                            Email <br>
+                                            {{ billing.clientid.client_address }}<br>
+                                            {{ billing.clientid.client_state }} , {{ billing.clientid.client_district }},{{ billing.clientid.client_zipcode }} <br>
+                                            GSTIN : {{ billing.clientid.client_gst_number }} <br>
+                                            {{ billing.clientid.client_phone }}<br>
+                                            {{ billing.clientid.client_email }}<br>
                                         </p>
                                     </div>
                                 </div>
@@ -60,13 +58,12 @@
                                     <div class="invoice-info invoice-info2">
                                         <strong class="customer-text-one">Payment Details</strong>
                                         <p class="invoice-details">
-                                            Debit Card <br>
-                                            XXXXXXXXXXXX-2541 <br>
-                                            HDFC Bank
+                                            
                                         </p>
                                         <div class="invoice-item-box">
-                                            <p>Recurring : 15 Months</p>
-                                            <p class="mb-0">PO Number : 54515454</p>
+                                           
+                                            {{ billing.bankid.bank_ifsc }} <br>
+                                            {{ billing.bankid.bank_name }}
                                         </div>
                                     </div>
                                 </div>
@@ -78,17 +75,17 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4">
                                     <div class="invoice-issues-date">
-                                        <p>Issue Date : 27 Jul 2022</p>
+                                        <p>Issue Date : {{ billing.estimateId.est_fromdate }}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4">
                                     <div class="invoice-issues-date">
-                                        <p>Due Date : 27 Aug 2022</p>
+                                        <p>Due Date : {{ billing.estimateId.est_todate }}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4">
                                     <div class="invoice-issues-date">
-                                        <p>Due Amount : ₹ 1,54,22 </p>
+                                        <p>Due Amount : ₹ {{ billing.estimateId.est_balance }} </p>
                                     </div>
                                 </div>
                             </div>
@@ -106,35 +103,21 @@
                                                     <th>Category</th>
                                                     <th>Rate/Item</th>
                                                     <th>Quantity</th>
-                                                    <th>Discount (%)</th>
-                                                    <th class="text-end">Amount</th>
+                                                    <th  class="text-end">Amount</th>
+                                                
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for i in details %}
                                                 <tr>
-                                                    <td>Mint Lime</td>
-                                                    <td>Wellmone Drink</td>
-                                                    <td>$1,110</td>
-                                                    <th>2</th>
-                                                    <th>2%</th>
-                                                    <td class="text-end">$400</td>
+                                                    <td>{{ i.productid.food_name }} </td>
+                                                    <td> {{ i.est_category }}</td>
+                                                    <td> {{ i.est_price }}</td>
+                                                    <td> {{ i.est_qty }}</td>
+                                                    <td> {{ i.est_amount }}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Biriyani</td>
-                                                    <td>Main Course</td>
-                                                    <td>$1,500</td>
-                                                    <th>3</th>
-                                                    <th>6%</th>
-                                                    <td class="text-end">$3,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mutton Soup</td>
-                                                    <td>Soup</td>
-                                                    <td>$11,500</td>
-                                                    <th>1</th>
-                                                    <th>10%</th>
-                                                    <td class="text-end">$11,000</td>
-                                                </tr>
+                                                {% endfor %}
+                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -157,10 +140,10 @@
                                 <div class="invoice-total-card">
                                     <div class="invoice-total-box">
                                         <div class="invoice-total-inner">
-                                            <p >Sub total  <span>$3,300.00</span></p>
+                                            <p>Sub total <span>$3,300.00</span></p>
                                             <p>GST (5%)<span>$6,660.00</span></p>
                                             <p class="mb-0">Discount <span>$3,300.00</span></p>
-                                            
+
                                         </div>
                                         <div class="invoice-total-footer">
                                             <h4>Total Amount <span>$143,300.00</span></h4>
