@@ -15,9 +15,9 @@
                     </ul>
                 </div>
                 <div class="col-auto">
-                    <a href="/user/addpayment" class="btn btn-primary me-1">
+                    <!-- <a href="/user/addpayment" class="btn btn-primary me-1">
                         <i class="fas fa-plus"></i> Add Payments
-                    </a>
+                    </a> -->
                     <!-- <a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
                         <i class="fas fa-filter"></i>
                     </a> -->
@@ -65,16 +65,44 @@
                             <table class="table table-center table-hover datatable">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Reference ID</th>
+                                        
                                         <th>Customer</th>
                                         <th>Amount</th>
                                         <th>Date</th>
                                         <th>Payment Method</th>
+                                        <th>Estimate ID</th>
                                         <th class="text-end">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for i in paymentlist %}
                                     <tr>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                {{ i.clientid.client_name }}
+                                            </h2>
+                                        </td>
+                                        <td>${{ i.paymentamount }}</td>
+                                       
+                                        <td>{{ i.paymentdate }}</td>
+                                        <td>{{ i.bankid.bank_name }}</td>
+                                        <td>{{ i.estimateId.id }}</td>
+                                        <td class="text-end">
+                                            <a class="btn btn-sm btn-white me-2" href="javascript:void(0);">
+                                                <i class="fas fa-download me-1"></i> PDF
+                                            </a>
+                                            <a class="btn btn-sm btn-white" href="/user/invoicedetails">
+                                                <i class="far fa-eye me-1"></i> View
+                                            </a>
+                                        </td>
+                                       
+                                    </tr>
+
+
+                                    
+                                    {% endfor %}
+
+                                    <!-- <tr>
                                         <td><a href="javascript:void(0);">#3682303</a></td>
                                         <td>
                                             <h2 class="table-avatar">
@@ -92,27 +120,8 @@
                                                 <i class="far fa-eye me-1"></i> View
                                             </a>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="javascript:void(0);">#875642</a></td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                Greg Lynch
-                                            </h2>
-                                        </td>
-                                        <td>$582</td>
-                                        <td>6 Nov 2020</td>
-                                        <td>Visa <strong>3654</strong></td>
-                                        <td class="text-end">
-                                            <a class="btn btn-sm btn-white me-2" href="javascript:void(0);">
-                                                <i class="fas fa-download me-1"></i> PDF
-                                            </a>
-                                            <a class="btn btn-sm btn-white" href="/user/invoicedetails">
-                                                <i class="far fa-eye me-1"></i> View
-                                            </a>
-                                        </td>
-                                    </tr>
-                                  
+                                    </tr> -->
+                                   
                                
                                   
                                 </tbody>

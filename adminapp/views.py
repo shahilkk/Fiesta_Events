@@ -19,6 +19,7 @@ def index(req):
     advanced = Estimates.objects.filter(est_status ='Advanced').all()
     paritialy = Estimates.objects.filter(est_status ='Partialy Paid').all()
     closed = Estimates.objects.filter(est_status ='Closed').all()
+    bank = AddBank.objects.all()
 
     context={
         "is_index":True,
@@ -26,7 +27,8 @@ def index(req):
         'billed':billed,
         'advanced':advanced,
         'paritialy':paritialy,
-        'closed':closed
+        'closed':closed,
+        'bank':bank
         }
     return render(req,'index.html',context) 
 
@@ -508,9 +510,13 @@ def delete(request,id):
 
 
 
-def payment(req):
-    context={"is_payment":True}
-    return render(req,'payment.html',context)  
+def payment(request):
+    paymentlist = PaymentDetails.objects.all()
+    context={
+        "is_payment":True,
+        'paymentlist':paymentlist
+        }
+    return render(request,'payment.html',context)  
 
 
 def addpayment(request,id):
@@ -527,14 +533,17 @@ def addpayment(request,id):
         
         # print(paymentcompanybank,paymentclientid,paymentestimateid,paymentdate,paymentclientname,paymentclientbank,paymentamount)
         clientID= Client.objects.get(id=paymentclientid)  
-        
         bank=AddBank.objects.get(id=paymentcompanybank)
-
         estimate = Estimates.objects.get(id=paymentestimateid)
-        
-        print(bank.id)
         payment = PaymentDetails(clientid=clientID,bankid=bank,estimateId=estimate,paymentdate=paymentdate,paymentamount=paymentamount,clientbank=paymentclientbank)
         payment.save()
+        qunless =Estimates.objects.get(id=paymentestimateid)
+        qunless.est_balance = qunless.est_balance-int(paymentamount)
+        print(qunless.est_balance)
+        qunless.save()
+        addamount =AddBank.objects.get(id=paymentcompanybank)
+        addamount.bank_balance=addamount.bank_balance + int(paymentamount)
+        addamount.save()
         context={
         "is_payment":True,
         "cusmoterdetails":cusmoterdetails,

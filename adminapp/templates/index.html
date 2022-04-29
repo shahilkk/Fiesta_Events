@@ -10,18 +10,20 @@
 <div class="page-wrapper">
     <div class="content container-fluid">
         <div class="row">
+            
+            {% for bank in bank %}
             <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card bg-primary text-white">
+                <div class="card ">
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class=" bg-1">
 
                             </span>
                             <div class="dash-count">
-                                <div class="dash-title" style="font-size: 12px; font-weight: 900;">State Bank Of India
+                                <div class="dash-title" style="font-size: 12px; font-weight: 900;"> {{bank.bank_name}}
                                 </div>
                                 <div class="dash-counts">
-                                    <p>1,642</p>
+                                    <p>{{bank.bank_balance}}</p>
                                 </div>
                             </div>
                         </div>
@@ -30,62 +32,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card text-white bg-info">
-                    <div class="card-body">
-                        <div class="dash-widget-header">
-                            <span class=" bg-2">
-
-                            </span>
-                            <div class="dash-count">
-                                <div class="dash-title">Federal Bank</div>
-                                <div class="dash-counts">
-                                    <p>3,642</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card text-white bg-warning">
-                    <div class="card-body">
-                        <div class="dash-widget-header">
-                            <span class=" bg-3">
-
-                            </span>
-                            <div class="dash-count">
-                                <div class="dash-title" style="font-size: 14px; font-weight: 900;">South Indian Bank
-                                </div>
-                                <div class="dash-counts">
-                                    <p>1,041</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card text-white bg-success ">
-                    <div class="card-body">
-                        <div class="dash-widget-header">
-                            <span class=" bg-4">
-
-
-                            </span>
-                            <div class="dash-count ">
-                                <div class="dash-title">Cash</div>
-                                <div class="dash-counts">
-                                    <p>2,150</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+           
+            
         </div>
 
 
@@ -113,8 +62,8 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>Customer</th>
-                                                <th>Amount</th>
                                                 <th>Due Date</th>
+                                                <th>Amount</th>
                                                 <th class="text-right">Action</th>
                                             </tr>
                                         </thead>
@@ -181,8 +130,8 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>Customer</th>
-                                                <th>Amount</th>
                                                 <th>Due Date</th>
+                                                <th>Amount</th>
                                                 <th class="text-right">Action</th>
                                             </tr>
                                         </thead>
@@ -208,9 +157,9 @@
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
                                                             <a class="dropdown-item" href="/user/editestimate"><i
                                                                     class="far fa-eye me-2"></i>View</a>
-                                                            <a class="dropdown-item" href="indexpartialy/{{ i.id }}"><i
+                                                            <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
                                                                     class="far fa-paper-plane me-2"></i>Partialy Paid</a>
-                                                            <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
+                                                            <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
                                                                     class="far fa-times-circle me-2"></i>Closed</a>
                                                         </div>
                                                     </div>
@@ -246,8 +195,8 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>Customer</th>
-                                                <th>Amount</th>
                                                 <th>Due Date</th>
+                                                <th>Amount</th>
                                                 <th class="text-right">Action</th>
                                             </tr>
                                         </thead>
@@ -273,7 +222,7 @@
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
                                                             <a class="dropdown-item" href="/user/editestimate"><i
                                                                     class="far fa-eye me-2"></i>View</a>
-                                                            <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
+                                                            <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
                                                                     class="far fa-times-circle me-2"></i>Closed</a>
                                                         </div>
                                                     </div>
@@ -309,8 +258,8 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>Customer</th>
-                                                <th>Amount</th>
                                                 <th>Due Date</th>
+                                                <th>Amount</th>
                                                 <th class="text-right">Action</th>
                                             </tr>
                                         </thead>
