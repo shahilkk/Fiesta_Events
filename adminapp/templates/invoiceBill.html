@@ -20,8 +20,9 @@
                     </ul>
                 </div>
                 <div class="col-auto">
+                    <input type="hidden" id="estimateId-input" value="{{ estime.id }}">
                     <div class="invoices-create-btn">
-                        <a class="invoices-preview-link" href="/user/invoicedetails/{{ payment.id }}/{{ estime.id }}"
+                        <a id="previelink" class="invoices-preview-link" href="/user/invoicedetails/{{ estime.id }}"
                             data-bs-target="#invoices_preview"><i class="fe fe-eye"></i> Preview</a>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices_details"
                             class="btn delete-invoice-btn">
@@ -111,50 +112,55 @@
                             </table>
                         </div>
                         <div class="row">
-                                <div class="col-lg-7 col-md-6">
-                                    
-                                   
-                                </div>
-                                <div class="col-lg-5 col-md-6">
-                                    <div class="invoice-total-card">
-                                        <h4 class="invoice-total-title">Summary</h4>
-                                        <div class="invoice-total-box">
-                                            <div class="invoice-total-inner">
-                                                <p>Sub Total <span></span></p> 
-                                                <p>Gst (5%)<span></span></p>
-                                               
-                                                <div class="links-info-one">
-                                                    <div class="links-info">
-                                                        <div class="links-cont">
-                                                            <a href="#" class="service-trash">
-                                                                <i class="feather-trash-2"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                               
-                                                <div class="links-info-discount">
-                                                    <div class="links-cont-discount">
-                                                      
-                                                        <a href="#" class="service-trash-one">
+                            <div class="col-lg-7 col-md-6">
+
+
+                            </div>
+                            <div class="col-lg-5 col-md-6">
+                                <div class="invoice-total-card">
+                                    <h4 class="invoice-total-title">Summary</h4>
+                                    <div class="invoice-total-box">
+                                        <div class="invoice-total-inner">
+                                            <p>Sub Total <span> ₹ {{ totalAmonut }}</span></p>
+                                            <p>Gst (5%)<span> ₹ {{ gsttotal }}</span></p>
+                                            <p>Sgst (2.5%)<span> ₹ {{ sgst }}</span></p>
+                                            <p>Cgst (2.5%)<span> ₹ {{ sgst }}</span></p>
+                                             <input type="hidden" value="{{ grandtotal }}" name="" id="grand">
+                                            <p>Discount<span> :-<input style="border: none;  " type="text" name="" value="" id="discount"></span>
+                                            </p>
+
+                                            <div class="links-info-one">
+                                                <div class="links-info">
+                                                    <div class="links-cont">
+                                                        <a href="#" class="service-trash">
                                                             <i class="feather-trash-2"></i>
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="invoice-total-footer">
-                                                <h4>Total Amount <span>$ 894.00</span></h4>
+
+                                            <div class="links-info-discount">
+                                                <div class="links-cont-discount">
+
+                                                    <a href="#" class="service-trash-one">
+                                                        <i class="feather-trash-2"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="upload-sign">
-                                      
-                                        <div class="form-group float-end mb-0">
-                                            <button class="btn btn-primary" type="submit">Save Invoice</button>
+                                        <div class="invoice-total-footer">
+                                            <h4>Total Amount <span id="Grandtotal"> ₹ {{ grandtotal }}</span></h4>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="upload-sign">
+
+                                    <div class="form-group float-end mb-0">
+                                        <button class="btn btn-primary" type="submit">Save Invoice</button>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -217,11 +223,15 @@
 
 <script>
 
-// $(document).ready(function(){
-//     var rowCount = $(".add-table-items1 tr").length;
-//     alert(rowCount)
-// })
-    
+$('#discount').change(function(){
+    total = $('#grand').val()
+    discount = $('#discount').val()
+    grandtotal = total-discount
+    $('#Grandtotal').html('₹' + parseInt(grandtotal))
+    var estID=$('#estimateId-input').val()
+    document.getElementById("previelink").href = "/user/invoicedetails/"+estID+"/?discount="+discount;
+})
+
 
 //     function changedqty(rowCount){
 
@@ -231,7 +241,7 @@
 //     var totalAmount=unitPrice*qty
 //     $('#itemtotal'+rowCount).val(totalAmount)
 
-    
+
 //     var Available_rowCount = $(".add-table-items tr ").length;
 //     var sum=0
 //     for(var i=1;i<Available_rowCount;i++){

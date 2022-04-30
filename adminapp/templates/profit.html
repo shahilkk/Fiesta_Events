@@ -78,23 +78,22 @@
                             <table class="table table-center table-hover datatable">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Category</th>
+                                        <th>Customer_ID</th>
                                         <th>Customer</th>
+                                        <th>Category</th>
                                         <th>Profit Date</th>
                                         <th>Amount</th>
                                         <th class="text-end">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for i in profitlist %}
                                     <tr>
-                                        <td>Advertising</td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                Barbara Moore
-                                            </h2>
-                                        </td>
-                                        <td>15 Nov 2020</td>
-                                        <td>$145</td>
+                                        <td>{{ i.clientid.client_id }} </td>
+                                        <td>{{ i.clientid.client_name }} </td>
+                                        <td> {{ i.profitandlosscategory }}</td>
+                                        <td> {{ i.profitandlossdate }}</td>
+                                        <td> {{ i.profitandloassamount }}</td>
                                         <td class="text-end">
                                            
                                             <a href="javascript:void(0);"
@@ -102,39 +101,7 @@
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Marketing</td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                Brian Johnson
-                                            </h2>
-                                        </td>
-                                        <td>11 Nov 2020</td>
-                                        <td>$254</td>
-                                        <td class="text-end">
-                                         
-                                            <a href="javascript:void(0);"
-                                                class="btn btn-sm btn-white text-danger"><i
-                                                    class="far fa-trash-alt me-1"></i>Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Software</td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                Greg Lynch
-                                            </h2>
-                                        </td>
-                                        <td>23 Oct 2020</td>
-                                        <td>$145</td>
-                                        <td class="text-end">
-                                            
-                                            <a href="javascript:void(0);"
-                                                class="btn btn-sm btn-white text-danger"><i
-                                                    class="far fa-trash-alt me-1"></i>Delete</a>
-                                        </td>
-                                    </tr>
-                                  
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

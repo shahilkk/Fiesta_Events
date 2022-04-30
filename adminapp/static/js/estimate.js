@@ -90,7 +90,7 @@ $(document).on("click", ".add-btn", function () {
         '<td class="add-remove text-end">' +
         '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
         '<a href="#" class="copy-btn me-2"><i class="fas fa-copy"></i></a>' +
-        '<a href="javascript:void(0);" class="remove-btn"><i class="fas fa-trash"></i></a>' +
+        '<a href="javascript:void(0);" onclick="DeleteRow(' + rowCount + ')" class="remove-btn"><i class="fas fa-trash"></i></a>' +
         '</td>' +
         '</tr>';
 
@@ -108,5 +108,15 @@ function changeqty(id) {
     var total=$("#total" ).html()
     completeTotal = parseInt(total)  + amount
     $("#total").html(completeTotal)
+}
+
+function DeleteRow(id){
+
+    var completeTotal =0
+    var amount=parseInt($("#amount" + id).val())
+    var total=$("#total" ).html()
+    completeTotal = parseInt(total)  - amount
+    $("#total").html(completeTotal)
+
 }
 

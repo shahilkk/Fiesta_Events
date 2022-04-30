@@ -1,5 +1,6 @@
 
 from http import client
+from unicodedata import category
 from xmlrpc.client import Boolean
 from django.db import models
 
@@ -80,6 +81,7 @@ class Estimates(models.Model):
     est_todate = models.CharField(max_length=50)
     est_balance = models.IntegerField(default=0)
     est_status = models.CharField(max_length=50 , default='Pending' )
+    est_active = models.BooleanField(default=True)
     class Meta:
         db_table = 'estimates'
 
@@ -109,3 +111,12 @@ class PaymentDetails(models.Model):
     paymentdate = models.CharField(max_length=50)
     clientbank = models.CharField(max_length=50)
     paymentamount = models.IntegerField()
+
+
+class ProfitsandLoss(models.Model):
+    clientid = models.ForeignKey(Client,on_delete=models.CASCADE )
+    profitandlosscategory = models.CharField(max_length=50)
+    profitandlossnote = models.CharField(max_length=3000)
+    profitandlossdate = models.CharField(max_length=50)
+    profitandloassamount = models.IntegerField()
+    profitandlosstatus = models.CharField(max_length=50)

@@ -13,7 +13,7 @@ urlpatterns = [
     path('invoiceList',views.invoiceList,name="invoiceList"),
     path('editinvoice',views.editinvoice,name="editinvoice"),
     path('addinvoice',views.addinvoice,name="addinvoice"),
-    path('invoicedetails/<str:id>/<str:estid>',views.invoicedetails,name="invoicedetails"),
+    path('invoicedetails/<str:id>/',views.invoicedetails,name="invoicedetails"),
     path('bank',views.bank,name="bank"),
     path('products',views.products,name="products"),
     path('editestimate',views.editestimate,name="editestimate"),
@@ -23,7 +23,7 @@ urlpatterns = [
     path('addexpenses',views.addexpenses,name="addexpenses"),
     path('profit',views.profit,name="profit"),
     path('addprofit',views.addprofit,name="addprofit"),
-    path('viewestimate',views.viewestimate,name="viewestimate"),
+    path('viewestimate/<str:id>',views.viewestimate,name="viewestimate"),
     path('editcustomer/<str:id>',views.editcustomer,name="editcustomer"),
     path('addestimate',views.addestimate,name="addestimate"),
     path('filter',views.filter,name="filter"),
@@ -45,6 +45,8 @@ urlpatterns = [
     path('est_product',views.est_product,name="est_product"),
     path('createestimate',views.createestimate,name="createestimate"),
     path('invoicebill/<str:id>',views.invoicebill,name="invoicebill"),
+
+    path('Delectestimate/<str:id>',views.Delectestimate,name="Delectestimate"),
 
 
     path('indexbill/<str:id>',views.indexbill,name="indexbill"),

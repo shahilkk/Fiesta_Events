@@ -1,7 +1,7 @@
 
 from http import client
 from django.shortcuts import render , redirect 
-from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails
+from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,ProfitsandLoss
 import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -14,11 +14,11 @@ def master(req):
     return render(req,'master.html')
 
 def index(req):
-    pending = Estimates.objects.filter(est_status ='Pending').all()
-    billed = Estimates.objects.filter(est_status ='Billed').all()
-    advanced = Estimates.objects.filter(est_status ='Advanced').all()
-    paritialy = Estimates.objects.filter(est_status ='Partialy Paid').all()
-    closed = Estimates.objects.filter(est_status ='Closed').all()
+    pending = Estimates.objects.filter(est_status ='Pending',est_active=True).all()
+    billed = Estimates.objects.filter(est_status ='Billed',est_active=True).all()
+    advanced = Estimates.objects.filter(est_status ='Advanced',est_active=True).all()
+    paritialy = Estimates.objects.filter(est_status ='Partialy Paid',est_active=True).all()
+    closed = Estimates.objects.filter(est_status ='Closed',est_active=True).all()
     bank = AddBank.objects.all()
 
     context={
@@ -68,15 +68,23 @@ def customer(req):
 
 def addcustomer(request):
    
-    context={"is_customer":True}
-    rand=random.randint(10000,9999999)
-    client_uid = 'CLT'+str(rand)
+    # context={"is_customer":True}
+    # rand=random.randint(10000,9999999)
+    # client_uid = 'CLT'+str(rand)
     # if Estimate.objects.exists():
     #     est = Estimate.objects.last().id
     #     est_id = 'EST'+int(10+est)
     # else:
     #     est=0
     #     est_id = 'EST'+int(10+est)
+
+
+    if Client.objects.exists():
+        est = Client.objects.last().id
+        est_id = 'CLT'+str(1001+est)
+    else:
+        est=0
+        est_id = 'VMINS'+str(1001+est)
     if request.method=='POST':
        
         client_name=request.POST['client_name']
@@ -95,12 +103,15 @@ def addcustomer(request):
         client_contact_type=request.POST['client_contact_type']
         print(client_name)
         client_add=Client(client_name=client_name,client_gst_number=client_gst_number
-        ,client_id=client_uid,client_phone=client_phone,client_email=client_email,
+        ,client_id=est_id,client_phone=client_phone,client_email=client_email,
         client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
         ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp,client_actnnumber=client_actnnumber, client_ifsc=client_ifsc, client_bankname=client_bankname, client_bankholder=client_bankholder )
         client_add.save()
         return redirect('/user/customer')
+    context={
+        "is_customer":True,
        
+        }   
     return render(request,'addcustomer.html',context) 
 
 
@@ -363,10 +374,28 @@ def editestimate(req):
     return render(req,'editestimate.html',context)   
 
 
-def viewestimate(req):
-    context={"is_estimate":True}
-    return render(req,'viewestimate.html',context) 
+def viewestimate(request,id):
+    print(id)
+    clientdetails = Estimates.objects.select_related('clientd').get(id=id)
+    details = EstimateProduct.objects.filter(estimateid=id)
+    estid= EstimateProduct.objects.filter(estimateid=id)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    print(clientdetails,details)
 
+    context={
+        "is_estimate":True,
+        "clientdetails":clientdetails,
+        "details":details,
+        "totalAmonut":totalAmonut
+        }
+    return render(request,'viewestimate.html',context) 
+
+
+
+def Delectestimate(request,id):
+    delectestimate =  Estimates.objects.filter(id=id).update(est_active=False)
+    return redirect('/user/index')
 
 
 def invoicegrid(req):
@@ -375,7 +404,33 @@ def invoicegrid(req):
   
 
 def invoiceList(req):
-    context={"is_invoice":True}
+    alllist = Estimates.objects.filter(est_active=True).all()
+    billed = Estimates.objects.filter(est_status ='Billed').all().count()
+    totalbilled=Estimates.objects.filter(est_status ='Billed').aggregate(Sum('est_balance'))
+    totalAmonutbilled = totalbilled['est_balance__sum']
+    advanced = Estimates.objects.filter(est_status ='Advanced').all().count()
+    totaladvanced=Estimates.objects.filter(est_status ='Advanced').aggregate(Sum('est_balance'))
+    totalAmonutadvanced = totaladvanced['est_balance__sum']
+    paritialy = Estimates.objects.filter(est_status ='Partialy Paid').all().count()
+    totalparitialy=Estimates.objects.filter(est_status ='Partialy Paid').aggregate(Sum('est_balance'))
+    totalAmonutparitialy = totalparitialy['est_balance__sum']
+    closed = Estimates.objects.filter(est_status ='Closed').all().count()
+    totalclosed=Estimates.objects.filter(est_status ='Closed').aggregate(Sum('est_balance'))
+    totalAmonutclosed = totalclosed['est_balance__sum']
+
+    context={
+        "is_invoice":True,
+        "alllist":alllist,
+        "billed":billed,
+        "advanced":advanced,
+        "paritialy":paritialy,
+        "closed":closed,
+        "totalAmonutbilled":totalAmonutbilled,
+        "totalAmonutadvanced":totalAmonutadvanced,
+        "totalAmonutparitialy":totalAmonutparitialy,
+        "totalAmonutclosed":totalAmonutclosed
+       
+        }
     return render(req,'invoiceList.html',context) 
 
 
@@ -387,10 +442,13 @@ def addinvoice(request):
     return render(request,'addinvoice.html',context)
 
 
-def invoicedetails(request,id,estid):
-    print(id,estid)
-    details = EstimateProduct.objects.filter(estimateid=estid)
-    billing = PaymentDetails.objects.select_related('clientid','bankid').get(id=id)
+def invoicedetails(request,id):
+    # print(id,estid)
+    print(id)
+    details = EstimateProduct.objects.filter(estimateid=id)
+    eid= Estimates.objects.get(id=id)
+    billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
+    print(billing)
     
     context={
         "is_invoice":True,
@@ -568,33 +626,73 @@ def addpayment(request,id):
 
 
 
-def expenses(req):
-    context={"is_expenses":True}
-    return render(req,'expenses.html',context)          
+def expenses(request):
+    expenselist = ProfitsandLoss.objects.filter(profitandlosstatus='Expences').all()
+    context={
+        "is_expenses":True,
+        "expenselist":expenselist
+    }
+    return render(request,'expenses.html',context)          
 
 
 
-def addexpenses(req):
-    context={"is_expenses":True}
-    return render(req,'addexpence.html',context)
+def addexpenses(request):
+
+    if request.method=='POST':
+        category=request.POST['category']
+        note=request.POST['note']
+        date=request.POST['date']
+        phone=request.POST['phone']
+        amount=request.POST['amount']
+        print(category,note,date,phone,amount)
+        clientid= Client.objects.get(client_phone=phone)
+        expencevalue = ProfitsandLoss(clientid=clientid, profitandlosscategory=category,profitandlossnote=note, profitandlossdate=date, profitandloassamount=amount ,profitandlosstatus='Expences')
+        expencevalue.save()
+        return redirect('/user/expenses')
+
+
+    context={
+        "is_expenses":True,
+    }
+    return render(request,'addexpence.html',context)
 
 
 
-def profit(req):
-    context={"is_profit":True}
-    return render(req,'profit.html',context)          
+def profit(request):
+    profitlist = ProfitsandLoss.objects.filter(profitandlosstatus='Profit').all()
+
+    context={
+        "is_profit":True,
+        "profitlist":profitlist
+        }
+    return render(request,'profit.html',context)          
 
 
 
-def addprofit(req):
-    context={"is_profit":True}
-    return render(req,'addprofit.html',context)
+def addprofit(request):
+    if request.method=='POST':
+        category=request.POST['category']
+        note=request.POST['note']
+        date=request.POST['date']
+        phone=request.POST['phone']
+        amount=request.POST['amount']
+        print(category,note,date,phone,amount)
+        clientid= Client.objects.get(client_phone=phone)
+        profitvalue = ProfitsandLoss(clientid=clientid, profitandlosscategory=category,profitandlossnote=note, profitandlossdate=date, profitandloassamount=amount ,profitandlosstatus='Profit')
+        profitvalue.save()
+        return redirect('/user/profit')
+    context={
+        "is_profit":True,
+        }
+
+
+    return render(request,'addprofit.html',context)
 
 
 
 
 def filter(req):
-    alllist = Estimates.objects.all()
+    alllist = Estimates.objects.filter(est_active=True).all()
     billed = Estimates.objects.filter(est_status ='Billed').all()
     advanced = Estimates.objects.filter(est_status ='Advanced').all()
     paritialy = Estimates.objects.filter(est_status ='Partialy Paid').all()
@@ -709,8 +807,9 @@ def est_product(request):
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
+    gsttotal =totalAmonut*5/100
     print(totalvalue)
-    total=Estimates.objects.filter(id=estimateid).update(est_balance=totalAmonut)
+    total=Estimates.objects.filter(id=estimateid).update(est_balance=gsttotal)
     return JsonResponse({'msg':'data inserted sucess'})
 
 
@@ -764,17 +863,31 @@ def invoicegetdata(request):
 
 
 def invoicebill(request,id):
-    payment = PaymentDetails.objects.get(estimateId_id=id)
+    # payment = PaymentDetails.objects.filter(estimateId_id=id)
+
     print(payment)
     details = EstimateProduct.objects.filter(estimateid=id)
     estime = Estimates.objects.get(id=id) 
-
+    estid= EstimateProduct.objects.filter(estimateid=id)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    print(totalAmonut)
+    gsttotal =totalAmonut*5/100
+    sgst = (totalAmonut*5/100)/2
+    print(gsttotal)
+    grandtotal = totalAmonut + gsttotal
+    print(grandtotal)
     # print(details.est_amount)
     context={
             "is_estimate":True,
             "details":details,
-            "payment":payment,
-            "estime":estime
+            # "payment":payment,
+            "estime":estime,
+            "totalAmonut":totalAmonut,
+            "gsttotal":gsttotal,
+            "grandtotal":grandtotal,
+            "sgst":sgst
+            
             
             }
     return render(request,'invoicebill.html',context)
