@@ -120,3 +120,10 @@ class ProfitsandLoss(models.Model):
     profitandlossdate = models.CharField(max_length=50)
     profitandloassamount = models.IntegerField()
     profitandlosstatus = models.CharField(max_length=50)
+
+
+
+class Terms(models.Model):
+    estimateid = models.ForeignKey(Estimates,on_delete=models.CASCADE )
+    term = models.CharField(max_length=5000)
+    note = models.CharField(max_length=3000)

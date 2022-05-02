@@ -1,12 +1,14 @@
 
 from http import client
+from turtle import update
 from django.shortcuts import render , redirect 
-from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,ProfitsandLoss
+from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,ProfitsandLoss,Terms
 import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 from django.db.models import Avg, Count, Min, Sum
+from django.db.models import Q
 # Create your views here.
 
 
@@ -232,11 +234,29 @@ def deletestaff(request,id):
 
 
 def Estimate(request):
-    estimates = Estimates.objects.all()
-    context={
-        "is_estimate":True,
-        'estimateList':estimates
-        }
+    if request.method=='POST':
+        fromdate=request.POST['fromdate']
+        todate=request.POST['todate']
+        field=request.POST['field']
+        
+        srch_date=Estimates.objects.filter(Q(est_fromdate__icontains=fromdate) | Q(est_todate__icontains=todate) | Q(est_status__icontains=field))
+        if srch_date.exists():
+            context={
+            "is_estimate":True,
+            'srch_date':srch_date
+            }
+        else:
+            estimates = Estimates.objects.all()
+            context={
+            "is_estimate":True,
+            'estimateList':estimates
+            }
+    else:
+        estimates = Estimates.objects.all()
+        context={
+            "is_estimate":True,
+            'estimateList':estimates
+            }
 
 
     
@@ -292,12 +312,13 @@ def addestimate(request):
     pro = Product.objects.all()
 
     if request.method=='POST':
-        clientid=request.POST['checkname']
+        checkphone=request.POST['checkphone']
+        clientid = Client.objects.get(client_phone=checkphone)
         print(clientid)
         
         fromdate=request.POST['dataform']
         todate=request.POST['todate']
-        est_id = Client.objects.get(id=clientid)
+        est_id = Client.objects.get(id=clientid.id)
         print(est_id)
         esti=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
         esti.save()
@@ -369,9 +390,36 @@ def addcat(request):
 
    
 
-def editestimate(req):
-    context={"is_estimate":True}
-    return render(req,'editestimate.html',context)   
+def editestimate(request,id):
+    pro = Product.objects.all()
+    estimate = Estimates.objects.get(id=id)
+    class ProductList:
+        def __init__(self,index,item,priceper_head,priceper_kg) :
+            self.index=index
+            self.item = item
+            self.priceper_head = priceper_head
+            self.priceper_kg = priceper_kg
+    estimateItemsList =[]  
+    estimateItems=EstimateProduct.objects.filter(estimateid=estimate)
+    i=1
+    for estimateitem in estimateItems:
+        propPricePerHead=estimateitem.productid.priceper_head
+        propPricePerKG=estimateitem.productid.priceper_kg
+        estimateItemsList.append(ProductList(i,estimateitem,propPricePerHead,propPricePerKG))
+        i+=1
+
+    details = EstimateProduct.objects.filter(estimateid=id)
+    estimte= Estimates.objects.select_related('clientd').get(id=id)
+    print(details,estimte)
+    # print(estimateItemsList.product.priceper_head)
+    context={
+        "is_estimate":True,
+        "estimte":estimte,
+        "details":details,
+        "pro":pro,
+        "estimateItemsList":estimateItemsList
+        }
+    return render(request,'editestimate.html',context)   
 
 
 def viewestimate(request,id):
@@ -381,13 +429,18 @@ def viewestimate(request,id):
     estid= EstimateProduct.objects.filter(estimateid=id)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
-    print(clientdetails,details)
+    gsttotal =totalAmonut*5/100
+    total = totalAmonut + gsttotal
+    # print(clientdetails,details)
 
     context={
         "is_estimate":True,
         "clientdetails":clientdetails,
         "details":details,
-        "totalAmonut":totalAmonut
+        "totalAmonut":totalAmonut,
+        "gsttotal":gsttotal,
+        "total":total
+        
         }
     return render(request,'viewestimate.html',context) 
 
@@ -444,16 +497,37 @@ def addinvoice(request):
 
 def invoicedetails(request,id):
     # print(id,estid)
-    print(id)
+    discount=request.GET['discount']
+    
+    print(id,discount)
     details = EstimateProduct.objects.filter(estimateid=id)
     eid= Estimates.objects.get(id=id)
     billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
     print(billing)
+    termandnote =Terms.objects.get(estimateid=id)
+
+    estid= EstimateProduct.objects.filter(estimateid=id)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    print(totalAmonut)
+    gsttotal =totalAmonut*5/100
+    # sgst = (totalAmonut*5/100)/2
+    # print(gsttotal,sgst)
+    total = totalAmonut + gsttotal
+    grandtotal = total-int(discount)
+    print(total,grandtotal)
     
     context={
         "is_invoice":True,
         'billing':billing,
-        "details":details
+        "details":details,
+        "totalAmonut":totalAmonut,
+        "gsttotal":gsttotal,
+        "discount":discount,
+        "grandtotal":grandtotal,
+        "termandnote":termandnote
+
+
         }
     return render(request,'invoicedetails.html',context) 
 
@@ -808,9 +882,37 @@ def est_product(request):
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
     gsttotal =totalAmonut*5/100
+    grandtotal= totalAmonut+gsttotal
     print(totalvalue)
-    total=Estimates.objects.filter(id=estimateid).update(est_balance=gsttotal)
+    total=Estimates.objects.filter(id=estimateid).update(est_balance=grandtotal)
     return JsonResponse({'msg':'data inserted sucess'})
+
+
+
+@csrf_exempt
+def est_productupdate(request):
+    estimateid = request.POST['estimateid']
+    print(estimateid)
+    productId = request.POST['productId']
+    print(productId)
+    est_category = request.POST['est_category']
+    est_price = request.POST['est_price']
+    est_amount = request.POST['est_amount']    
+    est_qty = request.POST['est_qty']
+    pro=Product.objects.get(id=productId)
+    print(pro)
+    estim=Estimates.objects.get(id=estimateid)
+    print(estim)
+    updateestimate = EstimateProduct.objects.filter(estimateid=estim).update(estimateid=estim,productid=pro,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
+    estid= EstimateProduct.objects.filter(estimateid=estimateid)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    gsttotal =totalAmonut*5/100
+    grandtotal= totalAmonut+gsttotal
+    print(totalvalue)
+    total=Estimates.objects.filter(id=estimateid).update(est_balance=grandtotal)
+    return JsonResponse({'msg':'data inserted sucess'})
+
 
 
 @csrf_exempt
@@ -864,7 +966,8 @@ def invoicegetdata(request):
 
 def invoicebill(request,id):
     # payment = PaymentDetails.objects.filter(estimateId_id=id)
-
+    
+  
     print(payment)
     details = EstimateProduct.objects.filter(estimateid=id)
     estime = Estimates.objects.get(id=id) 
@@ -891,3 +994,16 @@ def invoicebill(request,id):
             
             }
     return render(request,'invoicebill.html',context)
+
+
+
+@csrf_exempt
+def savenote(request):
+    addterms = request.POST['addterms']
+    addnote = request.POST['addnote']
+    estimateid = request.POST['estimateid']
+    estid = Estimates.objects.get(id=estimateid)
+    print(addnote,addterms,estimateid)
+    add = Terms(estimateid=estid,term=addterms,note=addnote)
+    add.save()
+    return JsonResponse({'msg':'data inserted sucess'})

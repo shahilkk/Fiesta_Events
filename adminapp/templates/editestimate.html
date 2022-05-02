@@ -14,9 +14,9 @@
                 <div class="col-sm-12">
                     <h3 class="page-title">Estimate</h3>
                     <ul class="breadcrumb">
-                        <li ><a href="/user/index">Dashboard /</a></li>
-                        <li ><a href="/user/estimate"> Estimate /</a></li>
-                        <li class="breadcrumb-item active">Add Estimate</li>
+                        <li><a href="/user/index">Dashboard /</a></li>
+                        <li><a href="/user/estimate"> Estimate /</a></li>
+                        <li class="breadcrumb-item active">Edit Estimate</li>
                     </ul>
                 </div>
             </div>
@@ -27,25 +27,21 @@
                 <div class="card">
                     <div class="card-body">
                         <form action="#">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Customer:</label>
-                                        <select class="select form-control form-control-lg">
-                                            <option>Select Customer</option>
-                                            <option>Brian Johnson</option>
-                                            <option>Marie Canales</option>
-                                            <option>Barbara Moore</option>
-                                            <option>Greg Lynch</option>
-                                            <option>Karlene Chaidez</option>
-                                        </select>
+                                        <input class="form-control" value="{{ estimte.clientd.client_name}}"
+                                            type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>From</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" type="text">
+                                            <input class="form-control datetimepicker" value="{{ estimte.est_fromdate}}"
+                                                type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -53,23 +49,24 @@
                                     <div class="form-group">
                                         <label>To</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" type="text">
+                                            <input class="form-control datetimepicker" value="{{ estimte.est_todate}}"
+                                                type="text">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-3">
                                     <div class="form-group">
                                         <label>Estimate Number</label>
-                                        <input type="text" class="form-control">
+                                        <input readonly value="{{ estimte.id }}" id="estimateid" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4 mt-3">
+                                <!-- <div class="col-md-4 mt-3">
                                     <div class="form-group">
                                         <label>Ref Number</label>
                                         <input type="text" class="form-control">
                                     </div>
-                                </div>
-                                <div class="col-md-4">
+                                </div> -->
+                                <!-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Staff Name</label>
                                         <select class="select form-control form-control-lg">
@@ -81,14 +78,16 @@
                                             <option>Karlene Chaidez</option>
                                         </select>
                                     </div>
-                                </div>
-                                
+                                </div> -->
+
                             </div>
                             <div class="table-responsive mt-4">
-                                <table class="table table-hover">
+                                <table class="table table-hover add-table-items">
                                     <thead>
                                         <tr>
-                                            <th>Products</th>
+                                            <th>SL.No</th>
+                                            <th>Food Name</th>
+                                            <th>Category</th>
                                             <th>Quantity</th>
                                             <th>Price per Head / per Kg</th>
                                             <th>Amount</th>
@@ -96,43 +95,63 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        {% for estimateItem in estimateItemsList %}
+                                        <tr class="add-row">
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="text" value="{{estimateItem.index}}" class="form-control">
+                                                
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="hidden" class="form-control" id="productId1">
+                                                <input type="text" class="form-control"
+                                                    value="{{estimateItem.item.productid.food_name}}" id="productName1" list="food"
+                                                    onChange=changedProductname(1)>
+                                                <datalist id="food">
+                                                    {% for i in pro %}
+                                                    <option value="{{i.food_name}}">{{i.food_name}}
+
+                                                    </option>
+                                                    {% endfor %}
+                                                </datalist>
+
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="text" id="category1" value="{{ estimateItem.item.est_category }}"
+                                                    class="form-control">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" id="qty1" value="{{ estimateItem.item.est_qty }}"
+                                                    onChange=changeqty(1) class="form-control">
                                             </td>
+                                            <td>
+
+                                                <select name="" id="priceselect1" value="{{ estimateItem.item.est_price }}" aria-placeholder="{{ estimateItem.item.est_price }}"
+                                                    onChange=changeqty(1) class="form-control">
+                                                    <option value="{{estimateItem.priceper_head}}">{{estimateItem.priceper_head}} Per Head</option>
+                                                    <option value="{{estimateItem.priceper_kg}}">{{estimateItem.priceper_kg}} Per KG</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" id="amount1" value="{{ estimateItem.item.est_amount }}"
+                                                    class="form-control">
+                                            </td>
+
                                             <td class="add-remove text-end">
-                                                <i class="fas fa-plus-circle"></i> <i
-                                                    class="fas fa-minus-circle"></i>
+                                                <a href="javascript:void(0);" id="add" class="add-btn me-2"><i
+                                                        class="fas fa-plus-circle"></i></a>
+                                                <a href="#" class="copy-btn me-2"><i class="fa fa-copy"></i></a><a
+                                                    href="javascript:void(0);" class="remove-btn"><i
+                                                        class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" disabled>
-                                            </td>
-                                            <td class="add-remove text-end">
-                                                <i class="fas fa-plus-circle"></i> <i
-                                                    class="fas fa-minus-circle"></i>
-                                            </td>
-                                        </tr>
+
+                                        {% endfor %}
+
+
+
+
                                     </tbody>
+
                                 </table>
                             </div>
                             <div class="table-responsive mt-4">
@@ -164,7 +183,7 @@
                                 </table>
                             </div>
                             <div class="text-end mt-4">
-                                <button type="submit" class="btn btn-primary">Add Estimate</button>
+                                <button type="submit" id="estimatebutton" class="btn btn-primary">Add Estimate</button>
                             </div>
                         </form>
                     </div>
@@ -177,5 +196,56 @@
 
 
 
+
+
+
+{% endblock %}
+
+
+{% block JS %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+
+
+    $(document).ready(() => {
+        console.log('page loaded')
+     
+
+        // $('#productname').keyup(() => {
+        //     console.log('hi')
+        //     $.ajax({
+        //         url: "bill",
+        //         type: 'POST',
+        //         data: {
+        //             'productname': $('#productname').val(),
+
+        //         },
+        //         success: function (responce) {
+        //             $('#category').val(responce.product.catagory)
+        //             $('#priceselect').append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per head</option>')
+        //             $('#priceselect').append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
+
+
+        //         }
+
+        //     })
+        // })
+
+
+        // $('#add').click(() => {
+        //     console.log('hi')
+        //     productquantity= $('#Quantity').val()
+        //     productprice= $('#priceselect').val()
+        //     console.log(productprice)
+        //     Total = productquantity*productprice 
+        //     $('#amount').val(Total)
+
+        // })
+    })
+
+</script>
+<script src="{% static 'js/editestimate.js' %}"></script>
 
 {% endblock %}

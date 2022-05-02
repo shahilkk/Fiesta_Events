@@ -129,24 +129,24 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="invoice-terms">
                                     <h6>Notes:</h6>
-                                    <p class="mb-0">Enter customer notes or any other details</p>
+                                    <p class="mb-0">{{ termandnote.note }}</p>
                                 </div>
                                 <div class="invoice-terms">
                                     <h6>Terms and Conditions:</h6>
-                                    <p class="mb-0">Enter customer notes or any other details</p>
+                                    <p class="mb-0">{{ termandnote.term }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="invoice-total-card">
                                     <div class="invoice-total-box">
                                         <div class="invoice-total-inner">
-                                            <p>Sub total <span>$3,300.00</span></p>
-                                            <p>GST (5%)<span>$6,660.00</span></p>
-                                            <p class="mb-0">Discount <span>$3,300.00</span></p>
+                                            <p>Sub total <span> ₹ {{ totalAmonut }}</span></p>
+                                            <p>GST (5%)<span> ₹ {{ gsttotal }}</span></p>
+                                            <p class="mb-0">Discount <span> ₹ {{ discount }} </span></p>
 
                                         </div>
                                         <div class="invoice-total-footer">
-                                            <h4>Total Amount <span>$143,300.00</span></h4>
+                                            <h4>Total Amount <span> ₹ {{ grandtotal }}</span></h4>
                                         </div>
                                     </div>
                                 </div>

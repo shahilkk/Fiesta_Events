@@ -1,11 +1,13 @@
 
 function changedProductname(id) {
-
+    var csrf_token1 = $('[name="csrfmiddlewaretoken"]').val();
     $.ajax({
-        url: "bill",
+        url: "/user/bill",
         type: 'POST',
         data: {
+
             'productname': $('#productName' + id).val(),
+            csrfmiddlewaretoken:csrf_token1
 
         },
         success: function (responce) {
@@ -46,7 +48,7 @@ $('#estimatebutton').click(function () {
         }
         console.log(data)
         $.ajax({
-            url: "/user/est_product",
+            url: "/user/est_productupdate",
             type: 'POST',
             data: data,
             success: function (responce) {
@@ -120,36 +122,3 @@ function DeleteRow(id){
 
 }
 
-
-
-
-
-
-
-
-
-
-
-$('#savenote').click(function () {
-    $.ajax({
-        url: "savenote",
-        type: 'POST',
-        data: {
-            'addterms': $('#addterms').val(),
-            'addnote': $('#addnote').val(),
-            'estimateid': $('#estimateid').val(),
-            
-
-        },
-        success: function (responce) {
-            // $('#category' + id).val(responce.product.catagory)
-            // $('#productId' + id).val(responce.product.id)
-            // $('#priceselect' + id).append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per Head</option>')
-            // $('#priceselect' + id).append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
-            // $("#amount" + id).val(responce.product.priceper_head)
-
-
-        }
-
-    })
-})

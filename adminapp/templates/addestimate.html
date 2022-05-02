@@ -26,8 +26,6 @@
                 <div class="card">
                     <div class="card-body">
                         {%if estimate %}
-                        <h4>{{estimate.id}}</h4>
-                        <h4>{{estimate.est_fromdate}}</h4>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -82,14 +80,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Customer:</label>
-
-                                        <input type="text" class="form-control" name="checkname" list="customer">
+                                        <label>Customer Phone:</label>
+                                            <input type="text" class="form-control" name="checkphone" id="checkname">
+                                        <!-- <input type="text" class="form-control" name="checkname" list="customer">
                                         <datalist id="customer">
                                             {% for i in cust %}
                                             <option value="{{i.id}}">{{i.client_name}}</option>
                                             {% endfor %}
-                                        </datalist>
+                                        </datalist> -->
 
                                     </div>
                                 </div>
@@ -256,7 +254,7 @@
                                                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
                                                     aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                                     <div class="panel-body">
-                                                        <textarea class="form-control"></textarea>
+                                                        <textarea class="form-control" id="addterms"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -277,12 +275,19 @@
                                                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
                                                     aria-labelledby="headingThree" data-bs-parent="#accordion">
                                                     <div class="panel-body">
-                                                        <textarea class="form-control"></textarea>
+                                                        <textarea class="form-control" id="addnote" ></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        
                                     </div>
+                                </div>
+                                <div class="text-end mt-4">
+                                    <!-- <input type="hidden" value="{{estimate.id}}" id="estimateid" class="form-control"> -->
+
+                                    <button type="button" id="savenote" class="btn btn-primary">Savenote</button>
                                 </div>
                             </div>
 
@@ -303,57 +308,7 @@
 </div>
 
 
-<!-- modal -->
-<div class="modal custom-modal fade bank-details" id="bank_details" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="form-header text-start mb-0">
-                    <h4 class="mb-0">Add Bank Details</h4>
-                </div>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="bank-inner-details">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label>Account Holder Name</label>
-                                <input type="text" class="form-control" placeholder="Add Name">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label>Bank name</label>
-                                <input type="text" class="form-control" placeholder="Add Bank name">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label>IFSC Code</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label>Account Number</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="bank-details-btn">
-                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn bank-cancel-btn me-2">Cancel</a>
-                    <a href="javascript:void(0);" class="btn bank-save-btn">Save Item</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 {% endblock %}
@@ -390,15 +345,6 @@
         // })
 
 
-        // $('#add').click(() => {
-        //     console.log('hi')
-        //     productquantity= $('#Quantity').val()
-        //     productprice= $('#priceselect').val()
-        //     console.log(productprice)
-        //     Total = productquantity*productprice 
-        //     $('#amount').val(Total)
-
-        // })
     })
   
 </script>

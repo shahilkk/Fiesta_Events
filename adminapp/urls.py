@@ -16,7 +16,7 @@ urlpatterns = [
     path('invoicedetails/<str:id>/',views.invoicedetails,name="invoicedetails"),
     path('bank',views.bank,name="bank"),
     path('products',views.products,name="products"),
-    path('editestimate',views.editestimate,name="editestimate"),
+    path('editestimate/<str:id>',views.editestimate,name="editestimate"),
     path('payment',views.payment,name="payment"),
     path('addpayment/<str:id>',views.addpayment,name="addpayment"),
     path('expenses',views.expenses,name="expenses"),
@@ -43,6 +43,7 @@ urlpatterns = [
     path('bill',views.bill,name="bill"),
     path('checkexist',views.checkexist,name="checkexist"),
     path('est_product',views.est_product,name="est_product"),
+    path('est_productupdate',views.est_productupdate,name="est_productupdate"),
     path('createestimate',views.createestimate,name="createestimate"),
     path('invoicebill/<str:id>',views.invoicebill,name="invoicebill"),
 
@@ -56,6 +57,8 @@ urlpatterns = [
 
 
     path('invoicegetdata',views.invoicegetdata,name="invoicegetdata"),
+
+    path('savenote',views.savenote,name="savenote"),
     
     # path('formesmimate',views.formesmimate,name="formesmimate"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),

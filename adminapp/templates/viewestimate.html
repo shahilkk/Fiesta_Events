@@ -97,8 +97,19 @@
                                                     <td><span>-10%</span></td>
                                                 </tr> {% endcomment %}
                                                 <tr>
+                                                    <th>Sub Total:</th>
+                                                    <td><span>₹ {{ totalAmonut }}</span></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th>GST (5%):</th>
+                                                    <td><span> ₹ {{ gsttotal }}</span></td>
+                                                    
+                                                </tr>
+                                                <tr>
                                                     <th>Total Amount:</th>
-                                                    <td><span>{{ totalAmonut }}</span></td>
+                                                    <td><span> ₹ {{ total }}</span></td>
+                                                    
                                                 </tr>
                                             </tbody>
                                         </table>
