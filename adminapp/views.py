@@ -224,7 +224,7 @@ def editstaff(request,staff_id):
         "is_marketingstaff":True,
         'staffdetails':staffdetails,
         'status':0
-        }
+        }   
     return render(request,'editstaff.html',context)  
 
 def deletestaff(request,id):
