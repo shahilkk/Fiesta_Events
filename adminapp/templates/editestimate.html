@@ -102,9 +102,9 @@
                                                 
                                             </td>
                                             <td>
-                                                <input type="hidden" class="form-control" id="productId1">
+                                                <input type="hidden" class="form-control" value="{{estimateItem.item.productid.id}}" id="productId{{estimateItem.index}}">
                                                 <input type="text" class="form-control"
-                                                    value="{{estimateItem.item.productid.food_name}}" id="productName1" list="food"
+                                                    value="{{estimateItem.item.productid.food_name}}" id="productName{{estimateItem.index}}" list="food"
                                                     onChange=changedProductname(1)>
                                                 <datalist id="food">
                                                     {% for i in pro %}
@@ -116,23 +116,23 @@
 
                                             </td>
                                             <td>
-                                                <input type="text" id="category1" value="{{ estimateItem.item.est_category }}"
+                                                <input type="text" id="category{{estimateItem.index}}" value="{{ estimateItem.item.est_category }}"
                                                     class="form-control">
                                             </td>
                                             <td>
-                                                <input type="text" id="qty1" value="{{ estimateItem.item.est_qty }}"
-                                                    onChange=changeqty(1) class="form-control">
+                                                <input type="text" id="qty{{estimateItem.index}}" value="{{ estimateItem.item.est_qty }}"
+                                                    onChange=changeqty({{estimateItem.index}}) class="form-control">
                                             </td>
                                             <td>
 
-                                                <select name="" id="priceselect1" value="{{ estimateItem.item.est_price }}" aria-placeholder="{{ estimateItem.item.est_price }}"
-                                                    onChange=changeqty(1) class="form-control">
+                                                <select name="" id="priceselect{{estimateItem.index}}" value="{{ estimateItem.item.est_price }}" aria-placeholder="{{ estimateItem.item.est_price }}"
+                                                    onChange=changeqty({{estimateItem.index}}) class="form-control">
                                                     <option value="{{estimateItem.priceper_head}}">{{estimateItem.priceper_head}} Per Head</option>
                                                     <option value="{{estimateItem.priceper_kg}}">{{estimateItem.priceper_kg}} Per KG</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="text" id="amount1" value="{{ estimateItem.item.est_amount }}"
+                                                <input type="text" id="amount{{estimateItem.index}}" value="{{ estimateItem.item.est_amount }}"
                                                     class="form-control">
                                             </td>
 
@@ -163,7 +163,7 @@
                                             <td></td>
                                             <td></td>
                                             <td class="text-end">Sub Total</td>
-                                            <td class="text-end">0</td>
+                                            <td class="text-end"><span id="total">0</span></td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -177,7 +177,7 @@
                                             <td></td>
                                             <td></td>
                                             <td class="text-end">Total</td>
-                                            <td class="text-end">0</td>
+                                            <td class="text-end"><span id="">0</span></td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -878,6 +878,7 @@ def est_product(request):
     estim=Estimates.objects.get(id=estimateid)
     addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     addest.save()
+    pr
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
@@ -892,18 +893,24 @@ def est_product(request):
 @csrf_exempt
 def est_productupdate(request):
     estimateid = request.POST['estimateid']
-    print(estimateid)
     productId = request.POST['productId']
-    print(productId)
     est_category = request.POST['est_category']
     est_price = request.POST['est_price']
     est_amount = request.POST['est_amount']    
     est_qty = request.POST['est_qty']
-    pro=Product.objects.get(id=productId)
-    print(pro)
-    estim=Estimates.objects.get(id=estimateid)
-    print(estim)
-    updateestimate = EstimateProduct.objects.filter(estimateid=estim).update(estimateid=estim,productid=pro,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
+    print(estimateid,productId,est_category,est_price,est_amount,est_qty)
+    prodid=Product.objects.get(id=productId)
+    estiid=Estimates.objects.get(id=estimateid)
+    if EstimateProduct.objects.filter(estimateid=estiid, productid=prodid ).exists():
+        updateproduct = EstimateProduct.objects.get(estimateid=estiid, productid=prodid )
+        updateproduct.est_category=est_category
+        updateproduct.est_price=est_price
+        updateproduct.est_amount=est_amount
+        updateproduct.est_qty=est_qty
+        updateproduct.save()
+    else:
+        EstimateProduct.objects.create(estimateid=estiid,productid=prodid,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
+    
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
@@ -911,7 +918,17 @@ def est_productupdate(request):
     grandtotal= totalAmonut+gsttotal
     print(totalvalue)
     total=Estimates.objects.filter(id=estimateid).update(est_balance=grandtotal)
-    return JsonResponse({'msg':'data inserted sucess'})
+    data={
+        
+        
+        "totalAmonut":totalAmonut,
+        "gsttotal":gsttotal,
+        "grandtotal":grandtotal
+
+        
+        
+    }
+    return JsonResponse({'msg':'data inserted sucess','details': data})
 
 
 

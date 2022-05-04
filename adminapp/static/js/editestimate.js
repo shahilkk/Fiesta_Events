@@ -52,7 +52,8 @@ $('#estimatebutton').click(function () {
             type: 'POST',
             data: data,
             success: function (responce) {
-                alert(responce.msg)
+                // alert(responce.msg)
+                $('#total').html(responce.details.totalAmonut)
 
 
 

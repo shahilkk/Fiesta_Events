@@ -102,6 +102,8 @@ class EstimateProduct(models.Model):
     est_price = models.IntegerField()
     productid = models.ForeignKey(Product,on_delete=models.CASCADE )
     estimateid = models.ForeignKey(Estimates,on_delete=models.CASCADE )
+    # class Meta:
+    #     unique_together = ('estimateid', 'productid',)
 
 
 class PaymentDetails(models.Model):
@@ -111,7 +113,7 @@ class PaymentDetails(models.Model):
     paymentdate = models.CharField(max_length=50)
     clientbank = models.CharField(max_length=50)
     paymentamount = models.IntegerField()
-
+ 
 
 class ProfitsandLoss(models.Model):
     clientid = models.ForeignKey(Client,on_delete=models.CASCADE )
