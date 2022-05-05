@@ -3,7 +3,8 @@ from http import client
 from unicodedata import category
 from xmlrpc.client import Boolean
 from django.db import models
-
+# from datetime import date
+import datetime
 
 # Create your models here.
 class Client(models.Model):
@@ -101,9 +102,8 @@ class EstimateProduct(models.Model):
     est_qty = models.CharField(max_length=50)
     est_price = models.IntegerField()
     productid = models.ForeignKey(Product,on_delete=models.CASCADE )
-    estimateid = models.ForeignKey(Estimates,on_delete=models.CASCADE )
-    # class Meta:
-    #     unique_together = ('estimateid', 'productid',)
+    estimateid = models.ForeignKey(Estimates,on_delete=models.CASCADE  )
+  
 
 
 class PaymentDetails(models.Model):
@@ -115,13 +115,13 @@ class PaymentDetails(models.Model):
     paymentamount = models.IntegerField()
  
 
-class ProfitsandLoss(models.Model):
+class Expences(models.Model):
     clientid = models.ForeignKey(Client,on_delete=models.CASCADE )
-    profitandlosscategory = models.CharField(max_length=50)
-    profitandlossnote = models.CharField(max_length=3000)
-    profitandlossdate = models.CharField(max_length=50)
-    profitandloassamount = models.IntegerField()
-    profitandlosstatus = models.CharField(max_length=50)
+    expencescategory = models.CharField(max_length=50)
+    expencesnote = models.CharField(max_length=3000)
+    expencesdate = models.DateField(default=datetime.date.today)
+    expencesasamount = models.IntegerField()
+    expencestatus = models.CharField(max_length=50)
 
 
 
@@ -129,3 +129,18 @@ class Terms(models.Model):
     estimateid = models.ForeignKey(Estimates,on_delete=models.CASCADE )
     term = models.CharField(max_length=5000)
     note = models.CharField(max_length=3000)
+
+
+
+class Income(models.Model):
+    date = models.DateField(default=datetime.date.today)
+    incomestatus = models.CharField(max_length=3000)
+    incomeamount = models.IntegerField()
+    estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
+
+
+
+class NetProfit(models.Model):  
+    Income = models.ForeignKey(Income,on_delete=models.CASCADE ) 
+    expences = models.ForeignKey(Expences,on_delete=models.CASCADE )
+        

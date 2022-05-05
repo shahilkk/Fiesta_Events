@@ -2,13 +2,15 @@
 from http import client
 from turtle import update
 from django.shortcuts import render , redirect 
-from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,ProfitsandLoss,Terms
+from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences,Terms,Income,NetProfit
 import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 from django.db.models import Avg, Count, Min, Sum
 from django.db.models import Q
+from datetime import datetime, timedelta, time
+
 # Create your views here.
 
 
@@ -516,8 +518,10 @@ def invoicedetails(request,id):
     total = totalAmonut + gsttotal
     grandtotal = total-int(discount)
     print(total,grandtotal)
+    addincome = Income(estimateId=eid,incomestatus='Income',incomeamount=grandtotal)
+    addincome.save()
+    print(addincome)
 
-    
     
     context={
         "is_invoice":True,
@@ -702,13 +706,44 @@ def addpayment(request,id):
 
 
 
+
 def expenses(request):
-    expenselist = ProfitsandLoss.objects.filter(profitandlosstatus='Expences').all()
-    context={
-        "is_expenses":True,
-        "expenselist":expenselist
-    }
-    return render(request,'expenses.html',context)          
+   
+    if request.method=='POST':
+        profitandlossdate=request.POST['profitandlossdate']
+        print(profitandlossdate)
+        srch_date= Expences.objects.filter(Q(expencesdate__icontains=profitandlossdate))
+        if srch_date.exists():
+            context={
+                "is_expenses":True,
+                'srch_date':srch_date
+
+            }
+        else:
+            expenselist = Expences.objects.filter(expencestatus='Expences').all()
+
+            context={
+            "is_expenses":True,
+            "expenselist":expenselist
+            }
+    else:
+        expenselist = Expences.objects.filter(expencestatus='Expences').all()
+
+        context={
+            "is_expenses":True,
+            "expenselist":expenselist
+            }
+
+   
+    return render(request,'expenses.html',context) 
+
+# def expenses(request):
+#     expenselist = ProfitsandLoss.objects.filter(profitandlosstatus='Expences').all()
+#     context={
+#         "is_expenses":True,
+#         "expenselist":expenselist
+#     }
+#     return render(request,'expenses.html',context)          
 
 
 
@@ -717,12 +752,11 @@ def addexpenses(request):
     if request.method=='POST':
         category=request.POST['category']
         note=request.POST['note']
-        date=request.POST['date']
         phone=request.POST['phone']
         amount=request.POST['amount']
-        print(category,note,date,phone,amount)
+        print(category,note,phone,amount)
         clientid= Client.objects.get(client_phone=phone)
-        expencevalue = ProfitsandLoss(clientid=clientid, profitandlosscategory=category,profitandlossnote=note, profitandlossdate=date, profitandloassamount=amount ,profitandlosstatus='Expences')
+        expencevalue =Expences(clientid=clientid, expencescategory=category,expencesnote=note,  expencesasamount=amount ,expencestatus='Expences')
         expencevalue.save()
         return redirect('/user/expenses')
 
@@ -735,13 +769,42 @@ def addexpenses(request):
 
 
 def profit(request):
-    profitlist = ProfitsandLoss.objects.filter(profitandlosstatus='Profit').all()
+    if request.method=='POST':
+        date=request.POST['date']
+        # print(profitandlossdate)
+        
+        srch_date= Income.objects.filter(Q(date__icontains=date))
 
-    context={
-        "is_profit":True,
-        "profitlist":profitlist
-        }
-    return render(request,'profit.html',context)          
+        if srch_date.exists():
+            context={
+                "is_profit":True,
+                'srch_date':srch_date
+            }
+        else:
+            profitlist = Income.objects.select_related('estimateId').all()
+
+            context={
+            "is_profit":True,
+            "profitlist":profitlist
+            }
+    else:
+        profitlist = Income.objects.select_related('estimateId').all()
+
+        context={
+         "is_profit":True,
+         "profitlist":profitlist
+         }
+    return render(request,'profit.html',context)  
+    
+
+
+    # profitlist = Income.objects.select_related('estimateId').all()
+
+    # context={
+    #     "is_profit":True,
+    #     "profitlist":profitlist
+    #     }
+    # return render(request,'profit.html',context)          
 
 
 
@@ -754,7 +817,7 @@ def addprofit(request):
         amount=request.POST['amount']
         print(category,note,date,phone,amount)
         clientid= Client.objects.get(client_phone=phone)
-        profitvalue = ProfitsandLoss(clientid=clientid, profitandlosscategory=category,profitandlossnote=note, profitandlossdate=date, profitandloassamount=amount ,profitandlosstatus='Profit')
+        profitvalue = Expences(clientid=clientid, expencescategory=category,expencesnote=note, expencesdate=date, expencesasamount=amount ,expencestatus='Expences')
         profitvalue.save()
         return redirect('/user/profit')
     context={
@@ -786,11 +849,22 @@ def filter(req):
       
 
 
-def profitandloss(req):
+def profitandloss(request):
+    today = datetime.now().date()
+    today_start = datetime.combine(today, time())
+    print(today_start)
+
+    recent_expenses=Expences.objects.filter(expencesdate__gte=today_start)
+    recent_income=Income.objects.filter(date__gte=today_start)
+    print(recent_expenses,recent_income)
+    # addnet = NetProfit(Income=recent_income, expences=recent_expenses)
+    # addnet.save()
     context={
-        "is_profitandloss":True
+
+        "is_profitandloss":True,
+
         }
-    return render(req,'profit&loss.html',context)
+    return render(request,'profit&loss.html',context)
 
 
 
