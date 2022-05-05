@@ -504,7 +504,7 @@ def invoicedetails(request,id):
     eid= Estimates.objects.get(id=id)
     billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
     print(billing)
-    termandnote =Terms.objects.get(estimateid=id)
+    termandnote =Terms.objects.filter(estimateid=id).last()
 
     estid= EstimateProduct.objects.filter(estimateid=id)
     totalvalue=estid.aggregate(Sum('est_amount'))
@@ -516,6 +516,8 @@ def invoicedetails(request,id):
     total = totalAmonut + gsttotal
     grandtotal = total-int(discount)
     print(total,grandtotal)
+
+    
     
     context={
         "is_invoice":True,
