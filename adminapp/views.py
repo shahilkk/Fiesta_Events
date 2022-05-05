@@ -982,9 +982,7 @@ def invoicegetdata(request):
 
 
 def invoicebill(request,id):
-    # payment = PaymentDetails.objects.filter(estimateId_id=id)
-    
-  
+    # payment = PaymentDetails.objects.filter(estimateId_id=id)    
     print(payment)
     details = EstimateProduct.objects.filter(estimateid=id)
     estime = Estimates.objects.get(id=id) 

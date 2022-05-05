@@ -54,8 +54,8 @@ $('#estimatebutton').click(function () {
             success: function (responce) {
                 // alert(responce.msg)
                 $('#total').html(responce.details.totalAmonut)
-
-
+                $('#gst').html(responce.details.gsttotal)
+                $('#grandtotal').html(responce.details.grandtotal)
 
             }
 
