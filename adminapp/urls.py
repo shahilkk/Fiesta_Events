@@ -34,6 +34,7 @@ urlpatterns = [
     # path('getproduct/',views.getproduct,name="getproduct"),
     path('getproductGet/<int:id>',views.getproductGet,name="getproductGet"),
     path('profitandloss',views.profitandloss,name="profitandloss"),
+    path('netprofit/',views.netprofit,name="netprofit"),
     path('editProductdata/<int:id>',views.editProductdata,name="editProductdata"),
     path('updateproduct/',views.updateproduct,name="updateproduct"),
     path('delete/<str:id>',views.delete,name="delete"),
@@ -59,6 +60,12 @@ urlpatterns = [
     path('invoicegetdata',views.invoicegetdata,name="invoicegetdata"),
 
     path('savenote',views.savenote,name="savenote"),
+
+    path('login',views.login,name="login"),
+    path('admin_logout',views.admin_logout,name="admin_logout"),
+    # path('worker_logout',views.worker_logout,name="worker_logout"),
+    
+    
     
     # path('formesmimate',views.formesmimate,name="formesmimate"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),

@@ -99,12 +99,10 @@
                 <div class="card card-table">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-center table-hover datatable">
+                            <table class="table table-center table-hover datatable" id="netprofittable">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>
-                                            Sl.No
-                                        </th>
+                                      
                                         <th>
                                             Date
                                         </th>
@@ -120,57 +118,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            5 Jan 2021
-                                        </td>
-                                        <td>
-                                            income
-                                        </td>
-                                        <td>
-                                            $ 90000
-                                        </td>
-                                        <td class="text-end">
-                                            $70000
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            5 Jan 2021
-                                        </td>
-                                        <td>
-                                            income
-                                        </td>
-                                        <td>
-                                            $ 90000
-                                        </td>
-                                        <td class="text-end">
-                                            $70000
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            5 Jan 2021
-                                        </td>
-                                        <td>
-                                            Expense
-                                        </td>
-                                        <td>
-                                            $ 90000
-                                        </td>
-                                        <td class="text-end">
-                                            $70000
-                                        </td>
-                                    </tr>
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -180,4 +128,75 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        incomeSum = []
+        $.ajax({
+            url: "/user/netprofit/",
+            type: 'GET',
+            success: function (responce) {
+
+                var data = responce['data']
+                for(var i=0; i<data.length; i++){
+                    expenceSum = []
+                    incomeData = []
+                    expenceData = []
+                   
+                    var income
+                    var expence
+                    if(data[i].incomeamount != null){
+                        income = data[i].incomeamount 
+                    }
+                    else{
+                        income = 0
+                    }
+                    incomeSum.push(income)
+                    if(data[i].expencesasamount != null){
+                        expence = data[i].expencesasamount 
+                    }
+                    else{
+                        expence = 0
+                    }
+                    expenceSum.push(expence)
+                    var sumIncome = incomeSum.reduce(function(a,b){
+                        return a+b
+                    }, 0)
+                    var sumExpense = expenceSum.reduce(function(a,b){
+                        return a+b
+                    }, 0)
+                    netprofit = sumIncome - sumExpense
+                    incomeSum = []
+                    incomeSum.push(netprofit)
+                    
+                    table = $("#netprofittable").DataTable();
+                    if(data[i].incomeamount != null){
+                        incomeData.push([data[i].date,data[i].incomestatus,data[i].incomeamount,netprofit])
+                        table.rows.add(incomeData).draw()
+                    }
+                    if(data[i].expencesasamount != null){
+                        expenceData.push([data[i].expencesdate,data[i].expencestatus,data[i].expencesasamount,netprofit])
+                        table.rows.add(expenceData).draw()
+                    }
+                    else{
+                        
+                    }
+                    
+                }
+                // console.log(data.length)
+
+
+                // console.log(responce)
+
+            },
+
+
+        })
+
+    })
+
+</script>
+
 {% endblock %}

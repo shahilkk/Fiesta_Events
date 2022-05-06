@@ -1,6 +1,6 @@
 
+from ctypes import Union
 from http import client
-from turtle import update
 from django.shortcuts import render , redirect 
 from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences,Terms,Income,NetProfit
 import random
@@ -10,14 +10,17 @@ import json
 from django.db.models import Avg, Count, Min, Sum
 from django.db.models import Q
 from datetime import datetime, timedelta, time
-
+from itertools import chain
+from decorator import admin_login_required
 # Create your views here.
 
 
-def master(req):
-    return render(req,'master.html')
+def master(request):    
+    return render(request,'master.html')
 
-def index(req):
+
+@admin_login_required
+def index(request):
     pending = Estimates.objects.filter(est_status ='Pending',est_active=True).all()
     billed = Estimates.objects.filter(est_status ='Billed',est_active=True).all()
     advanced = Estimates.objects.filter(est_status ='Advanced',est_active=True).all()
@@ -34,7 +37,7 @@ def index(req):
         'closed':closed,
         'bank':bank
         }
-    return render(req,'index.html',context) 
+    return render(request,'index.html',context) 
 
 
 
@@ -42,9 +45,13 @@ def indexbill(request,id):
     Estimates.objects.filter(id=id).update(est_status ='Billed')
     return redirect('/user/index')
 
+
+
 def indexadvanced(request,id):
     Estimates.objects.filter(id=id).update(est_status ='Advanced')
     return redirect('/user/index')
+
+
 
 def indexpartialy(request,id):
     Estimates.objects.filter(id=id).update(est_status ='Partialy Paid')
@@ -58,7 +65,7 @@ def indexclosed(request,id):
 
 
 
-
+@admin_login_required
 def customer(req):
     # context={"is_customer":True}
     customerlist=Client.objects.all()
@@ -173,7 +180,7 @@ def viewemployee(requsest,id):
     return render(requsest,'viewemployee.html',context)         
         
 
-
+@admin_login_required
 def marketingstaff(req):
     employeelist=Employee.objects.all()
     context={
@@ -229,12 +236,13 @@ def editstaff(request,staff_id):
         }   
     return render(request,'editstaff.html',context)  
 
+
 def deletestaff(request,id):
     Employee.objects.filter(id=id).update(employee_status='Inactive')   
     return redirect('/user/marketingstaff')  
 
 
-
+@admin_login_required
 def Estimate(request):
     if request.method=='POST':
         fromdate=request.POST['fromdate']
@@ -457,7 +465,7 @@ def invoicegrid(req):
     context={"is_invoice":True}
     return render(req,'invoicegrid.html',context)        
   
-
+@admin_login_required
 def invoiceList(req):
     alllist = Estimates.objects.filter(est_active=True).all()
     billed = Estimates.objects.filter(est_status ='Billed').all().count()
@@ -495,6 +503,7 @@ def addinvoice(request):
         "is_invoice":True,
     }
     return render(request,'addinvoice.html',context)
+
 
 
 def invoicedetails(request,id):
@@ -543,6 +552,8 @@ def editinvoice(req):
     return render(req,'editinvoice.html',context) 
 
 
+
+@admin_login_required
 def bank(request):
     if request.method == 'POST':
         bank_name = request.POST['bank_name']
@@ -561,7 +572,7 @@ def bank(request):
     return render(request,'addbank.html',context)
         
  
-
+@admin_login_required
 def products(request):
    
     # msg = ''
@@ -655,7 +666,7 @@ def delete(request,id):
     return redirect('/user/products')    
 
 
-
+@admin_login_required
 def payment(request):
     paymentlist = PaymentDetails.objects.all()
     context={
@@ -706,7 +717,7 @@ def addpayment(request,id):
 
 
 
-
+@admin_login_required
 def expenses(request):
    
     if request.method=='POST':
@@ -767,7 +778,7 @@ def addexpenses(request):
     return render(request,'addexpence.html',context)
 
 
-
+@admin_login_required
 def profit(request):
     if request.method=='POST':
         date=request.POST['date']
@@ -829,7 +840,7 @@ def addprofit(request):
 
 
 
-
+@admin_login_required
 def filter(req):
     alllist = Estimates.objects.filter(est_active=True).all()
     billed = Estimates.objects.filter(est_status ='Billed').all()
@@ -848,23 +859,28 @@ def filter(req):
     return render(req,'filter.html',context) 
       
 
-
+@admin_login_required
 def profitandloss(request):
-    today = datetime.now().date()
-    today_start = datetime.combine(today, time())
-    print(today_start)
 
-    recent_expenses=Expences.objects.filter(expencesdate__gte=today_start)
-    recent_income=Income.objects.filter(date__gte=today_start)
-    print(recent_expenses,recent_income)
-    # addnet = NetProfit(Income=recent_income, expences=recent_expenses)
-    # addnet.save()
     context={
 
         "is_profitandloss":True,
 
         }
     return render(request,'profit&loss.html',context)
+
+
+
+def netprofit(request):
+    today = datetime.now().date()
+    today_start = datetime.combine(today, time())
+    print(today_start)
+    data = []
+    recent_expenses=Expences.objects.filter(expencesdate__gte=today_start).values('id','expencesasamount','expencestatus','expencesdate','expencescategory','clientid__client_name')
+    recent_income=Income.objects.filter(date__gte=today_start).values('id','incomeamount','date','incomestatus','estimateId__clientd__client_name')
+    queryset = list(recent_income)+list(recent_expenses)
+    return JsonResponse({'data':queryset})
+        
 
 
 
@@ -1058,6 +1074,8 @@ def invoicegetdata(request):
 
 
 def invoicebill(request,id):
+
+   
     # payment = PaymentDetails.objects.filter(estimateId_id=id)    
     print(payment)
     details = EstimateProduct.objects.filter(estimateid=id)
@@ -1098,3 +1116,47 @@ def savenote(request):
     add = Terms(estimateid=estid,term=addterms,note=addnote)
     add.save()
     return JsonResponse({'msg':'data inserted sucess'})
+
+
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        print(password,username)
+        try:
+            if username == "admin" and password == '12345':
+                userDetails = {
+                    'is_admin':True
+                }
+                request.session['permission']=userDetails
+                return redirect('/user/index') 
+
+            else:
+                login_data=Employee.objects.filter(employee_username=username,employee_password=password).exists()
+                if login_data:
+                    data=Employee.objects.get(employee_username=username,employee_password=password)
+                    print(data)
+                    if data.employee_status=='Active':
+                        userDetails = {
+                            'is_admin':False
+                        }
+                        request.session['permission']=userDetails
+                        return redirect('/user/index')
+                    else:
+                        return redirect('/user/login')
+        except:
+            pass
+ 
+       
+    return render(request,'login.html') 
+
+
+
+def admin_logout(request):
+    del request.session['permission']
+    return redirect('/user/login')   
+
+      
+
+    

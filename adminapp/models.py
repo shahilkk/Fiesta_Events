@@ -120,7 +120,7 @@ class Expences(models.Model):
     expencescategory = models.CharField(max_length=50)
     expencesnote = models.CharField(max_length=3000)
     expencesdate = models.DateField(default=datetime.date.today)
-    expencesasamount = models.IntegerField()
+    expencesasamount = models.IntegerField(default = 0)
     expencestatus = models.CharField(max_length=50)
 
 
@@ -135,7 +135,7 @@ class Terms(models.Model):
 class Income(models.Model):
     date = models.DateField(default=datetime.date.today)
     incomestatus = models.CharField(max_length=3000)
-    incomeamount = models.IntegerField()
+    incomeamount = models.IntegerField(default = 0)
     estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
 
 
