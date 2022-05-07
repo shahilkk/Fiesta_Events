@@ -16,7 +16,7 @@ class Client(models.Model):
     client_state = models.CharField(max_length=30)
     client_district = models.CharField(max_length=30)
     client_zipcode = models.CharField(max_length=30)
-    client_address = models.CharField(max_length=60)
+    client_address = models.CharField(max_length=60000)
     client_whsatpp = models.CharField(max_length=60)
     client_contact_type = models.CharField(max_length=40,default="")
     client_status = models.CharField(max_length=30 ,default="Active")
@@ -35,7 +35,7 @@ class Product(models.Model):
     catagory = models.CharField(max_length=50)
     priceper_head = models.IntegerField()
     priceper_kg = models.IntegerField()
-    food_deatails = models.CharField(max_length=50)
+    food_deatails = models.CharField(max_length=500000)
     food_status = models.BooleanField(default=True)
 
     class Meta:
@@ -53,7 +53,7 @@ class Employee(models.Model):
     employee_state = models.CharField(max_length=30)
     employee_district = models.CharField(max_length=30)
     employee_zipcode = models.CharField(max_length=30)
-    employee_address = models.CharField(max_length=30)
+    employee_address = models.CharField(max_length=300000)
     employee_status = models.CharField(max_length=30)
 
     class Meta:
@@ -118,7 +118,7 @@ class PaymentDetails(models.Model):
 class Expences(models.Model):
     clientid = models.ForeignKey(Client,on_delete=models.CASCADE )
     expencescategory = models.CharField(max_length=50)
-    expencesnote = models.CharField(max_length=3000)
+    expencesnote = models.CharField(max_length=30000)
     expencesdate = models.DateField(default=datetime.date.today)
     expencesasamount = models.IntegerField(default = 0)
     expencestatus = models.CharField(max_length=50)
