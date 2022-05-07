@@ -142,7 +142,8 @@ $('#savenote').click(function () {
 
         },
         success: function (responce) {
-            // $('#category' + id).val(responce.product.catagory)
+             alert(responce.msg)
+          // $('#category' + id).val(responce.product.catagory)
             // $('#productId' + id).val(responce.product.id)
             // $('#priceselect' + id).append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per Head</option>')
             // $('#priceselect' + id).append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')

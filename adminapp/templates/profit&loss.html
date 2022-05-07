@@ -19,79 +19,40 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-auto">
+                <!-- <div class="col-auto">
                     <a href="#" class="btn btn-primary">
                         <i class="fas fa-file-pdf"></i>
                     </a>
                     <a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
                         <i class="fas fa-filter"></i>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
         <div id="filter_inputs" class="card filter-card">
             <div class="card-body pb-0">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>
-                                Slect Date Range
-                            </label>
-                            <select class="select form-control">
-                                <option>
-                                    Select
-                                </option>
-                                <option>
-                                    Today
-                                </option>
-                                <option>
-                                    This Week
-                                </option>
-                                <option>
-                                    This Month
-                                </option>
-                                <option>
-                                    This Quarter
-                                </option>
-                                <option>
-                                    This Year
-                                </option>
-                                <option>
-                                    Previous Week
-                                </option>
-                                <option>
-                                    Previous Month
-                                </option>
-                                <option>
-                                    Previous Quarter
-                                </option>
-                                <option>
-                                    Previous Year
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>
-                                From
-                            </label>
-                            <div class="cal-icon">
-                                <input class="form-control datetimepicker" type="text">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>From</label>
+                               
+                                    <input class="form-control " name="fromdate" type="date">
+                             
                             </div>
                         </div>
+                       
+
+                        <button type="submit" id="" class="btn btn-primary">View</button>
+
+
+
+
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>
-                                To
-                            </label>
-                            <div class="cal-icon">
-                                <input class="form-control datetimepicker" type="text">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                </form>
             </div>
         </div>
         <div class="row">
@@ -102,7 +63,7 @@
                             <table class="table table-center table-hover datatable" id="netprofittable">
                                 <thead class="thead-light">
                                     <tr>
-                                      
+
                                         <th>
                                             Date
                                         </th>
@@ -118,7 +79,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                
+
                                 </tbody>
                             </table>
                         </div>
@@ -140,50 +101,50 @@
             success: function (responce) {
 
                 var data = responce['data']
-                for(var i=0; i<data.length; i++){
+                for (var i = 0; i < data.length; i++) {
                     expenceSum = []
                     incomeData = []
                     expenceData = []
-                   
+
                     var income
                     var expence
-                    if(data[i].incomeamount != null){
-                        income = data[i].incomeamount 
+                    if (data[i].incomeamount != null) {
+                        income = data[i].incomeamount
                     }
-                    else{
+                    else {
                         income = 0
                     }
                     incomeSum.push(income)
-                    if(data[i].expencesasamount != null){
-                        expence = data[i].expencesasamount 
+                    if (data[i].expencesasamount != null) {
+                        expence = data[i].expencesasamount
                     }
-                    else{
+                    else {
                         expence = 0
                     }
                     expenceSum.push(expence)
-                    var sumIncome = incomeSum.reduce(function(a,b){
-                        return a+b
+                    var sumIncome = incomeSum.reduce(function (a, b) {
+                        return a + b
                     }, 0)
-                    var sumExpense = expenceSum.reduce(function(a,b){
-                        return a+b
+                    var sumExpense = expenceSum.reduce(function (a, b) {
+                        return a + b
                     }, 0)
                     netprofit = sumIncome - sumExpense
                     incomeSum = []
                     incomeSum.push(netprofit)
-                    
+
                     table = $("#netprofittable").DataTable();
-                    if(data[i].incomeamount != null){
-                        incomeData.push([data[i].date,data[i].incomestatus,data[i].incomeamount,netprofit])
+                    if (data[i].incomeamount != null) {
+                        incomeData.push([data[i].date, data[i].incomestatus, data[i].incomeamount, netprofit])
                         table.rows.add(incomeData).draw()
                     }
-                    if(data[i].expencesasamount != null){
-                        expenceData.push([data[i].expencesdate,data[i].expencestatus,data[i].expencesasamount,netprofit])
+                    if (data[i].expencesasamount != null) {
+                        expenceData.push([data[i].expencesdate, data[i].expencestatus, data[i].expencesasamount, netprofit])
                         table.rows.add(expenceData).draw()
                     }
-                    else{
-                        
+                    else {
+
                     }
-                    
+
                 }
                 // console.log(data.length)
 

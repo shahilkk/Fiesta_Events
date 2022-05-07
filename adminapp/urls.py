@@ -64,6 +64,7 @@ urlpatterns = [
     path('login',views.login,name="login"),
     path('admin_logout',views.admin_logout,name="admin_logout"),
     # path('worker_logout',views.worker_logout,name="worker_logout"),
+    path('forget',views.forget,name="forget"),
     
     
     

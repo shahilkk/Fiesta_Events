@@ -1,17 +1,17 @@
 
-from ctypes import Union
-from http import client
 from django.shortcuts import render , redirect 
 from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences,Terms,Income,NetProfit
-import random
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 from django.db.models import Avg, Count, Min, Sum
 from django.db.models import Q
 from datetime import datetime, timedelta, time
-from itertools import chain
 from decorator import admin_login_required
+from django.conf import settings
+from django.core.mail import send_mail
+from random import randint
+from django.conf.global_settings import EMAIL_HOST_USER
 # Create your views here.
 
 
@@ -249,20 +249,20 @@ def Estimate(request):
         todate=request.POST['todate']
         field=request.POST['field']
         
-        srch_date=Estimates.objects.filter(Q(est_fromdate__icontains=fromdate) | Q(est_todate__icontains=todate) | Q(est_status__icontains=field))
+        srch_date=Estimates.objects.filter(Q(est_fromdate__icontains=fromdate) & Q(est_todate__icontains=todate) & Q(est_status__icontains=field))
         if srch_date.exists():
             context={
             "is_estimate":True,
             'srch_date':srch_date
             }
         else:
-            estimates = Estimates.objects.all()
+            estimates = Estimates.objects.filter(est_active=True).all()
             context={
             "is_estimate":True,
             'estimateList':estimates
             }
     else:
-        estimates = Estimates.objects.all()
+        estimates = Estimates.objects.filter(est_active=True).all()
         context={
             "is_estimate":True,
             'estimateList':estimates
@@ -861,7 +861,6 @@ def filter(req):
 
 @admin_login_required
 def profitandloss(request):
-
     context={
 
         "is_profitandloss":True,
@@ -1115,7 +1114,7 @@ def savenote(request):
     print(addnote,addterms,estimateid)
     add = Terms(estimateid=estid,term=addterms,note=addnote)
     add.save()
-    return JsonResponse({'msg':'data inserted sucess'})
+    return JsonResponse({'msg':'Note Added'})
 
 
 
@@ -1156,6 +1155,21 @@ def login(request):
 def admin_logout(request):
     del request.session['permission']
     return redirect('/user/login')   
+
+
+def forget(request):
+    otp=randint(10000,9999999)
+    if request.method=='POST':
+        forgetmail=request.POST['forgetmail']
+        send_mail(
+            "OTP for reseting password in Fiesta",
+            str(otp),
+            EMAIL_HOST_USER,
+            [forgetmail],
+            fail_silently=False,
+            )
+        employeedetails=Employee.objects.filter(employee_email=forgetmail).update(employee_password=str(otp))
+    return render(request,'forgetpassword.html')    
 
       
 
