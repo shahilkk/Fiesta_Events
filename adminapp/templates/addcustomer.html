@@ -35,37 +35,37 @@
                                     <div class="form-group">
 
                                         <label>Client Name / Company Name</label>
-                                        <input type="text" class="form-control" name="client_name">
+                                        <input type="text" required class="form-control" name="client_name">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Company Phone Number</label>
-                                        <input type="text" class="form-control" name="client_phone">
+                                        <input type="text" required class="form-control" name="client_phone">
                                     </div>
                                     <div class="form-group">
                                         <label>Company Watsup Number</label>
-                                        <input type="text" class="form-control" name="client_whsatpp">
+                                        <input type="text" required class="form-control" name="client_whsatpp">
                                     </div>
                                     <div class="form-group">
                                         <label>Company Email</label>
-                                        <input type="email" class="form-control" name="client_email">
+                                        <input type="email" required class="form-control" name="client_email">
                                     </div>
                                     <div class="form-group">
                                         <label> Company Address</label>
-                                        <textarea rows="5" cols="5" class="form-control" name="client_address"
+                                        <textarea rows="5" cols="5" required class="form-control" name="client_address"
                                             placeholder="Enter Address"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>GST number</label>
-                                        <input type="text" class="form-control" name="client_gst_number">
+                                        <input type="text" required required class="form-control" name="client_gst_number">
                                     </div>
                                     <div class="form-group">
                                         <label>Primary Contact Type</label>
                                         <select class="select form-control form-control-lg" name="client_contact_type">
                                             <option>select</option>
-                                            <option value="watsup">watsup</option>
+                                            <option value="whatsapp">whatsapp</option>
                                             <option value="email">email</option>
                                             <option value="phone number">phone number</option>
 
@@ -74,17 +74,17 @@
                                     <div class="form-group">
                                         <label>State</label>
                                         
-                                        <input type="text" class="form-control" name="client_state">
+                                        <input type="text" required class="form-control" name="client_state">
                                     </div>
                                     <div class="form-group">
                                         <label>Distric</label>
                                        
-                                        <input type="text" class="form-control" name="client_district">
+                                        <input type="text" required class="form-control" name="client_district">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Zip Code</label>
-                                        <input type="text" class="form-control" name="client_zipcode">
+                                        <input type="text" required class="form-control" name="client_zipcode">
                                     </div>
 
 
@@ -100,7 +100,7 @@
 
                                         <div class="form-group">
                                             <label>Account Holder Name</label>
-                                            <input type="text" class="form-control" name="client_bankholder"
+                                            <input type="text" required class="form-control" name="client_bankholder"
                                                 placeholder="Add Name">
                                         </div>
 
@@ -119,13 +119,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>IFSC Code</label>
-                                            <input type="text" name="client_ifsc" class="form-control">
+                                            <input type="text" required name="client_ifsc" class="form-control">
                                         </div>
 
 
                                         <div class="form-group">
                                             <label>Account Number</label>
-                                            <input type="text" name="client_actnnumber" class="form-control">
+                                            <input type="text" required name="client_actnnumber" class="form-control">
                                         </div>
                                     </div>
                                 </div>
