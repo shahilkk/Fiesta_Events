@@ -1,6 +1,6 @@
 
 from django.shortcuts import render , redirect 
-from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences,Terms,Income,NetProfit
+from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences,Terms,Income,Preview
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
@@ -529,6 +529,8 @@ def invoicedetails(request,id):
     print(total,grandtotal)
     addincome = Income(estimateId=eid,incomestatus='Income',incomeamount=grandtotal)
     addincome.save()
+    preview =Preview(estimateId=eid, discount=discount)
+    preview.save()
     print(addincome)
 
     
@@ -1171,6 +1173,45 @@ def forget(request):
         employeedetails=Employee.objects.filter(employee_email=forgetmail).update(employee_password=str(otp))
     return render(request,'forgetpassword.html')    
 
+
+
+def printlist(request):
+    listview = Preview.objects.all()
+    context={
+            "is_print":True, 
+            "listview":listview       
+            }
+    return render(request,'printlist.html',context) 
       
 
+def viewpdf(request,id,discount):
+    print(id,discount)
+    details = EstimateProduct.objects.filter(estimateid=id)
+    eid= Estimates.objects.get(id=id)
+    billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
+    print(billing)
+    termandnote =Terms.objects.filter(estimateid=id).last()
+
+    estid= EstimateProduct.objects.filter(estimateid=id)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    print(totalAmonut)
+    gsttotal =totalAmonut*5/100
+    # sgst = (totalAmonut*5/100)/2
+    # print(gsttotal,sgst)
+    total = totalAmonut + gsttotal
+    grandtotal = total-int(discount)
+    print(total,grandtotal)
+    context={
+
+        "is_print":True, 
+        'billing':billing,
+        "details":details,
+        "totalAmonut":totalAmonut,
+        "gsttotal":gsttotal,
+        "discount":discount,
+        "grandtotal":grandtotal,
+        "termandnote":termandnote
+            }
+    return render(request,'viewpdf.html',context) 
     

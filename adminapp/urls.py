@@ -66,7 +66,10 @@ urlpatterns = [
     # path('worker_logout',views.worker_logout,name="worker_logout"),
     path('forget',views.forget,name="forget"),
     
+
+    path('printlist',views.printlist,name="printlist"),
     
+    path('viewpdf/<str:id>,<str:discount>',views.viewpdf,name="viewpdf"),
     
     # path('formesmimate',views.formesmimate,name="formesmimate"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),

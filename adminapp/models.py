@@ -139,8 +139,7 @@ class Income(models.Model):
     estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
 
 
-
-class NetProfit(models.Model):  
-    Income = models.ForeignKey(Income,on_delete=models.CASCADE ) 
-    expences = models.ForeignKey(Expences,on_delete=models.CASCADE )
-        
+class Preview(models.Model):
+    estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
+    discount = models.IntegerField(default = 0)
+    

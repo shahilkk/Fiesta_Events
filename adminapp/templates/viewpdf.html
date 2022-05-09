@@ -1,0 +1,236 @@
+{% extends 'master.html' %}
+{% block content %}
+{% load static %}
+
+
+<style>
+    @media screen and (min-width:336px) and (max-width:626px) {
+
+        #invoicefrom,
+        #payment {
+            font-size: 13px;
+        }
+
+    
+        .invoice-issues-date {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .imgsign,.logo {
+           max-width: 10%;
+        }
+        .height{
+            height: 10%;
+        }
+        .invoice-total-card{
+           height:10px ; 
+        }
+        .page-wrapper{
+            margin-top: 0px;
+            /* padding: 0px; */
+        }
+      
+        #content{
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+
+    @media print {
+        #header,.sidebar,.navbar-toggler,.a,.button{
+            display: none !important;
+            content: none !important;
+        }
+        .page-titles ,h1,h2,h3{
+            display: none;
+
+        }
+        
+    
+    }
+</style>
+
+<div class="page-wrapper"  >
+    <div class="content container-fluid" id="content" >
+        <div class="row justify-content-center">
+            <div class="col-xl-10" >
+                <div class="card invoice-info-card">
+                    <div class="card-body">
+                        <div class="invoice-item invoice-item-one">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="invoice-logo">
+                                        <img src="{% static 'img/logo/Fiesta logo.png' %}" alt="logo">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row inv">
+                                <div class="col-md-6 col-sm-6 col-6">
+                                    <!-- <div class="invoice-logo logo">
+                                        <img src="{% static 'img/logo/Fiesta logo.png' %}" alt="logo">
+                                    </div> -->
+                                    <div class="invoice-head">
+                                        <h2>Invoice</h2>
+                                        <p>Invoice Number : In983248782</p>
+                                        <p style="font-size: medium;">Date:7/09/2021</p>
+                                        <p style="font-size: medium;"> Due Date:7/09/2022</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-6" id="height">
+                                    <div class="invoice-info" id="invoicefrom">
+                                        <strong class="customer-text-one">Invoice From</strong>
+                                        <h6 class="invoice-name">Company Name</h6>
+                                        <p class="invoice-details ">
+                                            Kondotty <br>
+                                            673435<br>
+                                            GSTIN : 32AAGCE7654A1ZA2<br>
+                                            Zip code ,City - Country<br>
+                                            9087484288<br>
+                                            Email<br>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="invoice-item invoice-item-two">
+                            <div class="row">
+                                <div class="col-md-6  col-sm-6 col-6">
+                                    <div class="invoice-info">
+                                        <strong class="customer-text-one">Billed to</strong>
+                                        <h6 class="invoice-name">{{ billing.clientid.client_name }}</h6>
+                                        <p class="invoice-details invoice-details-two">
+                                            {{ billing.clientid.client_address }}<br>
+                                            {{ billing.clientid.client_state }} , {{ billing.clientid.client_district }},{{ billing.clientid.client_zipcode }} <br>
+                                            GSTIN : {{ billing.clientid.client_gst_number }} <br>
+                                            {{ billing.clientid.client_phone }}<br>
+                                            {{ billing.clientid.client_email }}<br>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6  col-sm-6 col-6">
+                                    <div class="invoice-info invoice-info2" id="payment">
+                                        <strong class="customer-text-one">Payment Details</strong>
+                                        <p class="invoice-details">
+
+                                        </p>
+                                        <div class="invoice-item-box">
+
+                                            {{ billing.bankid.bank_ifsc }} <br>
+                                            {{ billing.bankid.bank_name }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="invoice-issues-box">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-4">
+                                    <div class="invoice-issues-date">
+                                        <p>Issue Date : {{ billing.estimateId.est_fromdate }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-4">
+                                    <div class="invoice-issues-date">
+                                        <p>Due Date : {{ billing.estimateId.est_todate }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-4">
+                                    <div class="invoice-issues-date">
+                                        <p>Due Amount : ₹ {{ billing.estimateId.est_balance }} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="invoice-item invoice-table-wrap">
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="table-responsive">
+                                        <table class="invoice-table table table-center mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Category</th>
+                                                    <th>Rate/Item</th>
+                                                    <th>Quantity</th>
+                                                    <th class="text-end">Amount</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i in details %}
+                                                <tr>
+                                                    <td>{{ i.productid.food_name }} </td>
+                                                    <td> {{ i.est_category }}</td>
+                                                    <td> {{ i.est_price }}</td>
+                                                    <td> {{ i.est_qty }}</td>
+                                                    <td> {{ i.est_amount }}</td>
+                                                </tr>
+                                                {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-lg-6 col-md-6 col-6">
+                                <div class="invoice-terms">
+                                    <h6>Notes:</h6>
+                                    <p class="mb-0">{{ termandnote.note }}</p>
+                                </div>
+                                <div class="invoice-terms">
+                                    <h6>Terms and Conditions:</h6>
+                                    <p class="mb-0">{{ termandnote.term }}</p>
+                                </div>
+                                
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-6">
+                                <div class="invoice-total-card" >
+                                    <div class="invoice-total-box">
+                                        <div class="invoice-total-inner">
+                                            <p>Sub total <span> ₹ {{ totalAmonut }}</span></p>
+                                            <p>GST (5%)<span> ₹ {{ gsttotal }}</span></p>
+                                            <p class="mb-0">Discount <span> ₹ {{ discount }} </span></p>
+
+                                        </div>
+                                        <div class="invoice-total-footer">
+                                            <h4>Total Amount <span> ₹ {{ grandtotal }}</span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invoice-sign text-end">
+                            <img class="img-fluid d-inline-block imgsign" src="{% static '/img/signature.png' %}"
+                                alt="sign">
+                            <span class="d-block name">Harristemp</span>
+                        </div>
+                        <div class="form-group float-end mb-0">
+                            <button class="btn btn-primary" onclick="makeprint()" type="submit"><i class="fas fa-download me-1"></i>Print </button>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    function makeprint(id){
+        window.print();
+    }
+</script>
+{% endblock %}
