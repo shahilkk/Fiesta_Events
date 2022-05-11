@@ -527,13 +527,9 @@ def invoicedetails(request,id):
     total = totalAmonut + gsttotal
     grandtotal = total-int(discount)
     print(total,grandtotal)
-    addincome = Income(estimateId=eid,incomestatus='Income',incomeamount=grandtotal)
-    addincome.save()
-    preview =Preview(estimateId=eid, discount=discount)
-    preview.save()
-    print(addincome)
 
-    
+
+    # preview = Preview.objects.get(estimateId=id)
     context={
         "is_invoice":True,
         'billing':billing,
@@ -542,9 +538,9 @@ def invoicedetails(request,id):
         "gsttotal":gsttotal,
         "discount":discount,
         "grandtotal":grandtotal,
-        "termandnote":termandnote
-
-
+        "termandnote":termandnote,
+        # "preview":preview,
+        "eid":eid
         }
     return render(request,'invoicedetails.html',context) 
 
@@ -1184,7 +1180,55 @@ def printlist(request):
     return render(request,'printlist.html',context) 
       
 
-def viewpdf(request,id,discount):
+def viewpdf(request,id,discount,previewno):
+    print(id,discount,previewno)
+    details = EstimateProduct.objects.filter(estimateid=id)
+    eid= Estimates.objects.get(id=id)
+    billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
+    print(billing)
+    termandnote =Terms.objects.filter(estimateid=id).last()
+
+    estid= EstimateProduct.objects.filter(estimateid=id)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    print(totalAmonut)
+    gsttotal =totalAmonut*5/100
+    # sgst = (totalAmonut*5/100)/2
+    # print(gsttotal,sgst)
+    total = totalAmonut + gsttotal
+    grandtotal = total-int(discount)
+    print(total,grandtotal)
+
+
+    preview = Preview.objects.get(prviewnumber=previewno)
+    context={
+        "is_invoice":True,
+        'billing':billing,
+        "details":details,
+        "totalAmonut":totalAmonut,
+        "gsttotal":gsttotal,
+        "discount":discount,
+        "grandtotal":grandtotal,
+        "termandnote":termandnote,
+        "preview":preview,
+        "eid":eid
+        }
+    return render(request,'viewpdf.html',context) 
+    
+
+
+def save(request,id):
+    discount=request.GET['discount']  
+    print(id,discount)  
+    eid= Estimates.objects.get(id=id)
+    if Preview.objects.exists():
+        est = Preview.objects.last().id
+        est_id = 'INV'+str(1001+est)
+    else:
+        est=0
+        est_id = 'INV'+str(1001+est)
+    preview =Preview(estimateId=eid, discount=discount,prviewnumber=est_id)
+    preview.save()
     print(id,discount)
     details = EstimateProduct.objects.filter(estimateid=id)
     eid= Estimates.objects.get(id=id)
@@ -1202,16 +1246,23 @@ def viewpdf(request,id,discount):
     total = totalAmonut + gsttotal
     grandtotal = total-int(discount)
     print(total,grandtotal)
+    addincome = Income(estimateId=eid,incomestatus='Income',incomeamount=grandtotal)
+    addincome.save()
+    
+    preview = Preview.objects.filter(estimateId=eid).last()
+    
     context={
-
-        "is_print":True, 
+        "is_invoice":True,
         'billing':billing,
         "details":details,
         "totalAmonut":totalAmonut,
         "gsttotal":gsttotal,
         "discount":discount,
         "grandtotal":grandtotal,
-        "termandnote":termandnote
-            }
-    return render(request,'viewpdf.html',context) 
-    
+        "termandnote":termandnote,
+        "eid":eid,
+        "preview":preview
+        }
+    return render(request,'invoicedetails.html',context) 
+
+     

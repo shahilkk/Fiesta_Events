@@ -156,7 +156,8 @@
                                 <div class="upload-sign">
 
                                     <div class="form-group float-end mb-0">
-                                        <button class="btn btn-primary" type="submit">Save Invoice</button>
+                                        <a href="/user/save/{{ estime.id }} " id="savebtn" class="btn btn-primary">Save</a>
+                                        <button class="btn btn-primary"  type="submit">Save Invoice</button>
                                     </div>
                                 </div>
                             </div>
@@ -230,6 +231,15 @@ $('#discount').change(function(){
     $('#Grandtotal').html('₹' + parseInt(grandtotal))
     var estID=$('#estimateId-input').val()
     document.getElementById("previelink").href = "/user/invoicedetails/"+estID+"/?discount="+discount;
+})
+
+
+
+$('#discount').change(function(){
+    total = $('#grand').val()
+    discount = $('#discount').val()
+    var estID=$('#estimateId-input').val()
+    document.getElementById("savebtn").href = "/user/save/"+estID+"/?discount="+discount;
 })
 
 

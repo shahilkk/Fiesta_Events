@@ -73,6 +73,9 @@
                                         <th>
                                             Amount
                                         </th>
+                                        <th>
+                                            client Nmae
+                                        </th>
                                         <th class="text-end">
                                             Net Profit
                                         </th>
@@ -134,11 +137,11 @@
 
                     table = $("#netprofittable").DataTable();
                     if (data[i].incomeamount != null) {
-                        incomeData.push([data[i].date, data[i].incomestatus, data[i].incomeamount, netprofit])
+                        incomeData.push([data[i].date, data[i].incomestatus, data[i].incomeamount,data[i].estimateId__clientd__client_name, netprofit])
                         table.rows.add(incomeData).draw()
                     }
                     if (data[i].expencesasamount != null) {
-                        expenceData.push([data[i].expencesdate, data[i].expencestatus, data[i].expencesasamount, netprofit])
+                        expenceData.push([data[i].expencesdate, data[i].expencestatus, data[i].expencesasamount,data[i].clientid__client_name, netprofit])
                         table.rows.add(expenceData).draw()
                     }
                     else {

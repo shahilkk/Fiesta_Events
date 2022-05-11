@@ -34,6 +34,7 @@
                                     <tr>
                                         <th>Client Name</th>
                                         <th>Estimate Id</th>
+                                        <th>Invoice No</th>
 
                                         <th class="text-end">Actions</th>
                                     </tr>
@@ -44,11 +45,12 @@
         
                                         <td> {{ i.estimateId.clientd.client_name }} </td>
                                         <td> {{ i.estimateId.id }} </td>
+                                        <td> {{ i.prviewnumber }} </td>
                                           <td class="text-end">
-                                            <a class="btn btn-sm btn-white me-2" href="javascript:void(0);">
+                                            <!-- <a class="btn btn-sm btn-white me-2"  onclick="makeprint()">
                                                 <i class="fas fa-download me-1"></i> PDF
-                                            </a>
-                                            <a class="btn btn-sm btn-white" href="/user/viewpdf/{{ i.estimateId.id }},{{ i.discount }}">
+                                            </a> -->
+                                            <a class="btn btn-sm btn-white" href="/user/viewpdf/{{ i.estimateId.id }},{{ i.discount }},{{ i.prviewnumber }}">
                                                 <i class="far fa-eye me-1"></i> View
                                             </a>
                                         </td>

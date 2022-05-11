@@ -61,6 +61,8 @@ urlpatterns = [
 
     path('savenote',views.savenote,name="savenote"),
 
+    path('save/<str:id>/',views.save,name="save"),
+
     path('login',views.login,name="login"),
     path('admin_logout',views.admin_logout,name="admin_logout"),
     # path('worker_logout',views.worker_logout,name="worker_logout"),
@@ -69,7 +71,7 @@ urlpatterns = [
 
     path('printlist',views.printlist,name="printlist"),
     
-    path('viewpdf/<str:id>,<str:discount>',views.viewpdf,name="viewpdf"),
+    path('viewpdf/<str:id>,<str:discount>,<str:previewno>',views.viewpdf,name="viewpdf"),
     
     # path('formesmimate',views.formesmimate,name="formesmimate"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),

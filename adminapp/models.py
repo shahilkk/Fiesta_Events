@@ -142,4 +142,6 @@ class Income(models.Model):
 class Preview(models.Model):
     estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
     discount = models.IntegerField(default = 0)
+    prviewnumber = models.CharField(max_length=3000,default="")
+
     
