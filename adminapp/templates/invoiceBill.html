@@ -22,7 +22,7 @@
                 <div class="col-auto">
                     <input type="hidden" id="estimateId-input" value="{{ estime.id }}">
                     <div class="invoices-create-btn">
-                        <a id="previelink" class="invoices-preview-link" href="/user/invoicedetails/{{ estime.id }}"
+                        <a id="previelink" class="invoices-preview-link" href="/user/invoicedetails/{{ estime.id }}?discount=0"
                             data-bs-target="#invoices_preview"><i class="fe fe-eye"></i> Preview</a>
                         <!-- <a href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices_details"
                             class="btn delete-invoice-btn">
@@ -126,7 +126,7 @@
                                             <p>Sgst (2.5%)<span> ₹ {{ sgst }}</span></p>
                                             <p>Cgst (2.5%)<span> ₹ {{ sgst }}</span></p>
                                              <input type="hidden" value="{{ grandtotal }}" name="" id="grand">
-                                            <p>Discount<span> :-<input style="border: none;  " type="text"  name="" placeholder="Enter the Discount"  value="" id="discount"></span>
+                                            <p>Discount<span> :- <input style="border: none;  " type="text"  name="" placeholder="Enter the Discount"  value="0" id="discount"></span>
                                             </p>
 
                                             <div class="links-info-one">
@@ -156,7 +156,7 @@
                                 <div class="upload-sign">
 
                                     <div class="form-group float-end mb-0">
-                                        <a href="/user/save/{{ estime.id }} " id="savebtn" class="btn btn-primary">Save Invoice</a>
+                                        <a href="/user/save/{{ estime.id }}?discount=0" id="savebtn" class="btn btn-primary">Save Invoice</a>
                                         <!-- <button class="btn btn-primary"  type="submit">Save Invoice</button> -->
                                     </div>
                                 </div>
@@ -224,7 +224,7 @@
 
 <script>
 
-$('#discount').change(function(){
+$('#discount').keyup(function(){
     total = $('#grand').val()
     discount = $('#discount').val()
     grandtotal = total-discount
@@ -233,14 +233,12 @@ $('#discount').change(function(){
     document.getElementById("previelink").href = "/user/invoicedetails/"+estID+"/?discount="+discount;
 })
 
-
-
-$('#discount').change(function(){
+$('#discount').keyup(function(){
     total = $('#grand').val()
     discount = $('#discount').val()
     var estID=$('#estimateId-input').val()
     document.getElementById("savebtn").href = "/user/save/"+estID+"/?discount="+discount;
-})
+});
 
 
 //     function changedqty(rowCount){
