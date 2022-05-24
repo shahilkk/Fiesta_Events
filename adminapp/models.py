@@ -9,10 +9,10 @@ import datetime
 # Create your models here.
 class Client(models.Model):
     client_name = models.CharField(max_length=30) 
-    client_gst_number = models.CharField(max_length=30) 
+    client_gst_number = models.CharField(max_length=30,default="") 
     client_id = models.CharField(max_length=30,default=0) 
     client_phone = models.CharField(max_length=30)
-    client_email = models.CharField(max_length=30)
+    client_email = models.CharField(max_length=30,default="")
     client_state = models.CharField(max_length=30)
     client_district = models.CharField(max_length=30)
     client_zipcode = models.CharField(max_length=30)
@@ -50,7 +50,7 @@ class Employee(models.Model):
     employee_password = models.CharField(max_length=50)
     employee_phone = models.CharField(max_length=30)
     employee_email = models.CharField(max_length=30)
-    employee_state = models.CharField(max_length=30)
+    employee_state = models.CharField(max_length=30 )
     employee_district = models.CharField(max_length=30)
     employee_zipcode = models.CharField(max_length=30)
     employee_address = models.CharField(max_length=300000)

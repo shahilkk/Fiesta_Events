@@ -123,7 +123,8 @@
                                 <form action="" method="POST">
                                     {% csrf_token %}
                                     <label>Food Name</label>
-                                    <input type="text" class="form-control" id="foodname" placeholder="Add New Item" name="food_name">
+                                    <input type="text" class="form-control" id="foodname" placeholder="Add New Item"
+                                        name="food_name">
                                     <p id="msg"></p>
                             </div>
                         </div>
@@ -132,11 +133,11 @@
 
 
 
-                                <label>Category</label> <a class="btn btn-primary me-1 text-end" data-bs-toggle="modal"
+                                <label>Category</label> <a class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#addcategory">
-                                    <i class="fas fa-plus"> </i> Add Category
+                                    <i class="fas fa-plus"> </i>
                                 </a>
-                                <select class="form-select form-control" name="catagory">
+                                <select class="form-select form-control" id="selectcategory" name="catagory">
                                     <option>Select Category</option>
                                     {% for i in view_cat %}
                                     <option value="{{i.category}}">{{i.category}}</option>
@@ -215,8 +216,9 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
-                <form action="addcat" method="post">
+                <form method="post" id="categorysave">
                     {% csrf_token %}
+
                     <div class="row">
 
                         <div class="col-lg-12 ">
@@ -232,7 +234,7 @@
                             <div class="bank-details-btn">
                                 <a href="javascript:void(0);" data-bs-dismiss="modal"
                                     class="btn bank-cancel-btn me-2">Cancel</a>
-                                <button class=" btn bank-save-btn" type="submit"> save</button>
+                                <button class=" btn bank-save-btn" type="submit" id=""> save</button>
                             </div>
                         </div>
                     </div>
@@ -425,35 +427,63 @@
 
             })
         })
+
+
+
     }
 
 
 
     $('#foodname').change(() => {
-      
-                console.log(($('#foodname').val()))
-                $.ajax({
-                    url: "checkexist",
-                    type: 'post',
-                    data: {
-                        'checkname': $('#foodname').val()
-                    },
-                    success: function(responce){
-                        console.log(responce.IsExist)
-                       
-                        if (responce.IsExist==true){
-                            document.getElementById('msg').innerHTML = 'Food Already Exist '
-                            
-                            $('#subtn').prop('disabled',true)
-                        }
-                        else{
-                            document.getElementById('msg').innerHTML = ''
-                            $('#subtn').prop('disabled',false)
-                        }
-                    }
 
-                })
-            })
+        console.log(($('#foodname').val()))
+        $.ajax({
+            url: "checkexist",
+            type: 'post',
+            data: {
+                'checkname': $('#foodname').val()
+            },
+            success: function (responce) {
+                console.log(responce.IsExist)
+
+                if (responce.IsExist == true) {
+                    document.getElementById('msg').innerHTML = 'Food Already Exist '
+
+                    $('#subtn').prop('disabled', true)
+                }
+                else {
+                    document.getElementById('msg').innerHTML = ''
+                    $('#subtn').prop('disabled', false)
+                }
+            }
+
+        })
+    })
+
+
+    $('#categorysave').submit(function (e) {
+        var data = $("#categorysave").serializeArray();
+        $.ajax({
+            url: "addcat",
+            type: 'post',
+            data: data,
+            success: function (response) {
+                console.log(response)
+
+                var category = response['category']
+                $("#addcategory").modal('hide');
+                $("#add_items").modal('show');
+                $('#selectcategory').append(`<option value="${category}">
+                                       ${category}
+                                  </option>`);
+
+                $('#selectcategory').val(category)
+
+            }
+
+        })
+        return false
+    })
 
 </script>
 {% endblock %}

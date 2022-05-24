@@ -53,9 +53,19 @@
                                 </div>
                                 <button class="btn btn-lg btn-block btn-primary w-100" type="submit">Login</button>
                               
-
+                                {% if status == 1 %}
+                                <div class="alert alert-danger" role="alert">
+                                  Invalid User Details
+                                </div>
+                                {% elif status == 2 %}
+                               
+                                <div class="alert alert-warning" role="alert">
+                                    Access Denied
+                                  </div>
+                                {% endif %}
                                 
                             </form>
+                            
                         </div>
                     </div>
                 </div>

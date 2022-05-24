@@ -41,24 +41,38 @@
                 <div class="card invoices-add-card">
                     <div class="card-body">
                         <!-- <form action="#" class="invoices-form"> -->
-                            <div class="invoices-main-form">
-                                <div class="row">
-                                    <div class="col-xl-4 col-md-6 col-sm-12 col-12">
-                                        <!-- <div class="form-group">
-                                           
+                        <div class="invoices-main-form">
+                            <div class="row">
+
+                                
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Client Name</label>
-                                                <input class="form-control" type="text"
+                                                <label>Phone Number</label>
+                                                <input class="form-control" id="phone" type="text"
+                                                    placeholder="Enter Phone Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Enter Name</label>
+                                                <input class="form-control" id="name" type="text"
                                                     placeholder="Enter Name">
                                             </div>
-                                        </div> -->
-                                        <div class="form-group">
-                                            <label>Phone Number</label>
-                                            <input class="form-control" id="phone" type="text"
-                                                placeholder="Enter Phone Number">
                                         </div>
                                     </div>
-                                    <!-- <div class="col-xl-5 col-md-6 col-sm-12 col-12">
+                                    <!-- <div class="form-group">
+                                           
+                                            <div class="form-group">
+                                                 <label>Enter Name</label>
+                                            <input class="form-control" id="name" type="text"
+                                                placeholder="Enter Name">
+                                            </div>
+                                        </div> -->
+
+
+                               
+                                <!-- <div class="col-xl-5 col-md-6 col-sm-12 col-12">
                                         <h4 class="invoice-details-title">Invoice details</h4>
                                         <div class="invoice-details-box">
                                             <div class="invoice-inner-head">
@@ -86,9 +100,9 @@
                                             </div>
                                         </div>
                                     </div> -->
-                                    <div class="col-xl-3 col-md-12 col-sm-12 col-12">
-                                        <div class="inovices-month-info">
-                                            <!-- <div class="form-group mb-0">
+                                <div class="col-xl-3 col-md-12 col-sm-12 col-12">
+                                    <div class="inovices-month-info">
+                                        <!-- <div class="form-group mb-0">
                                                 <label class="custom_check w-100">
                                                     <input type="checkbox" id="gst" name="invoice">
                                                     <span class="checkmark"></span> Enable Gst
@@ -100,25 +114,24 @@
                                                 </div>
                                              
                                             </div> -->
-                                            <div id="show-invoices">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <select class="select">
-                                                                <option>By month</option>
-                                                                <option>March</option>
-                                                                <option>April</option>
-                                                                <option>May</option>
-                                                                <option>June</option>
-                                                                <option>July</option>
-                                                            </select>
-                                                        </div>
+                                        <div id="show-invoices">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <select class="select">
+                                                            <option>By month</option>
+                                                            <option>March</option>
+                                                            <option>April</option>
+                                                            <option>May</option>
+                                                            <option>June</option>
+                                                            <option>July</option>
+                                                        </select>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input class="form-control" type="text"
-                                                                placeholder="Enter Months">
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input class="form-control" type="text"
+                                                            placeholder="Enter Months">
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,60 +139,62 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="invoice-item">
-                                <div class="row">
-                                    <div class="col-xl-4 col-lg-6 col-md-6">
-                                        <div class="invoice-info">
-                                            <strong class="customer-text">Invoice From </strong>
-                                            <p class="invoice-details invoice-details-two">
-                                                GSTIN : 46AAGCE76FS6A1ZA2 <br>
-                                                abs house <br>
-                                                Morayur <br>
-                                                673409 <br>
-                                                
-                                                Zip code ,City - Country <br>
-                                                9087484288 <br>
-                                                Email <br>
-                                            </p>
-                                        </div>
+                        </div>
+                        <div class="invoice-item">
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-6 col-md-6">
+                                    <div class="invoice-info">
+                                        <strong class="customer-text">Invoice From </strong>
+                                        <p class="invoice-details invoice-details-two">
+                                            GSTIN : 46AAGCE76FS6A1ZA2 <br>
+                                            abs house <br>
+                                            Morayur <br>
+                                            673409 <br>
+
+                                            Zip code ,City - Country <br>
+                                            9087484288 <br>
+                                            Email <br>
+                                        </p>
                                     </div>
-                                    <div class="col-xl-4 col-lg-6 col-md-6">
-                                        <div class="invoice-info">
-                                            <strong class="customer-text">Invoice To</strong>
-                                            <p class="invoice-details invoice-details-two">
-                                                <span id="gst"></span><br>
-                                                <span id="address"></span><br>
-                                                <span id="district"></span><br>
-                                                <span id="state"></span><br>
-                                                <span id="pincode"></span><br>
-                                                <span id="mail"></p>
-                                               
-                                                <!-- kondotty <br>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-6">
+                                    <div class="invoice-info">
+                                        <strong class="customer-text">Invoice To</strong>
+                                        <p class="invoice-details invoice-details-two">
+                                            <span id="gst"></span><br>
+                                            <span id="address"></span><br>
+                                            <span id="district"></span><br>
+                                            <span id="state"></span><br>
+                                            <span id="pincode"></span><br>
+                                            <span id="mail">
+                                        </p>
+
+                                        <!-- kondotty <br>
                                                 673435 <br>
                                                 GSTIN : 32AAGCE7654A1ZA2 <br>
                                                 Zip code ,City - Country <br>
                                                 9087484288 <br>
                                                 Email <br> -->
-                                            </p>
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="invoice-add-table">
-                                <h4>Product Details</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-center add-table-items ">
-                                        <thead >
-                                            <tr>
-                                                <th>id</th>
-                                                <th>From Date</th>
-                                                <th>Due Date</th>
-                                                <th>Amount</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbodyofInvoice">
-                                            <!-- {% for i in estimatelist %}
+                        </div>
+                        <div class="invoice-add-table">
+                            <h4>Product Details</h4>
+                            <div class="table-responsive">
+                                <table class="table table-center add-table-items ">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>From Date</th>
+                                            <th>Due Date</th>
+                                            <th>Amount</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyofInvoice">
+                                        <!-- {% for i in estimatelist %}
                                             <tr>
                                                 <td  > <a href="/user/invoicedetails" class="invoice-link">{{ i.id }}</a> </td>
                                                 <td>
@@ -209,7 +224,7 @@
                                                 </td>
                                             </tr>
                                             {% endfor %} -->
-                                            <!-- <tr class="add-row">
+                                        <!-- <tr class="add-row">
                                                 <td>
                                                     <input type="text" class="form-control">
                                                 </td>
@@ -236,11 +251,11 @@
                                                             class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr> -->
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
-                            <!-- <div class="row">
+                        </div>
+                        <!-- <div class="row">
                                 <div class="col-lg-7 col-md-6">
                                     
                                    
@@ -402,53 +417,96 @@
 </div>
 <script>
 
-$('#phone').change(function(){
-    $.ajax({
-        url: "invoicegetdata",
-        type: 'POST',
-        data: {
-            'clientphone': $('#phone').val(),
+    $('#phone').change(function () {
+        $.ajax({
+            url: "invoicegetdata",
+            type: 'POST',
+            data: {
+                'clientphone': $('#phone').val(),
 
-        },
-        success: function (responce) {
-            $('#gst' ).html(responce.details.gst)
-            $('#address' ).html(responce.details.address)
-            $('#district' ).html(responce.details.district)
-            $('#state' ).html(responce.details.state)
-            $('#pincode' ).html(responce.details.zipcode)
-            $('#mail' ).html(responce.details.email)
-            for(var i=0;i<responce.details.estimatelist.length;i++){
-               var html=''
-               html+='<tr onclick=gotoEstimate('+responce.details.estimatelist[i].id+')>'
-               html+='<td>'+responce.details.estimatelist[i].id +'</td>'
-               html+='<td>'+responce.details.estimatelist[i].est_fromdate +'</td>'
-               html+='<td>'+responce.details.estimatelist[i].est_todate +'</td>'
-               html+='<td>'+responce.details.estimatelist[i].est_balance +'</td>'
-               html+='<td>'+responce.details.estimatelist[i].est_status +'</td>'
-            //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
-            //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
-               html+='</tr>'
-               $('#tbodyofInvoice').append(html)
+            },
+            success: function (responce) {
+                $('#gst').html(responce.details.gst)
+                $('#address').html(responce.details.address)
+                $('#district').html(responce.details.district)
+                $('#state').html(responce.details.state)
+                $('#pincode').html(responce.details.zipcode)
+                $('#mail').html(responce.details.email)
+                for (var i = 0; i < responce.details.estimatelist.length; i++) {
+                    var html = ''
+                    html += '<tr onclick=gotoEstimate(' + responce.details.estimatelist[i].id + ')>'
+                    html += '<td>' + responce.details.estimatelist[i].id + '</td>'
+                    html += '<td>' + responce.details.estimatelist[i].est_fromdate + '</td>'
+                    html += '<td>' + responce.details.estimatelist[i].est_todate + '</td>'
+                    html += '<td>' + responce.details.estimatelist[i].est_balance + '</td>'
+                    html += '<td>' + responce.details.estimatelist[i].est_status + '</td>'
+                    //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
+                    //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
+                    html += '</tr>'
+                    $('#tbodyofInvoice').append(html)
+                }
+
+
+
+
+
+
+
+
+
+
             }
-         
-         
-         
-         
-         
 
-
-
-
-
-        }
+        })
 
     })
-   
-})
+    $('#name').change(function () {
+        $.ajax({
+            url: "clientnamegetdata",
+            type: 'POST',
+            data: {
+                'clientname': $('#name').val(),
 
-function gotoEstimate(id){
-    window.location.href="/user/invoicebill/"+id
-}
+            },
+            success: function (responce) {
+                $('#gst').html(responce.details.gst)
+                $('#address').html(responce.details.address)
+                $('#district').html(responce.details.district)
+                $('#state').html(responce.details.state)
+                $('#pincode').html(responce.details.zipcode)
+                $('#mail').html(responce.details.email)
+                for (var i = 0; i < responce.details.estimatelist.length; i++) {
+                    var html = ''
+                    html += '<tr onclick=gotoEstimate(' + responce.details.estimatelist[i].id + ')>'
+                    html += '<td>' + responce.details.estimatelist[i].id + '</td>'
+                    html += '<td>' + responce.details.estimatelist[i].est_fromdate + '</td>'
+                    html += '<td>' + responce.details.estimatelist[i].est_todate + '</td>'
+                    html += '<td>' + responce.details.estimatelist[i].est_balance + '</td>'
+                    html += '<td>' + responce.details.estimatelist[i].est_status + '</td>'
+                    //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
+                    //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
+                    html += '</tr>'
+                    $('#tbodyofInvoice').append(html)
+                }
+
+
+
+
+
+
+
+
+
+
+            }
+
+        })
+
+    })
+
+    function gotoEstimate(id) {
+        window.location.href = "/user/invoicebill/" + id
+    }
 
 
     // $('#gst').click(function () {

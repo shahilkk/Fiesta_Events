@@ -58,6 +58,7 @@ urlpatterns = [
 
 
     path('invoicegetdata',views.invoicegetdata,name="invoicegetdata"),
+    path('clientnamegetdata',views.clientnamegetdata,name="clientnamegetdata"),
 
     path('savenote',views.savenote,name="savenote"),
 

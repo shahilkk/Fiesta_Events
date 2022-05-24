@@ -1,4 +1,5 @@
 
+from urllib import response
 from django.shortcuts import render , redirect 
 from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences,Terms,Income,Preview
 from django.views.decorators.csrf import csrf_exempt
@@ -107,16 +108,13 @@ def addcustomer(request):
         client_district=request.POST['client_district']
         client_zipcode=request.POST['client_zipcode']
         client_address=request.POST['client_address']
-        client_bankholder=request.POST['client_bankholder']
-        client_bankname=request.POST['client_bankname']
-        client_ifsc=request.POST['client_ifsc']
-        client_actnnumber=request.POST['client_actnnumber']
+       
         client_contact_type=request.POST['client_contact_type']
         print(client_name)
         client_add=Client(client_name=client_name,client_gst_number=client_gst_number
         ,client_id=est_id,client_phone=client_phone,client_email=client_email,
         client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
-        ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp,client_actnnumber=client_actnnumber, client_ifsc=client_ifsc, client_bankname=client_bankname, client_bankholder=client_bankholder )
+        ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
         client_add.save()
         return redirect('/user/customer')
     context={
@@ -322,23 +320,30 @@ def addestimate(request):
     pro = Product.objects.all()
 
     if request.method=='POST':
+
         checkphone=request.POST['checkphone']
-        clientid = Client.objects.get(client_phone=checkphone)
-        print(clientid)
-        
-        fromdate=request.POST['dataform']
-        todate=request.POST['todate']
-        est_id = Client.objects.get(id=clientid.id)
-        print(est_id)
-        esti=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
-        esti.save()
-        order_id = esti.id
-        context={
+        if Client.objects.filter(client_phone=checkphone).exists():
+
+            clientid = Client.objects.get(client_phone=checkphone)
+            print(clientid)
+            fromdate=request.POST['dataform']
+            todate=request.POST['todate']
+            est_id = Client.objects.get(id=clientid.id)
+
+            
+            print(est_id)
+            esti=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
+            esti.save()
+            context={
             "is_estimate":True,
             'cust':cust,
             'pro':pro,
             "estimate":esti
             }
+            order_id = esti.id
+        else:
+            return render(request,'addestimate.html',{'msg':'Customer Not Found'})   
+        
         return render(request,'addestimate.html',context)
     # print(order_id)
 
@@ -389,13 +394,12 @@ def createestimate(request):
   
 
 
-
+@csrf_exempt
 def addcat(request):
-    if request.method=='POST':
-        catagory_name=request.POST['catagory_name']
-        obj= Category(category=catagory_name)
-        obj.save()
-        return redirect ('/user/products')
+    catagory_name=request.POST['catagory_name']
+    obj= Category(category=catagory_name)
+    obj.save()
+    return JsonResponse({'category':obj.category})
 
 
    
@@ -1047,12 +1051,6 @@ def invoicegetdata(request):
             estimatelist.append(estdata)
             print(value)
 
-
-
-    # viewProduct = EstimateProduct.objects.filter(estimateid_id=estID.id).last()
-    # print(viewProduct)
-    # for i in viewProduct:
-    #     print(i)
     data={
         
         
@@ -1067,6 +1065,51 @@ def invoicegetdata(request):
         
     }
     return JsonResponse({'details': data})   
+
+
+
+
+
+@csrf_exempt
+def clientnamegetdata(request):
+    clientname = request.POST['clientname']
+    viewpro=Client.objects.get(client_name=clientname)
+    estimatelist=[]
+    print(viewpro.id)
+    estID = Estimates.objects.filter(clientd=viewpro.id)
+    print(estID)
+
+    if estID.exists():
+        for value in estID:
+            clientdata={
+                "id":value.clientd.id,
+                "client_name":value.clientd.client_name
+            }
+            estdata={
+                "id":value.id,
+                "clientd":clientdata,
+                "est_fromdate":value.est_fromdate,
+                "est_todate":value.est_todate,
+                "est_balance":value.est_balance,
+                "est_status":value.est_status,
+            }
+            estimatelist.append(estdata)
+            print(value)
+
+    data={
+        
+        
+        "id":viewpro.id,
+        "gst":viewpro.client_gst_number,
+        "email":viewpro.client_email,
+        "state":viewpro.client_state,
+        "district":viewpro.client_district,
+        "zipcode":viewpro.client_zipcode,
+        "address":viewpro.client_address,
+        "estimatelist":estimatelist
+        
+    }
+    return JsonResponse({'details': data})      
 
 
 
@@ -1141,9 +1184,11 @@ def login(request):
                         request.session['permission']=userDetails
                         return redirect('/user/index')
                     else:
-                        return redirect('/user/login')
+                        return render(request,'login.html',{'status':2})
+                else:
+                    return render(request,'login.html',{'status':1})        
         except:
-            pass
+            return render(request,'login.html',{'status':0})
  
        
     return render(request,'login.html') 
