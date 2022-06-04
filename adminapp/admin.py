@@ -28,6 +28,69 @@ admin.site.register(AddBank,AddBankAdmin)
 
 
 
+class EstimatesAdmin(admin.ModelAdmin):
+    list_display = ('est_fromdate',)
+    search_fields=('est_fromdate',)
+admin.site.register(Estimates,EstimatesAdmin)
+
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('category',)
+    search_fields=('category',)
+admin.site.register(Category,CategoryAdmin)
+
+
+
+class EstimateProductAdmin(admin.ModelAdmin):
+    list_display = ('est_category',)
+    search_fields=('est_category',)
+admin.site.register(EstimateProduct,EstimateProductAdmin)
+
+
+
+
+
+class PaymentDetailsAdmin(admin.ModelAdmin):
+    list_display = ('paymentdate',)
+    search_fields=('paymentdate',)
+admin.site.register(PaymentDetails,PaymentDetailsAdmin)
+
+
+
+
+
+class ExpencesAdmin(admin.ModelAdmin):
+    list_display = ('expencesasamount',)
+    search_fields=('expencesasamount',)
+admin.site.register(Expences,ExpencesAdmin)
+
+
+
+
+
+
+class TermsAdmin(admin.ModelAdmin):
+    list_display = ('term',)
+    search_fields=('term',)
+admin.site.register(Terms,TermsAdmin)
+
+
+class IncomeAdmin(admin.ModelAdmin):
+    list_display = ('incomeamount',)
+    search_fields=('incomeamount',)
+admin.site.register(Income,IncomeAdmin)
+
+
+class PreviewAdmin(admin.ModelAdmin):
+    list_display = ('prviewnumber',)
+    search_fields=('prviewnumber',)
+admin.site.register(Preview,PreviewAdmin)
+
+
+
+
+
 
 
 

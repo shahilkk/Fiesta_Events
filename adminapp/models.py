@@ -94,6 +94,8 @@ class Estimates(models.Model):
 
 class Category(models.Model):
     category = models.CharField(max_length=50)
+    class Meta:
+        db_table = 'category'
 
 
 class EstimateProduct(models.Model):
@@ -103,7 +105,8 @@ class EstimateProduct(models.Model):
     est_price = models.IntegerField()
     productid = models.ForeignKey(Product,on_delete=models.CASCADE )
     estimateid = models.ForeignKey(Estimates,on_delete=models.CASCADE  )
-  
+    class Meta:
+        db_table = 'est_category'
 
 
 class PaymentDetails(models.Model):
@@ -113,6 +116,8 @@ class PaymentDetails(models.Model):
     paymentdate = models.CharField(max_length=50)
     clientbank = models.CharField(max_length=50)
     paymentamount = models.IntegerField()
+    class Meta:
+        db_table = 'paymentdate'
  
 
 class Expences(models.Model):
@@ -122,14 +127,16 @@ class Expences(models.Model):
     expencesdate = models.DateField(default=datetime.date.today)
     expencesasamount = models.IntegerField(default = 0)
     expencestatus = models.CharField(max_length=50)
-
+    class Meta:
+        db_table = 'expencesasamount'
 
 
 class Terms(models.Model):
     estimateid = models.ForeignKey(Estimates,on_delete=models.CASCADE )
     term = models.CharField(max_length=5000)
     note = models.CharField(max_length=3000)
-
+    class Meta:
+        db_table = 'term'
 
 
 class Income(models.Model):
@@ -137,11 +144,13 @@ class Income(models.Model):
     incomestatus = models.CharField(max_length=3000)
     incomeamount = models.IntegerField(default = 0)
     estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
-
+    class Meta:
+        db_table = 'incomeamount'
 
 class Preview(models.Model):
     estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
     discount = models.IntegerField(default = 0)
     prviewnumber = models.CharField(max_length=3000,default="")
-
+    class Meta:
+        db_table = 'discount'
     
