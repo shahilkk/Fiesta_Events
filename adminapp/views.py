@@ -819,11 +819,12 @@ def addexpenses(request):
         phone=request.POST['phone']
         amount=request.POST['amount']
         print(category,note,phone,amount)
-        clientid= Client.objects.get(client_phone=phone)
-        expencevalue =Expences(clientid=clientid, expencescategory=category,expencesnote=note,  expencesasamount=amount ,expencestatus='Expences')
-        expencevalue.save()
-        return redirect('/user/expenses')
-
+        if Client.objects.filter(client_phone=phone).exists():
+            clientid= Client.objects.get(client_phone=phone)
+            expencevalue =Expences(clientid=clientid, expencescategory=category,expencesnote=note,  expencesasamount=amount ,expencestatus='Expences')
+            expencevalue.save()
+            return redirect('/user/expenses')
+        return render(request,'addexpence.html',{'msg':'Customer not found'})
 
     context={
         "is_expenses":True,
