@@ -90,6 +90,21 @@ admin.site.register(Preview,PreviewAdmin)
 
 
 
+class StockAdmin(admin.ModelAdmin):
+    list_display = ('stockname',)
+    search_fields=('stockname',)
+admin.site.register(Stock,StockAdmin)
+
+
+
+class ItemsAdmin(admin.ModelAdmin):
+    list_display = ('taken',)
+    search_fields=('taken',)
+admin.site.register(Items,ItemsAdmin)
+
+
+
+
 
 
 

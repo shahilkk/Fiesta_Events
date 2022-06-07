@@ -25,7 +25,7 @@ urlpatterns = [
     path('addprofit',views.addprofit,name="addprofit"),
     path('viewestimate/<str:id>',views.viewestimate,name="viewestimate"),
     path('editcustomer/<str:id>',views.editcustomer,name="editcustomer"),
-    path('addestimate',views.addestimate,name="addestimate"),
+    path('addestimate/',views.addestimate,name="addestimate"),
     path('filter',views.filter,name="filter"),
     path('viewemployee/<str:id>',views.viewemployee,name="viewemployee"),
     path('viewcustomer/<str:id>',views.viewcustomer,name="viewcustomer"),
@@ -70,8 +70,22 @@ urlpatterns = [
     path('forget',views.forget,name="forget"),
     
 
-    path('printlist',views.printlist,name="printlist"),
+    path('savecustomer/',views.savecustomer,name="savecustomer"),
+    path('estimatedata/',views.estimatedata,name="estimatedata"),
     
+
+    # path('printlist',views.printlist,name="printlist"),
+    
+
+    path('printlist',views.printlist,name="printlist"),
+    path('stock',views.stock,name="stock"),
+    path('addstock/',views.addstock,name="addstock"),
+    path('addmaterial/<str:id>',views.addmaterial,name="addmaterial"),
+    path('getQunatity',views.getQunatity,name="getQunatity"),
+    path('valuesave',views.valuesave,name="valuesave"),
+
+
+
     path('viewpdf/<str:id>,<str:discount>,<str:previewno>',views.viewpdf,name="viewpdf"),
     
     # path('formesmimate',views.formesmimate,name="formesmimate"),

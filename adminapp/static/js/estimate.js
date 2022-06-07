@@ -1,8 +1,12 @@
 
+var params = new window.URLSearchParams(window.location.search);
+var phone = params.get('phone-no')
+$("#checkname").val(phone)
+
 function changedProductname(id) {
 
     $.ajax({
-        url: "bill",
+        url: "/user/bill",
         type: 'POST',
         data: {
             'productname': $('#productName' + id).val(),
@@ -132,7 +136,7 @@ function DeleteRow(id){
 
 $('#savenote').click(function () {
     $.ajax({
-        url: "savenote",
+        url: "/user/savenote",
         type: 'POST',
         data: {
             'addterms': $('#addterms').val(),

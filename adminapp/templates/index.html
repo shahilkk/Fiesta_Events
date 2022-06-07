@@ -10,10 +10,11 @@
 <div class="page-wrapper">
     <div class="content container-fluid">
         <div class="row">
-            
+
             {% for bank in bank %}
             <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card " style="color:black; background-color: {% cycle 'rgb(143, 216, 245)' 'rgb(177, 238, 177)' 'rgb(251, 201, 231)' 'gold' %}">
+                <div class="card "
+                    style="color:black; background-color: {% cycle 'rgb(143, 216, 245)' 'rgb(177, 238, 177)' 'rgb(251, 201, 231)' 'gold' %}">
                     <div class="card-body">
                         <div class="dash-widget-header">
                             <span class=" bg-1">
@@ -33,8 +34,8 @@
                 </div>
             </div>
             {% endfor %}
-           
-            
+
+
         </div>
 
 
@@ -85,16 +86,20 @@
                                                             data-bs-toggle="dropdown" aria-expanded="false"><i
                                                                 class="fas fa-ellipsis-h"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="/user/editestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/editestimate/{{ i.id }}"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/user/Delectestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/Delectestimate/{{ i.id }}"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="/user/viewestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/viewestimate/{{ i.id }}"><i
                                                                     class="far fa-eye me-2"></i>View</a>
                                                             <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
                                                                     class="far fa-check-circle me-2"></i>Advance</a>
                                                             <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
-                                                                    class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                                    class="far fa-paper-plane me-2"></i>Partialy
+                                                                Paid</a>
                                                             <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
                                                                     class="far fa-times-circle me-2"></i>Closed</a>
                                                         </div>
@@ -102,7 +107,7 @@
                                                 </td>
                                             </tr>
                                             {% endfor %}
-                                          
+
 
 
                                         </tbody>
@@ -155,14 +160,18 @@
                                                             data-bs-toggle="dropdown" aria-expanded="false"><i
                                                                 class="fas fa-ellipsis-h"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="/user/editestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/editestimate/{{ i.id }}"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/user/Delectestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/Delectestimate/{{ i.id }}"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="/user/viewestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/viewestimate/{{ i.id }}"><i
                                                                     class="far fa-eye me-2"></i>View</a>
                                                             <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
-                                                                    class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                                    class="far fa-paper-plane me-2"></i>Partialy
+                                                                Paid</a>
                                                             <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
                                                                     class="far fa-times-circle me-2"></i>Closed</a>
                                                         </div>
@@ -222,11 +231,14 @@
                                                             data-bs-toggle="dropdown" aria-expanded="false"><i
                                                                 class="fas fa-ellipsis-h"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="/user/editestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/editestimate/{{ i.id }}"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/user/Delectestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/Delectestimate/{{ i.id }}"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="/user/viewestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/viewestimate/{{ i.id }}"><i
                                                                     class="far fa-eye me-2"></i>View</a>
                                                             <a class="dropdown-item" href="addpayment/{{ i.id }}"><i
                                                                     class="far fa-times-circle me-2"></i>Closed</a>
@@ -287,13 +299,16 @@
                                                             data-bs-toggle="dropdown" aria-expanded="false"><i
                                                                 class="fas fa-ellipsis-h"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="/user/editestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/editestimate/{{ i.id }}"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/user/Delectestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/Delectestimate/{{ i.id }}"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="/user/viewestimate/{{ i.id }}"><i
+                                                            <a class="dropdown-item"
+                                                                href="/user/viewestimate/{{ i.id }}"><i
                                                                     class="far fa-eye me-2"></i>View</a>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </td>
@@ -341,7 +356,7 @@
                                 <tbody>
                                     {% for i in pending %}
                                     <tr>
-                                       <td >{{ i.id }}</td>
+                                        <td>{{ i.id }}</td>
                                         <td>
                                             <h2 class="table-avatar">
                                                 {{ i.clientd.client_name }}
@@ -361,14 +376,17 @@
                                                             class="far fa-trash-alt me-2"></i>Delete</a>
                                                     <a class="dropdown-item" href="/user/viewestimate/{{ i.id }}"><i
                                                             class="far fa-eye me-2"></i>View</a>
+                                                    <a class="dropdown-item" href="/user/addmaterial/{{ i.id }}"><i
+                                                            class="fa fa-plus me-2"></i>Add Material </a>
                                                     <a class="dropdown-item" href="indexbill/{{ i.id }}"><i
                                                             class="far fa-file-alt me-2"></i>Bill</a>
-                                                            <a class="dropdown-item" href="indexadvanced/{{ i.id }}"><i
-                                                                class="far fa-check-circle me-2"></i>Advance</a>
-                                                        <a class="dropdown-item" href="indexpartialy/{{ i.id }}"><i
-                                                                class="far fa-paper-plane me-2"></i>Partialy Paid</a>
-                                                        <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
-                                                                class="far fa-times-circle me-2"></i>Closed</a>
+                                                    <a class="dropdown-item" href="indexadvanced/{{ i.id }}"><i
+                                                            class="far fa-check-circle me-2"></i>Advance</a>
+                                                    <a class="dropdown-item" href="indexpartialy/{{ i.id }}"><i
+                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                    <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
+                                                            class="far fa-times-circle me-2"></i>Closed</a>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -396,7 +414,7 @@
 
 <script>
 
-  
+
 </script>
 
 {% endblock %}

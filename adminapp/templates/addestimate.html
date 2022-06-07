@@ -81,7 +81,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Customer Phone:</label>
-                                            <input type="text" class="form-control" name="checkphone" id="checkname">
+                                            <input type="text" class="form-control" name="checkphone" placeholder="Enter Customer Phone Number" id="checkname">
                                         <!-- <input type="text" class="form-control" name="checkname" list="customer">
                                         <datalist id="customer">
                                             {% for i in cust %}
@@ -95,7 +95,7 @@
                                     <div class="form-group">
                                         <label>From</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" name="dataform" type="text">
+                                            <input class="form-control datetimepicker"placeholder="Starting Date" name="dataform" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                     <div class="form-group">
                                         <label>To</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" name="todate" type="text">
+                                            <input class="form-control datetimepicker" placeholder="Ending Date" name="todate" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -123,10 +123,20 @@
 
                             </div>
                             {{msg}}
-                            <div class="text-end mt-4">
-                                <button type="submit" class="btn btn-primary">Create Estimate</button>
-                                <a href="/user/addcustomer" class="btn btn-sm btn-primary"> <i class="fa fa-plus">Add Customer</i> </a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="text-start mt-4">
+                                        <a href="/user/addcustomer" class="btn btn-sm btn-primary"> <i class="fa fa-plus">Add Customer</i> </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-end mt-4">
+                                        <button type="submit" class="btn btn-primary">Create Estimate</button>
+                                    </div>
+                                </div>
                             </div>
+                           
+                            
                         </form>
                         {% endif %}
                         {%if estimate %}

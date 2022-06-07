@@ -1,7 +1,7 @@
 
 from urllib import response
 from django.shortcuts import render , redirect 
-from . models import Employee,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences,Terms,Income,Preview
+from . models import Employee, Items,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences, Stock,Terms,Income,Preview
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
@@ -79,16 +79,6 @@ def customer(req):
 
 
 def addcustomer(request):
-   
-    # context={"is_customer":True}
-    # rand=random.randint(10000,9999999)
-    # client_uid = 'CLT'+str(rand)
-    # if Estimate.objects.exists():
-    #     est = Estimate.objects.last().id
-    #     est_id = 'EST'+int(10+est)
-    # else:
-    #     est=0
-    #     est_id = 'EST'+int(10+est)
 
 
     if Client.objects.exists():
@@ -122,6 +112,67 @@ def addcustomer(request):
        
         }   
     return render(request,'addcustomer.html',context) 
+
+
+def savecustomer(request):
+    if Client.objects.exists():
+        est = Client.objects.last().id
+        est_id = 'CLT'+str(1001+est)
+    else:
+        est=0
+        est_id = 'CLT'+str(1001+est)
+    
+       
+    client_name=request.POST['client_name']
+    client_gst_number=request.POST['client_gst_number']
+    client_whsatpp=request.POST['client_whsatpp']
+    client_phone=request.POST['client_phone']
+    client_email=request.POST['client_email']
+    client_state=request.POST['client_state']
+    client_district=request.POST['client_district']
+    client_zipcode=request.POST['client_zipcode']
+    client_address=request.POST['client_address']
+    client_contact_type=request.POST['client_contact_type']
+    print(client_name)
+    client_add=Client(client_name=client_name,client_gst_number=client_gst_number
+    ,client_id=est_id,client_phone=client_phone,client_email=client_email,
+    client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
+    ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
+    client_add.save()
+    print(client_add)
+    return JsonResponse({'message': 'sucesses'})
+
+
+def estimatedata(request):
+    if Client.objects.exists():
+        est = Client.objects.last().id
+        est_id = 'CLT'+str(1001+est)
+    else:
+        est=0
+        est_id = 'CLT'+str(1001+est)
+    client_name=request.POST['client_name']
+    client_gst_number=request.POST['client_gst_number']
+    client_whsatpp=request.POST['client_whsatpp']
+    client_phone=request.POST['client_phone']
+    client_email=request.POST['client_email']
+    client_state=request.POST['client_state']
+    client_district=request.POST['client_district']
+    client_zipcode=request.POST['client_zipcode']
+    client_address=request.POST['client_address']
+    client_contact_type=request.POST['client_contact_type']
+    print(client_name)
+    client_add=Client(client_name=client_name,client_gst_number=client_gst_number
+    ,client_id=est_id,client_phone=client_phone,client_email=client_email,
+    client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
+    ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
+    client_add.save()
+    print(client_add)
+    data={
+        "client_phone":client_add.client_phone,
+    }
+    print(data)
+    return JsonResponse({'client':data})
+
 
 
 
@@ -971,7 +1022,6 @@ def est_product(request):
     estim=Estimates.objects.get(id=estimateid)
     addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     addest.save()
-    pr
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
@@ -1310,4 +1360,65 @@ def save(request,id):
         }
     return render(request,'invoicedetails.html',context) 
 
-     
+
+
+def stock(request):
+    context={
+        "is_stock":True,
+        }
+    return render(request,'stock.html',context)        
+
+
+def addstock(request):
+    if request.method=='POST':
+        stockname=request.POST['stockname']
+        quantity=request.POST['quantity']
+        stock=Stock(stockname=stockname , quantity=quantity)
+        stock.save()
+        return redirect('/user/stock')
+    context={
+        "is_stock":True,
+        }
+    return render(request,'addstock.html',context)        
+  
+
+
+def addmaterial(request,id):
+    stock= Stock.objects.all()
+    print(id)
+    context={
+        "is_stock":True,
+        "stock":stock,
+        "id":id
+        }
+    return render(request,'addmaterial.html',context)        
+  
+
+def getQunatity(request):
+    stockname = request.GET['name']
+    stocklist = Stock.objects.get(stockname=stockname)
+    data={
+        "quantiy":stocklist.quantity,
+        "id":stocklist.id,
+    }
+    return JsonResponse({'stock':data,})
+
+
+@csrf_exempt
+def valuesave(request):
+    estimateid = request.POST['estimateid']
+    print(estimateid)
+    productId = request.POST['productId']
+    stock = request.POST['stock']
+    qty = request.POST['qty']
+    needed = request.POST['needed']  
+    print(estimateid,productId,stock,qty,needed)  
+    # stockid=Stock.objects.get(id=productId)
+    stc=Stock.objects.get(stockname=stock)
+    estimate=Estimates.objects.get(id=estimateid)
+    details = Items(estimate=estimate, stock=stc, taken=needed)
+    details.save()
+    # add =Stock.objects.get(stockname=stock)
+    # add.quantity=add.quantity -int(needed)
+    # add.save()
+    return JsonResponse({'msg':'data inserted sucess'})

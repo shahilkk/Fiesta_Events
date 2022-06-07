@@ -28,63 +28,78 @@
                     <div class="card-body">
 
                         <h4 class="card-title">Client Info</h4>
-                        <form action="#" method="post">
+                        <form>
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
 
                                         <label>Client Name / Company Name</label>
-                                        <input type="text" required class="form-control" name="client_name">
+                                        <input type="text" required class="form-control" id="client_name"
+                                            name="client_name">
+                                        <p id="pname" style="color: red;"></p>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Company Phone Number</label>
-                                        <input type="text" required class="form-control" name="client_phone">
+                                        <input type="text" required class="form-control" id="client_phone"
+                                            name="client_phone">
+                                        <p id="pphone" style="color: red;"></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Company Whatsapp Number</label>
-                                        <input type="text" required class="form-control" name="client_whsatpp">
+                                        <input type="text" required class="form-control" id="client_whsatpp"
+                                            name="client_whsatpp">
                                     </div>
                                     <div class="form-group">
                                         <label>Company Email</label>
-                                        <input type="email" required class="form-control" name="client_email">
+                                        <input type="email" required class="form-control" id="client_email"
+                                            name="client_email">
                                     </div>
                                     <div class="form-group">
                                         <label> Company Address</label>
-                                        <textarea rows="5" cols="5" required class="form-control" name="client_address"
-                                            placeholder="Enter Address"></textarea>
+                                        <textarea rows="5" cols="5" required class="form-control" id="client_address"
+                                            name="client_address" placeholder="Enter Address"></textarea>
+                                        <p id="paddress" style="color: red;"></p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>GST number</label>
-                                        <input type="text"   class="form-control" name="client_gst_number">
+                                        <input type="text" class="form-control" id="client_gst_number"
+                                            name="client_gst_number">
                                     </div>
                                     <div class="form-group">
                                         <label>Primary Contact Type</label>
-                                        <select class="select form-control form-control-lg" name="client_contact_type">
-                                            <option>select</option>
+                                        <select class="select form-control form-control-lg" id="client_contact_type"
+                                            name="client_contact_type">
+                                            <option disabled selected>select</option>
                                             <option value="whatsapp">whatsapp</option>
                                             <option value="email">email</option>
                                             <option value="phone number">phone number</option>
 
                                         </select>
+                                        <p id="pcontact" style="color: red;"></p>
                                     </div>
                                     <div class="form-group">
                                         <label>State</label>
-                                        
-                                        <input type="text" required class="form-control" name="client_state">
+
+                                        <input type="text" required class="form-control" id="client_state"
+                                            name="client_state">
+                                        <p id="pstate" style="color: red;"></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Distric</label>
-                                       
-                                        <input type="text" required class="form-control" name="client_district">
+
+                                        <input type="text" required class="form-control" id="client_district"
+                                            name="client_district">
+                                        <p id="pdistrict" style="color: red;"></p>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Zip Code</label>
-                                        <input type="text" required class="form-control" name="client_zipcode">
+                                        <input type="text" required class="form-control" id="client_zipcode"
+                                            name="client_zipcode">
                                     </div>
 
 
@@ -132,8 +147,9 @@
 
 
                             </div>
-                            <button type="submit" class="btn btn-primary mr-1 mb-1 " id="basic-alert">save</button>
-                            <a href="/user/addestimate" class="btn btn-primary mr-1 mb-1">Create Estimate</a>
+                            <button type="button" class="btn btn-primary mr-1 mb-1 " id="Savebuton">save</button>
+                            <button type="button" class="btn btn-primary mr-1 mb-1 " id="Createbuton">Create
+                                Estimate</button>
 
                         </form>
                     </div>
@@ -147,5 +163,116 @@
         </div>
     </div>
 </div>
-</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $('#Savebuton').click(() => {
+        if (!$('#client_name').val()) {
+            $('#pname').html('Enter your name!')
+        }
+        else if (!$('#client_phone').val()) {
+            $('#pphone').html('Enter your Phone!')
+        }
+        else if (!$('#client_address').val()) {
+            $('#paddress').html('Enter your Address!')
+        }
+        else if (!$('#client_contact_type').val()) {
+            $('#pcontact').html('Chooes One!')
+        }
+        else if (!$('#client_state').val()) {
+            $('#pstate').html('Enter your State!')
+        }
+        else if (!$('#client_district').val()) {
+            $('#pdistrict').html('Enter your District')
+        }
+        else{
+            $.ajax({
+            url: "/user/savecustomer/",
+            type: 'post',
+            data: {
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                'client_name': $('#client_name').val(),
+                'client_phone': $('#client_phone').val(),
+                'client_whsatpp': $('#client_whsatpp').val(),
+                'client_email': $('#client_email').val(),
+                'client_gst_number': $('#client_gst_number').val(),
+                'client_address': $('#client_address').val(),
+                'client_contact_type': $('#client_contact_type').val(),
+                'client_state': $('#client_state').val(),
+                'client_district': $('#client_district').val(),
+                'client_zipcode': $('#client_zipcode').val()
+            },
+            success: function (responce) {
+                window.location.href = '/user/customer';
+            }
+
+
+        })
+        }
+
+       
+    })
+
+
+
+    $('#Createbuton').click(() => {
+        if (!$('#client_name').val()) {
+            $('#pname').html('Enter your name!')
+        }
+        else if (!$('#client_phone').val()) {
+            $('#pphone').html('Enter your Phone!')
+        }
+        else if (!$('#client_address').val()) {
+            $('#paddress').html('Enter your Address!')
+        }
+        else if (!$('#client_contact_type').val()) {
+            $('#pcontact').html('Chooes One!')
+        }
+        else if (!$('#client_state').val()) {
+            $('#pstate').html('Enter your State!')
+        }
+        else if (!$('#client_district').val()) {
+            $('#pdistrict').html('Enter your District')
+        }
+
+        else {
+
+            $.ajax({
+                url: "/user/estimatedata/",
+                type: 'post',
+                data: {
+                    
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    'client_name': $('#client_name').val(),
+                    'client_phone': $('#client_phone').val(),
+                    'client_whsatpp': $('#client_whsatpp').val(),
+                    'client_email': $('#client_email').val(),
+                    'client_gst_number': $('#client_gst_number').val(),
+                    'client_address': $('#client_address').val(),
+                    'client_contact_type': $('#client_contact_type').val(),
+                    'client_state': $('#client_state').val(),
+                    'client_district': $('#client_district').val(),
+                    'client_zipcode': $('#client_zipcode').val(),
+
+                },
+                success: function (responce) {
+                    window.location.href = '/user/addestimate/?phone-no=' + responce.client.client_phone
+
+                    $("#checkname").val(responce.client.client_phone)
+                }
+
+
+
+            })
+         
+        }
+
+    })
+
+
+
+
+
+</script>
 {% endblock %}

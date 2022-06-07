@@ -15,9 +15,9 @@ class Client(models.Model):
     client_email = models.CharField(max_length=30,default="")
     client_state = models.CharField(max_length=30)
     client_district = models.CharField(max_length=30)
-    client_zipcode = models.CharField(max_length=30)
+    client_zipcode = models.CharField(max_length=30,default="")
     client_address = models.CharField(max_length=60000)
-    client_whsatpp = models.CharField(max_length=60)
+    client_whsatpp = models.CharField(max_length=60,default="")
     client_contact_type = models.CharField(max_length=40,default="")
     client_status = models.CharField(max_length=30 ,default="Active")
     client_bankholder = models.CharField(max_length=60,default="")
@@ -153,4 +153,17 @@ class Preview(models.Model):
     prviewnumber = models.CharField(max_length=3000,default="")
     class Meta:
         db_table = 'discount'
+
+class Stock(models.Model):
+    stockname = models.CharField(max_length=3000,null=True)
+    quantity = models.IntegerField(default=0)
+    class Meta:
+        db_table = 'stockname'
+
+class Items(models.Model):  
+    estimate = models.ForeignKey(Estimates,on_delete=models.CASCADE )
+    stock = models.ForeignKey(Stock,on_delete=models.CASCADE ) 
+    taken = models.IntegerField(default=0)
+    class Meta:
+        db_table = 'taken'   
     
