@@ -735,17 +735,15 @@ def addpayment(request,id):
     if request.method == 'POST':
         paymentdate = request.POST['paymentdate']
         paymentclientname = request.POST['paymentclientname']
-        paymentclientbank = request.POST['paymentclientbank']
         paymentamount = request.POST['paymentamount']
         paymentestimateid = request.POST['paymentestimateid']
         paymentcompanybank = request.POST['paymentcompanybank']
         paymentclientid = request.POST['paymentclientid']
         
-        # print(paymentcompanybank,paymentclientid,paymentestimateid,paymentdate,paymentclientname,paymentclientbank,paymentamount)
         clientID= Client.objects.get(id=paymentclientid)  
         bank=AddBank.objects.get(id=paymentcompanybank)
         estimate = Estimates.objects.get(id=paymentestimateid)
-        payment = PaymentDetails(clientid=clientID,bankid=bank,estimateId=estimate,paymentdate=paymentdate,paymentamount=paymentamount,clientbank=paymentclientbank)
+        payment = PaymentDetails(clientid=clientID,bankid=bank,estimateId=estimate,paymentdate=paymentdate,paymentamount=paymentamount)
         payment.save()
         qunless =Estimates.objects.get(id=paymentestimateid)
         qunless.est_balance = qunless.est_balance-int(paymentamount)

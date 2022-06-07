@@ -114,7 +114,6 @@ class PaymentDetails(models.Model):
     bankid = models.ForeignKey(AddBank,on_delete=models.CASCADE )
     estimateId = models.ForeignKey(Estimates,on_delete=models.CASCADE )
     paymentdate = models.CharField(max_length=50)
-    clientbank = models.CharField(max_length=50)
     paymentamount = models.IntegerField()
     class Meta:
         db_table = 'paymentdate'

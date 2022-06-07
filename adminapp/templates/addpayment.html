@@ -53,7 +53,7 @@
                                     <div class="form-group">
                                         <label>Date:</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" name="paymentdate" type="text">
+                                            <input class="form-control datetimepicker" required name="paymentdate" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -62,10 +62,14 @@
                                             name="paymentclientname" class="form-control">
                                     </div>
                                     <div class="form-group">
+                                        <label>Pending Amount:</label>
+                                        <input type="text" disabled name="paymentamount" value="{{ cusmoterdetails.est_balance }}" class="form-control">
+                                    </div>
+                                    <!-- <div class="form-group">
                                         <label>Client Bank:</label>
                                         <input type="text" value="{{ cusmoterdetails.clientd.client_bankname }}"
                                             readonly name="paymentclientbank" class="form-control">
-                                    </div>
+                                    </div> -->
                                     <!-- <div class="form-group">
                                         <label>Address:</label>
                                         <textarea rows="5" cols="5" class="form-control"
@@ -75,12 +79,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Amount:</label>
-                                        <input type="text" name="paymentamount" class="form-control">
+                                        <input type="text" required name="paymentamount" class="form-control">
                                     </div>
-                                    <div class="form-group">
-                                        <label>PEnding Amount:</label>
-                                        <input type="text" disabled name="paymentamount" value="{{ cusmoterdetails.est_balance }}" class="form-control">
-                                    </div>
+                                   
                                     <!-- <div class="form-group">
                                         <label>Payment Number:</label>
                                         <input type="text" class="form-control">
@@ -95,8 +96,7 @@
                                     <div class="form-group">
                                         <label>Payment Mode:</label>
 
-                                        <select class="select form-control form-control-lg" name="paymentcompanybank">
-                                            <option>Select Payment Mode</option>
+                                        <select class="select form-control form-control-lg" required name="paymentcompanybank">
                                             {% for i in companybank %}
                                             <option value="{{i.id}}">{{i.bank_name}} </option>
                                             {% endfor %}
