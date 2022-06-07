@@ -1363,8 +1363,10 @@ def save(request,id):
 
 
 def stock(request):
+    stock = Stock.objects.all()
     context={
         "is_stock":True,
+        "stock":stock
         }
     return render(request,'stock.html',context)        
 
@@ -1418,7 +1420,36 @@ def valuesave(request):
     estimate=Estimates.objects.get(id=estimateid)
     details = Items(estimate=estimate, stock=stc, taken=needed)
     details.save()
-    # add =Stock.objects.get(stockname=stock)
-    # add.quantity=add.quantity -int(needed)
-    # add.save()
+    added_qty = Stock.objects.get(stockname=stock)
+    added_qty.quantity = added_qty.quantity -int(needed)
+    added_qty.save()
     return JsonResponse({'msg':'data inserted sucess'})
+
+    
+def viewaddedmaterial(request,id):
+    estimates = Estimates.objects.get(id=id)
+    view = Items.objects.filter(estimate=estimates)
+    print(view)
+    context={
+        "is_stock":True,
+        "view":view,
+        }
+    return render(request,'viewaddedmaterial.html',context)        
+  
+
+
+def stocktransfer(request):
+    returnQty = request.POST['returnQty']
+    id = request.POST['id']
+    print(returnQty)
+    status = "Rejected"
+    transfer_obj = Items.objects.get(id=id)
+    print(transfer_obj)
+    print(transfer_obj.stock.quantity)
+    transfer_obj.stock.quantity = transfer_obj.stock.quantity + int(returnQty)
+    print(transfer_obj.stock.quantity)
+    transfer_obj.stock.save()
+    transfer_obj.taken = transfer_obj.taken -int(returnQty)
+    transfer_obj.save()
+    return JsonResponse({'msg':'Staff Transfer Success'})
+

@@ -34,7 +34,7 @@ class Product(models.Model):
     food_name = models.CharField(max_length=50)
     catagory = models.CharField(max_length=50)
     priceper_head = models.IntegerField()
-    priceper_kg = models.IntegerField()
+    priceper_kg = models.IntegerField(default=0)
     food_deatails = models.CharField(max_length=500000)
     food_status = models.BooleanField(default=True)
 

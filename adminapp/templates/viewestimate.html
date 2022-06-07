@@ -2,7 +2,94 @@
 {% block content %}
 {% load static %}
 
+<style>
+    @media screen and (min-width:336px) and (max-width:626px) {
 
+        #invoicefrom,
+        #payment {
+            font-size: 13px;
+        }
+
+
+        .invoice-issues-date {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .imgsign,
+        .logo {
+            max-width: 10%;
+        }
+
+        .height {
+            height: 10%;
+        }
+
+        .invoice-total-card {
+            height: 10px;
+        }
+
+        .page-wrapper {
+            margin-top: 0px;
+            /* padding: 0px; */
+        }
+
+        #content {
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+        .page-wrapper>.content {
+            padding: 0 !important;
+        }
+
+        #headtag {
+            padding: 0px;
+            display: none;
+        }
+
+        #header {
+            display: none !important;
+
+        }
+
+        .page-wrapper {
+            padding-top: 0px;
+        }
+    }
+
+    @media print {
+
+        #header,
+        .sidebar,
+        .navbar-toggler,
+        .a,
+        .button,
+        #printbutton {
+            display: none !important;
+            content: none !important;
+        }
+
+        .page-titles,
+        h1,
+        h2,
+        h3 {
+            display: none;
+
+        }
+
+        .page-wrapper>.content {
+            padding: 0 !important;
+        }
+
+        .page-wrapper {
+            padding-top: 0px;
+        }
+
+
+    }
+</style>
 
 
 
@@ -32,7 +119,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="invoice-info">
-                                        <strong class="customer-text">Invoice From</strong>
+                                        <strong class="customer-text">Estimate From</strong>
                                         <p class="invoice-details invoice-details-two">
                                            Fiesta <br>
                                             806 Twin Willow Lane, Old Forge,<br>
@@ -42,7 +129,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="invoice-info invoice-info2">
-                                        <strong class="customer-text">Invoice To</strong>
+                                        <strong class="customer-text">Estimate To</strong>
                                         <p class="invoice-details">
                                              {{ clientdetails.clientd.client_name}}<br>
                                              {{ clientdetails.clientd.client_address}},{{ clientdetails.clientd.client_district}} <br>
@@ -117,7 +204,12 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="form-group float-end mb-0">
+                            <button class="btn btn-primary" id="printbutton" onclick="makeprint()" type="submit"><i
+                                    class="fas fa-download me-1"></i>Print </button>
+                           
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,5 +217,9 @@
     </div>
 </div>
 
-
+<script>
+    function makeprint(id) {
+        window.print();
+    }
+</script>
 {% endblock %}

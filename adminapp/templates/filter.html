@@ -92,7 +92,7 @@
                                             </td>
                                             <td>{{ i.est_fromdate }}</td>
                                             <td>{{ i.est_todate }}</td>
-                                            <td class="text-primary">${{ i.est_balance }}</td>
+                                            <td class="text-primary">₹{{ i.est_balance }}</td>
                                             <td>{% if i.est_status == 'Billed'  %} <span class="badge badge-pill bg-success-light">{{ i.est_status }}</span> {% elif i.est_status == 'Partialy Paid' %} <span class="badge bg-danger-light">{{ i.est_status }}</span> {% elif i.est_status == 'Advanced' %} <span class="badge bg-warning-light">{{ i.est_status }}</span> {% elif i.est_status == 'Closed' %} <span class="badge bg-primary-light">{{ i.est_status }}</span>  {% elif i.est_status == 'Pending' %} <span class="badge bg-info-light">{{ i.est_status }}</span>  {% endif %}  </td>
                                             <td class="text-end">
                                                 <div class="dropdown dropdown-action">
@@ -158,7 +158,7 @@
                                             </td>
                                             <td>{{ i.est_fromdate }}</td>
                                             <td>{{ i.est_todate }}</td>
-                                            <td class="text-primary">${{ i.est_balance }}</td>
+                                            <td class="text-primary">₹{{ i.est_balance }}</td>
                                             <td><span class="badge bg-success-light">Billed</span></td>
                                             <td class="text-end">
                                                 <div class="dropdown dropdown-action">
@@ -227,7 +227,7 @@
                                             </td>
                                             <td>{{ i.est_fromdate }}</td>
                                             <td>{{ i.est_todate }}</td>
-                                            <td class="text-primary">${{ i.est_balance }}</td>
+                                            <td class="text-primary">₹{{ i.est_balance }}</td>
                                             <td><span class="badge bg-warning-light">Advanced</span></td>
                                             <td class="text-end">
                                                 <div class="dropdown dropdown-action">
@@ -292,7 +292,7 @@
                                             </td>
                                             <td>{{ i.est_fromdate }}</td>
                                             <td>{{ i.est_todate }}</td>
-                                            <td class="text-primary">${{ i.est_balance }}</td>
+                                            <td class="text-primary">₹{{ i.est_balance }}</td>
                                             <td><span class="badge bg-danger-light">Partially Paid</span></td>
                                             <td class="text-end">
                                                 <div class="dropdown dropdown-action">
@@ -359,7 +359,7 @@
                                             </td>
                                             <td>{{ i.est_fromdate }}</td>
                                             <td>{{ i.est_todate }}</td>
-                                            <td class="text-primary">${{ i.est_balance }}</td>
+                                            <td class="text-primary">₹{{ i.est_balance }}</td>
                                             <td><span class="badge bg-primary-light">Closed</span></td>
                                             <td class="text-end">
                                                 <div class="dropdown dropdown-action">

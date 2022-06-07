@@ -14,11 +14,11 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="page-title"> Bank settings</h3>
+                    <h3 class="page-title"> Payment settings</h3>
                     <ul class="breadcrumb">
                         <li class=""><a href="/user/index">Dashboard /</a>
                         </li>
-                        <li class="breadcrumb-item active">Bank Settings</li>
+                        <li class="breadcrumb-item active">Payment Settings</li>
                     </ul>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="col-xl-12 col-md-12">
                 <div class="card invoices-settings-card">
                     <div class="card-header">
-                        <h5 class="card-title">Bank Settings</h5>
+                        <h5 class="card-title">Payment Settings</h5>
                     </div>
                     <div class="card-body">
 
@@ -46,13 +46,13 @@
                                 </div>
                             </div> -->
                             <div class="row align-items-center form-group">
-                                <label for="phone" class="col-sm-3 col-form-label input-label">Bank name</label>
+                                <label for="phone" class="col-sm-3 col-form-label input-label">Payment name</label>
                                 <div class="col-sm-9">
                                     <input required type="text" name="bank_name" class="form-control">
                                 </div>
                             </div>
                             <div class="row align-items-center form-group">
-                                <label for="email" class="col-sm-3 col-form-label input-label">Account Holder
+                                <label for="email" class="col-sm-3 col-form-label input-label">Payment Holder
                                     Name</label>
                                 <div class="col-sm-9">
                                     <input type="text" required name="bank_holdername" class="form-control">
@@ -60,7 +60,7 @@
                             </div>
                             
                             <div class="row align-items-center form-group">
-                                <label for="phone" class="col-sm-3 col-form-label input-label">IFSC Code</label>
+                                <label for="phone" class="col-sm-3 col-form-label input-label">IFSC Code </label>
                                 <div class="col-sm-9">
                                     <input type="text" required name="bank_ifsc" class="form-control">
                                 </div>
@@ -80,7 +80,7 @@
                             </div>
                             {% if status == 1 %}
                             <div class="alert alert-success" role="alert">
-                              Bank Added succesfully
+                               Added succesfully
                             </div>
                             {% endif %}
                             <div class="invoice-setting-btn text-end">

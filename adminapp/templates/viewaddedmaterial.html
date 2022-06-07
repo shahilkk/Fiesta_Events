@@ -62,24 +62,41 @@
                             <table class="table table-center table-hover datatable">
                                 <thead class="thead-light">
                                     <tr>
-                                
                                         <th>Item Name</th>
-                                        <th>Total Quantity</th>
-                                       
+                                        <th>Quantity Taken</th>
+                                        <th>
+                                            Return Quantity
+                                        </th>
+                                        <th class="text-center">
+                                            Actions
+                                        </th>
                                     </tr>
+                                    {% csrf_token %}
                                 </thead>
                                 <tbody>
-                                    {% for i in stock %}
+                                    {% for i in view %}
                                     <tr>
-                                      
-                                        <td>  {{ i.stockname }}</td>
-                                        <td>{{ i.quantity}}</td>
+
+                                        <td> {{ i.stock.stockname}}</td>
+                                        <td>{{ i.taken}}</td>
+
+                                        <td>
+                                            <input type="number" required class="form-control" min="0"  max="{{ i.taken }}" id="returnQty{{i.id}}" >
+                                            <p id="p{{i.id}}"></p>
+                                            <input id="tid" hidden type="number" value="{{i.id}}">
+                                        </td>
+                                        
                                        
-                                   
+                                        <td class="text-center">
+                                            <a href="" onclick="acceptReturn('{{i.id}}')" class="btn btn-sm btn-white text-success me-2" ><i
+                                                    class="fa fa-check me-1"></i>Accept</a>
+                                           
+
+                                        </td>
                                     </tr>
 
                                     {% endfor %}
-                                   
+
                                 </tbody>
                             </table>
                         </div>
@@ -90,5 +107,31 @@
     </div>
 </div>
 
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    function acceptReturn(id){
+        var returnQty = $("#returnQty"+id).val();
+        $.ajax({
+                url: '/user/stocktransfer',
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    'returnQty' : $("#returnQty"+id).val(),
+                    "id":id
+                },
+                success: function (response) {
+                    // var staff_id = response
+
+                    $("#p").val(response.msg),
+
+                    window.location.reload()
+                }
+            })
+    }
+ 
+</script>
 
 {% endblock %}

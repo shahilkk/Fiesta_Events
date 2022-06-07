@@ -83,6 +83,8 @@ urlpatterns = [
     path('addmaterial/<str:id>',views.addmaterial,name="addmaterial"),
     path('getQunatity',views.getQunatity,name="getQunatity"),
     path('valuesave',views.valuesave,name="valuesave"),
+    path('viewaddedmaterial/<str:id>',views.viewaddedmaterial,name="viewaddedmaterial"),
+    path('stocktransfer',views.stocktransfer,name="stocktransfer"),
 
 
 
