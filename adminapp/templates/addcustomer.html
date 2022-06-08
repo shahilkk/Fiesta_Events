@@ -186,32 +186,32 @@
         else if (!$('#client_district').val()) {
             $('#pdistrict').html('Enter your District')
         }
-        else{
+        else {
             $.ajax({
-            url: "/user/savecustomer/",
-            type: 'post',
-            data: {
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                'client_name': $('#client_name').val(),
-                'client_phone': $('#client_phone').val(),
-                'client_whsatpp': $('#client_whsatpp').val(),
-                'client_email': $('#client_email').val(),
-                'client_gst_number': $('#client_gst_number').val(),
-                'client_address': $('#client_address').val(),
-                'client_contact_type': $('#client_contact_type').val(),
-                'client_state': $('#client_state').val(),
-                'client_district': $('#client_district').val(),
-                'client_zipcode': $('#client_zipcode').val()
-            },
-            success: function (responce) {
-                window.location.href = '/user/customer';
-            }
+                url: "/user/savecustomer/",
+                type: 'post',
+                data: {
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    'client_name': $('#client_name').val(),
+                    'client_phone': $('#client_phone').val(),
+                    'client_whsatpp': $('#client_whsatpp').val(),
+                    'client_email': $('#client_email').val(),
+                    'client_gst_number': $('#client_gst_number').val(),
+                    'client_address': $('#client_address').val(),
+                    'client_contact_type': $('#client_contact_type').val(),
+                    'client_state': $('#client_state').val(),
+                    'client_district': $('#client_district').val(),
+                    'client_zipcode': $('#client_zipcode').val()
+                },
+                success: function (responce) {
+                    window.location.href = '/user/customer';
+                }
 
 
-        })
+            })
         }
 
-       
+
     })
 
 
@@ -242,7 +242,7 @@
                 url: "/user/estimatedata/",
                 type: 'post',
                 data: {
-                    
+
                     csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
                     'client_name': $('#client_name').val(),
                     'client_phone': $('#client_phone').val(),
@@ -265,12 +265,36 @@
 
 
             })
-         
+
         }
 
     })
 
+    $('#client_phone').change(() => {
 
+        $.ajax({
+            url: "/user/phoneexist",
+            type: 'post',
+            data: {
+                'client_phone': $('#client_phone').val()
+            },
+            success: function (responce) {
+
+                if (responce.IsExist == true) {
+                    document.getElementById('pphone').innerHTML = 'User Phone Number Already Exist '
+
+                    $('#Savebuton').prop('disabled', true)
+                    $('#Createbuton').prop('disabled', true)
+                }
+                else {
+                    document.getElementById('pphone').innerHTML = ''
+                    $('#Savebuton').prop('disabled', false)
+                    $('#Createbuton').prop('disabled', false)
+                }
+            }
+
+        })
+    })
 
 
 

@@ -1,4 +1,5 @@
 
+from tracemalloc import take_snapshot
 from urllib import response
 from django.shortcuts import render , redirect 
 from . models import Employee, Items,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences, Stock,Terms,Income,Preview
@@ -100,7 +101,6 @@ def addcustomer(request):
         client_address=request.POST['client_address']
        
         client_contact_type=request.POST['client_contact_type']
-        print(client_name)
         client_add=Client(client_name=client_name,client_gst_number=client_gst_number
         ,client_id=est_id,client_phone=client_phone,client_email=client_email,
         client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
@@ -133,13 +133,11 @@ def savecustomer(request):
     client_zipcode=request.POST['client_zipcode']
     client_address=request.POST['client_address']
     client_contact_type=request.POST['client_contact_type']
-    print(client_name)
     client_add=Client(client_name=client_name,client_gst_number=client_gst_number
     ,client_id=est_id,client_phone=client_phone,client_email=client_email,
     client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
     ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
     client_add.save()
-    print(client_add)
     return JsonResponse({'message': 'sucesses'})
 
 
@@ -160,17 +158,14 @@ def estimatedata(request):
     client_zipcode=request.POST['client_zipcode']
     client_address=request.POST['client_address']
     client_contact_type=request.POST['client_contact_type']
-    print(client_name)
     client_add=Client(client_name=client_name,client_gst_number=client_gst_number
     ,client_id=est_id,client_phone=client_phone,client_email=client_email,
     client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
     ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
     client_add.save()
-    print(client_add)
     data={
         "client_phone":client_add.client_phone,
     }
-    print(data)
     return JsonResponse({'client':data})
 
 
@@ -195,7 +190,6 @@ def editcustomer(request,id):
         return render(request,'editcustomer.html',{'status':1})
 
     else:
-        print(id)
         editcust=Client.objects.get(id=id)
     context={
         "is_customer":True,
@@ -206,7 +200,6 @@ def editcustomer(request,id):
 
 
 def viewcustomer(request,id):
-    print(id)
     details=Client.objects.get(id=id)
     context={
         "is_custome":True,
@@ -221,7 +214,6 @@ def deletecustomer(request,id):
 
 
 def viewemployee(requsest,id):
-    print(id)
     details = Employee.objects.get(id=id)
     context={
         'details':details
@@ -251,7 +243,6 @@ def addmstaff(request):
         employee_district=request.POST['employee_district']
         employee_zipcode=request.POST['employee_zipcode']
         employee_address=request.POST['employee_address']
-        print(employee_name)
         emplyoeedetails=Employee(employee_name=employee_name, employee_username=employee_username, employee_password=employee_password, employee_phone=employee_phone, employee_email=employee_email, employee_state=employee_state, employee_district=employee_district, employee_zipcode=employee_zipcode, employee_address=employee_address, employee_status='Active')
         emplyoeedetails.save()
         return redirect('/user/marketingstaff')
@@ -262,7 +253,6 @@ def addmstaff(request):
 
 
 def editstaff(request,staff_id):
-    print(staff_id)
     if request.method=='POST':
         employee_name=request.POST['employee_name']
         employee_username=request.POST['employee_username']
@@ -276,7 +266,6 @@ def editstaff(request,staff_id):
         return render(request,'editstaff.html',{'status':1})
     else:
         staffdetails = Employee.objects.get(id=staff_id)
-        print(staffdetails)
         
     context={
         "is_marketingstaff":True,
@@ -351,7 +340,6 @@ def Estimate(request):
     
 #         # return reverse('addestimate', args(order_id))
 #         # getid = Estimates.objects.get(clientd_id=clientid)
-#         # print(getid)
 #         return redirect('/user/addestimate/'+order_id)
        
 #     else:
@@ -376,13 +364,11 @@ def addestimate(request):
         if Client.objects.filter(client_phone=checkphone).exists():
 
             clientid = Client.objects.get(client_phone=checkphone)
-            print(clientid)
             fromdate=request.POST['dataform']
             todate=request.POST['todate']
             est_id = Client.objects.get(id=clientid.id)
 
             
-            print(est_id)
             esti=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
             esti.save()
             context={
@@ -393,10 +379,9 @@ def addestimate(request):
             }
             order_id = esti.id
         else:
-            return render(request,'addestimate.html',{'msg':'Customer Not Found'})   
+            return render(request,'addestimate.html',{'msg':'Customer Not Found Please Add'})   
         
         return render(request,'addestimate.html',context)
-    # print(order_id)
 
     # if Estimate.objects.exists():
     #     est = Estimate.objects.last().id
@@ -418,12 +403,10 @@ def createestimate(request):
     cust = Client.objects.all()
     if request.method=='POST':
         clientid=request.POST['checkname']
-        print(clientid)
         
         fromdate=request.POST['dataform']
         todate=request.POST['todate']
         est_id = Client.objects.get(id=clientid)
-        print(est_id)
         estit=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
         estit.save() 
         context={
@@ -475,8 +458,6 @@ def editestimate(request,id):
 
     details = EstimateProduct.objects.filter(estimateid=id)
     estimte= Estimates.objects.select_related('clientd').get(id=id)
-    print(details,estimte)
-    # print(estimateItemsList.product.priceper_head)
     context={
         "is_estimate":True,
         "estimte":estimte,
@@ -488,7 +469,6 @@ def editestimate(request,id):
 
 
 def viewestimate(request,id):
-    print(id)
     clientdetails = Estimates.objects.select_related('clientd').get(id=id)
     details = EstimateProduct.objects.filter(estimateid=id)
     estid= EstimateProduct.objects.filter(estimateid=id)
@@ -496,7 +476,6 @@ def viewestimate(request,id):
     totalAmonut = totalvalue['est_amount__sum']
     gsttotal =totalAmonut*5/100
     total = totalAmonut + gsttotal
-    # print(clientdetails,details)
 
     context={
         "is_estimate":True,
@@ -562,26 +541,20 @@ def addinvoice(request):
 
 
 def invoicedetails(request,id):
-    # print(id,estid)
     discount=request.GET['discount']
     
-    print(id,discount)
     details = EstimateProduct.objects.filter(estimateid=id)
     eid= Estimates.objects.get(id=id)
     billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
-    print(billing)
     termandnote =Terms.objects.filter(estimateid=id).last()
 
     estid= EstimateProduct.objects.filter(estimateid=id)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
-    print(totalAmonut)
     gsttotal =totalAmonut*5/100
     # sgst = (totalAmonut*5/100)/2
-    # print(gsttotal,sgst)
     total = totalAmonut + gsttotal
     grandtotal = total-int(discount)
-    print(total,grandtotal)
 
 
     # preview = Preview.objects.get(estimateId=id)
@@ -637,7 +610,6 @@ def products(request):
         food_deatails = request.POST['food_deatails']
         food_exist = Product(food_name = food_name,catagory = catagory,priceper_head = priceper_head,priceper_kg = priceper_kg,food_deatails = food_deatails)
         food_exist.save()
-        print(food_name)
         return redirect('/user/products')
         # msg = " product added"
 
@@ -690,7 +662,6 @@ def getproductGet(request,id):
 def editProductdata(request,id):
 
     editproduct=Product.objects.get(id=id)
-    # print(editproduct)
     
     data={
         "food_name":editproduct.food_name,
@@ -747,7 +718,6 @@ def addpayment(request,id):
         payment.save()
         qunless =Estimates.objects.get(id=paymentestimateid)
         qunless.est_balance = qunless.est_balance-int(paymentamount)
-        print(qunless.est_balance)
         qunless.save()
         addamount =AddBank.objects.get(id=paymentcompanybank)
         addamount.bank_balance=addamount.bank_balance + int(paymentamount)
@@ -773,7 +743,7 @@ def expenses(request):
    
     if request.method=='POST':
         profitandlossdate=request.POST['profitandlossdate']
-        print(profitandlossdate)
+        # print(profitandlossdate)
         srch_date= Expences.objects.filter(Q(expencesdate__icontains=profitandlossdate))
         if srch_date.exists():
             context={
@@ -814,15 +784,13 @@ def addexpenses(request):
     if request.method=='POST':
         category=request.POST['category']
         note=request.POST['note']
-        phone=request.POST['phone']
+        
         amount=request.POST['amount']
-        print(category,note,phone,amount)
-        if Client.objects.filter(client_phone=phone).exists():
-            clientid= Client.objects.get(client_phone=phone)
-            expencevalue =Expences(clientid=clientid, expencescategory=category,expencesnote=note,  expencesasamount=amount ,expencestatus='Expences')
-            expencevalue.save()
-            return redirect('/user/expenses')
-        return render(request,'addexpence.html',{'msg':'Customer not found'})
+       
+        
+        expencevalue =Expences( expencescategory=category,expencesnote=note,  expencesasamount=amount ,expencestatus='Expences')
+        expencevalue.save()
+        return redirect('/user/expenses')
 
     context={
         "is_expenses":True,
@@ -834,8 +802,6 @@ def addexpenses(request):
 def profit(request):
     if request.method=='POST':
         date=request.POST['date']
-        # print(profitandlossdate)
-        
         srch_date= Income.objects.filter(Q(date__icontains=date))
 
         if srch_date.exists():
@@ -878,7 +844,6 @@ def addprofit(request):
         date=request.POST['date']
         phone=request.POST['phone']
         amount=request.POST['amount']
-        print(category,note,date,phone,amount)
         clientid= Client.objects.get(client_phone=phone)
         profitvalue = Expences(clientid=clientid, expencescategory=category,expencesnote=note, expencesdate=date, expencesasamount=amount ,expencestatus='Expences')
         profitvalue.save()
@@ -925,10 +890,9 @@ def profitandloss(request):
 def netprofit(request):
     today = datetime.now().date()
     today_start = datetime.combine(today, time())
-    print(today_start)
     data = []
-    recent_expenses=Expences.objects.filter(expencesdate__gte=today_start).values('id','expencesasamount','expencestatus','expencesdate','expencescategory','clientid__client_name')
-    recent_income=Income.objects.filter(date__gte=today_start).values('id','incomeamount','date','incomestatus','estimateId__clientd__client_name')
+    recent_expenses=Expences.objects.filter(expencesdate__gte=today_start).values('id','expencesasamount','expencestatus','expencesdate','expencescategory')
+    recent_income=Income.objects.filter(date__gte=today_start).values('id','incomeamount','date','incomestatus')
     queryset = list(recent_income)+list(recent_expenses)
     return JsonResponse({'data':queryset})
         
@@ -946,12 +910,10 @@ def createestimate(request):
     cust = Client.objects.all()
     if request.method=='POST':
         clientid=request.POST['checkname']
-        print(clientid)
         
         fromdate=request.POST['dataform']
         todate=request.POST['todate']
         est_id = Client.objects.get(id=clientid)
-        print(est_id)
         esti=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
         esti.save() 
         return redirect('/user/createestimate') 
@@ -969,7 +931,6 @@ def createestimate(request):
 def bill (request):
     productname = request.POST['productname']
     # estimateid = request.POST['estimateid']
-    print(productname)
     viewpro=Product.objects.get(food_name=productname)
     # estid=Estimates.objects.get(id=estimateid)
     data={
@@ -987,11 +948,8 @@ def bill (request):
 
 @csrf_exempt
 def checkexist(request):
-    print('worked')
     check_name = request.POST['checkname']
     object = Product.objects.filter(food_name=check_name).exists()
-    print(object)
-    print(check_name)
     return JsonResponse({'IsExist':object})
 
 
@@ -1011,7 +969,6 @@ def checkexist(request):
 @csrf_exempt
 def est_product(request):
     estimateid = request.POST['estimateid']
-    print(estimateid)
     productId = request.POST['productId']
     est_category = request.POST['est_category']
     est_price = request.POST['est_price']
@@ -1026,7 +983,6 @@ def est_product(request):
     totalAmonut = totalvalue['est_amount__sum']
     gsttotal =totalAmonut*5/100
     grandtotal= totalAmonut+gsttotal
-    print(totalvalue)
     total=Estimates.objects.filter(id=estimateid).update(est_balance=grandtotal)
     return JsonResponse({'msg':'data inserted sucess'})
 
@@ -1040,7 +996,6 @@ def est_productupdate(request):
     est_price = request.POST['est_price']
     est_amount = request.POST['est_amount']    
     est_qty = request.POST['est_qty']
-    print(estimateid,productId,est_category,est_price,est_amount,est_qty)
     prodid=Product.objects.get(id=productId)
     estiid=Estimates.objects.get(id=estimateid)
     if EstimateProduct.objects.filter(estimateid=estiid, productid=prodid ).exists():
@@ -1058,7 +1013,6 @@ def est_productupdate(request):
     totalAmonut = totalvalue['est_amount__sum']
     gsttotal =totalAmonut*5/100
     grandtotal= totalAmonut+gsttotal
-    print(totalvalue)
     total=Estimates.objects.filter(id=estimateid).update(est_balance=grandtotal)
     data={
         
@@ -1079,9 +1033,7 @@ def invoicegetdata(request):
     clientphone = request.POST['clientphone']
     viewpro=Client.objects.get(client_phone=clientphone)
     estimatelist=[]
-    print(viewpro.id)
     estID = Estimates.objects.filter(clientd=viewpro.id)
-    print(estID)
 
     if estID.exists():
         for value in estID:
@@ -1098,7 +1050,6 @@ def invoicegetdata(request):
                 "est_status":value.est_status,
             }
             estimatelist.append(estdata)
-            print(value)
 
     data={
         
@@ -1124,9 +1075,7 @@ def clientnamegetdata(request):
     clientname = request.POST['clientname']
     viewpro=Client.objects.get(client_name=clientname)
     estimatelist=[]
-    print(viewpro.id)
     estID = Estimates.objects.filter(clientd=viewpro.id)
-    print(estID)
 
     if estID.exists():
         for value in estID:
@@ -1143,7 +1092,6 @@ def clientnamegetdata(request):
                 "est_status":value.est_status,
             }
             estimatelist.append(estdata)
-            print(value)
 
     data={
         
@@ -1166,19 +1114,14 @@ def invoicebill(request,id):
 
    
     # payment = PaymentDetails.objects.filter(estimateId_id=id)    
-    print(payment)
     details = EstimateProduct.objects.filter(estimateid=id)
     estime = Estimates.objects.get(id=id) 
     estid= EstimateProduct.objects.filter(estimateid=id)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
-    print(totalAmonut)
     gsttotal =totalAmonut*5/100
     sgst = (totalAmonut*5/100)/2
-    print(gsttotal)
     grandtotal = totalAmonut + gsttotal
-    print(grandtotal)
-    # print(details.est_amount)
     context={
             "is_estimate":True,
             "details":details,
@@ -1201,7 +1144,6 @@ def savenote(request):
     addnote = request.POST['addnote']
     estimateid = request.POST['estimateid']
     estid = Estimates.objects.get(id=estimateid)
-    print(addnote,addterms,estimateid)
     add = Terms(estimateid=estid,term=addterms,note=addnote)
     add.save()
     return JsonResponse({'msg':'Note Added'})
@@ -1212,7 +1154,6 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        print(password,username)
         try:
             if username == "admin" and password == '12345':
                 userDetails = {
@@ -1225,7 +1166,6 @@ def login(request):
                 login_data=Employee.objects.filter(employee_username=username,employee_password=password).exists()
                 if login_data:
                     data=Employee.objects.get(employee_username=username,employee_password=password)
-                    print(data)
                     if data.employee_status=='Active':
                         userDetails = {
                             'is_admin':False
@@ -1275,23 +1215,18 @@ def printlist(request):
       
 
 def viewpdf(request,id,discount,previewno):
-    print(id,discount,previewno)
     details = EstimateProduct.objects.filter(estimateid=id)
     eid= Estimates.objects.get(id=id)
     billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
-    print(billing)
     termandnote =Terms.objects.filter(estimateid=id).last()
 
     estid= EstimateProduct.objects.filter(estimateid=id)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
-    print(totalAmonut)
     gsttotal =totalAmonut*5/100
     # sgst = (totalAmonut*5/100)/2
-    # print(gsttotal,sgst)
     total = totalAmonut + gsttotal
     grandtotal = total-int(discount)
-    print(total,grandtotal)
 
 
     preview = Preview.objects.get(prviewnumber=previewno)
@@ -1313,7 +1248,6 @@ def viewpdf(request,id,discount,previewno):
 
 def save(request,id):
     discount=request.GET['discount']  
-    print(id,discount)  
     eid= Estimates.objects.get(id=id)
     if Preview.objects.exists():
         est = Preview.objects.last().id
@@ -1323,23 +1257,18 @@ def save(request,id):
         est_id = 'INV'+str(1001+est)
     preview =Preview(estimateId=eid, discount=discount,prviewnumber=est_id)
     preview.save()
-    print(id,discount)
     details = EstimateProduct.objects.filter(estimateid=id)
     eid= Estimates.objects.get(id=id)
     billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
-    print(billing)
     termandnote =Terms.objects.filter(estimateid=id).last()
 
     estid= EstimateProduct.objects.filter(estimateid=id)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
-    print(totalAmonut)
     gsttotal =totalAmonut*5/100
     # sgst = (totalAmonut*5/100)/2
-    # print(gsttotal,sgst)
     total = totalAmonut + gsttotal
     grandtotal = total-int(discount)
-    print(total,grandtotal)
     addincome = Income(estimateId=eid,incomestatus='Income',incomeamount=grandtotal)
     addincome.save()
     
@@ -1386,7 +1315,6 @@ def addstock(request):
 
 def addmaterial(request,id):
     stock= Stock.objects.all()
-    print(id)
     context={
         "is_stock":True,
         "stock":stock,
@@ -1408,12 +1336,10 @@ def getQunatity(request):
 @csrf_exempt
 def valuesave(request):
     estimateid = request.POST['estimateid']
-    print(estimateid)
     productId = request.POST['productId']
     stock = request.POST['stock']
     qty = request.POST['qty']
     needed = request.POST['needed']  
-    print(estimateid,productId,stock,qty,needed)  
     # stockid=Stock.objects.get(id=productId)
     stc=Stock.objects.get(stockname=stock)
     estimate=Estimates.objects.get(id=estimateid)
@@ -1428,7 +1354,6 @@ def valuesave(request):
 def viewaddedmaterial(request,id):
     estimates = Estimates.objects.get(id=id)
     view = Items.objects.filter(estimate=estimates)
-    print(view)
     context={
         "is_stock":True,
         "view":view,
@@ -1440,15 +1365,31 @@ def viewaddedmaterial(request,id):
 def stocktransfer(request):
     returnQty = request.POST['returnQty']
     id = request.POST['id']
-    print(returnQty)
     status = "Rejected"
     transfer_obj = Items.objects.get(id=id)
-    print(transfer_obj)
-    print(transfer_obj.stock.quantity)
     transfer_obj.stock.quantity = transfer_obj.stock.quantity + int(returnQty)
-    print(transfer_obj.stock.quantity)
     transfer_obj.stock.save()
     transfer_obj.taken = transfer_obj.taken -int(returnQty)
     transfer_obj.save()
     return JsonResponse({'msg':'Staff Transfer Success'})
 
+
+
+
+@csrf_exempt
+def phoneexist(request):
+    client_phone = request.POST['client_phone']
+    object = Client.objects.filter(client_phone=client_phone).exists()
+    return JsonResponse({'IsExist':object})
+
+
+
+    
+@admin_login_required
+def rentoutlist(request):
+    takenlist = Items.objects.filter(taken__gt=0)
+    context={
+        "is_rent":True,
+        "takenlist":takenlist
+        }
+    return render(request,'rentoutlist.html',context)    

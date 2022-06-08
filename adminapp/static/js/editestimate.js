@@ -7,7 +7,7 @@ function changedProductname(id) {
         data: {
 
             'productname': $('#productName' + id).val(),
-            csrfmiddlewaretoken:csrf_token1
+            csrfmiddlewaretoken: csrf_token1
 
         },
         success: function (responce) {
@@ -26,7 +26,7 @@ function changedProductname(id) {
 
 $('#estimatebutton').click(function () {
     var estimateid = $('#estimateid').val()
-    
+
     var rowCount = $(".add-table-items tr").length;
     for (var i = 1; i < rowCount; i++) {
         var productId = $('#productId' + i).val()
@@ -34,7 +34,7 @@ $('#estimatebutton').click(function () {
         var est_price = $('#priceselect' + i).val()
         var est_amount = $('#amount' + i).val()
         var est_qty = $('#qty' + i).val()
-        
+
 
 
         var data = {
@@ -56,6 +56,14 @@ $('#estimatebutton').click(function () {
                 $('#total').html(responce.details.totalAmonut)
                 $('#gst').html(responce.details.gsttotal)
                 $('#grandtotal').html(responce.details.grandtotal)
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Your Estimate has been saved',
+                    showConfirmButton: false,
+                    timer: 6000
+                })
+                window.location.href = '/user/index';
 
             }
 
@@ -103,22 +111,22 @@ $(document).on("click", ".add-btn", function () {
 });
 
 function changeqty(id) {
-    var completeTotal =0
+    var completeTotal = 0
     var unitprice = $('#priceselect' + id).val()
     var qty = $('#qty' + id).val()
     var amount = unitprice * qty
     $("#amount" + id).val(amount)
-    var total=$("#total" ).html()
-    completeTotal = parseInt(total)  + amount
+    var total = $("#total").html()
+    completeTotal = parseInt(total) + amount
     $("#total").html(completeTotal)
 }
 
-function DeleteRow(id){
+function DeleteRow(id) {
 
-    var completeTotal =0
-    var amount=parseInt($("#amount" + id).val())
-    var total=$("#total" ).html()
-    completeTotal = parseInt(total)  - amount
+    var completeTotal = 0
+    var amount = parseInt($("#amount" + id).val())
+    var total = $("#total").html()
+    completeTotal = parseInt(total) - amount
     $("#total").html(completeTotal)
 
 }

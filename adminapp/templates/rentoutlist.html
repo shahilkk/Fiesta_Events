@@ -9,11 +9,11 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Stocks</h3>
+                    <h3 class="page-title">Rent Out List</h3>
                     <ul class="breadcrumb">
                         <li class=""><a href="/user/index">Dashboard /</a>
                         </li>
-                        <li class="breadcrumb-item active">Stocks</li>
+                        <li class="breadcrumb-item active">Rent Out List</li>
                     </ul>
                 </div>
                 <div class="col-auto">
@@ -62,54 +62,30 @@
                             <table class="table table-center table-hover datatable">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th>Client Name</th>
+                                        <th>Estimate id</th>
                                         <th>Item Name</th>
-                                        <th>Quantity Taken</th>
-                                        <th>
-                                            Return Quantity
-                                        </th>
-                                        <th class="text-center">
-                                            Actions
-                                        </th>
+                                        <th> Quantity Taken</th>
+                                       
                                     </tr>
-                                    {% csrf_token %}
                                 </thead>
                                 <tbody>
-                                    {% for i in view %}
+                                    {% for i in takenlist %}
                                     <tr>
-
-                                        <td> {{ i.stock.stockname}}</td>
+                                        <td>{{ i.estimate.clientd.client_name }}</td>
+                                        <td>{{ i.estimate.id }}</td>
+                                        <td>{{ i.stock.stockname }}</td>
                                         <td>{{ i.taken}}</td>
-
-                                        <td>
-                                            <input type="number" required class="form-control" min="0"
-                                                max="{{ i.taken }}" id="returnQty{{i.id}}">
-                                            <p id="p{{i.id}}"></p>
-                                            <input id="tid" hidden type="number" value="{{i.id}}">
-                                        </td>
-
-
-                                        <td class="text-center">
-                                            <a href="" onclick="acceptReturn('{{i.id}}')" id="changebutton{{i.id}}"
-                                                class="btn btn-sm btn-white text-success me-2"><i
-                                                    class="fa fa-check me-1"></i>Done </a>
-                                            <!-- <a href="javascript:void(0);" id="btnchange" style="display: none;" class="remove-btn"><i
-                                                    class="fas fa-trash"></i></a> -->
-
-                                        </td>
+                                       
+                                   
                                     </tr>
 
                                     {% endfor %}
-
+                                   
                                 </tbody>
                             </table>
-                            <div class="text-end mt-4">
-                                <a href="/user/index" class="btn btn-primary"> Finish</a>
-                               
-                            </div>
                         </div>
-                       
                     </div>
-                
                 </div>
             </div>
         </div>
@@ -117,35 +93,5 @@
 </div>
 
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-
-    function acceptReturn(id) {
-        event.preventDefault()
-        var returnQty = $("#returnQty" + id).val();
-        $.ajax({
-            url: '/user/stocktransfer',
-            type: 'POST',
-            data: {
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                'returnQty': $("#returnQty" + id).val(),
-                "id": id
-            },
-            success: function (response) {
-                // var staff_id = response
-
-
-                // $("#btnchange").show()
-                $("#changebutton"+id).removeClass('text-success')
-                $("#changebutton"+id).addClass('text-danger')
-
-
-            }
-        
-        })
-    }
-
-</script>
 
 {% endblock %}

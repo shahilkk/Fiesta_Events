@@ -120,7 +120,6 @@ class PaymentDetails(models.Model):
  
 
 class Expences(models.Model):
-    clientid = models.ForeignKey(Client,on_delete=models.CASCADE )
     expencescategory = models.CharField(max_length=50)
     expencesnote = models.CharField(max_length=30000)
     expencesdate = models.DateField(default=datetime.date.today)

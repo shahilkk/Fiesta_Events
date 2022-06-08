@@ -54,9 +54,15 @@ $('#estimatebutton').click(function () {
             type: 'POST',
             data: data,
             success: function (responce) {
-                alert(responce.msg)
-
-
+                
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Your Estimate has been saved',
+                    showConfirmButton: false,
+                    timer: 6000
+                  })
+                  window.location.href = '/user/estimate';
 
             }
 
@@ -146,13 +152,8 @@ $('#savenote').click(function () {
 
         },
         success: function (responce) {
-             alert(responce.msg)
-          // $('#category' + id).val(responce.product.catagory)
-            // $('#productId' + id).val(responce.product.id)
-            // $('#priceselect' + id).append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per Head</option>')
-            // $('#priceselect' + id).append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
-            // $("#amount" + id).val(responce.product.priceper_head)
-
+             
+            Swal.fire('Note Has Been Saved')
 
         }
 

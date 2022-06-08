@@ -70,6 +70,9 @@ urlpatterns = [
     path('forget',views.forget,name="forget"),
     
 
+    path('phoneexist',views.phoneexist,name="phoneexist"),
+    path('rentoutlist/',views.rentoutlist,name="rentoutlist"),
+
     path('savecustomer/',views.savecustomer,name="savecustomer"),
     path('estimatedata/',views.estimatedata,name="estimatedata"),
     

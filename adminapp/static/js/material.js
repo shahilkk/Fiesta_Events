@@ -76,8 +76,14 @@ $('#adddetails').click(function () {
             type: 'POST',
             data: data,
             success: function (responce) {
-                alert(responce.msg)
-                $(ducument).html(response)
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Your Data has been saved',
+                    showConfirmButton: false,
+                    timer: 6000
+                })
+                 window.location.href = '/user/index';
 
             }
 

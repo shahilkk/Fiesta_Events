@@ -120,8 +120,8 @@
                             <table class="table table-center table-hover datatable">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Customer_ID</th>
-                                        <th>Customer</th>
+                                        <!-- <th>Customer_ID</th>
+                                        <th>Customer</th> -->
                                         <th>Category</th>
                                         <th>Expense Date</th>
                                         <th>Amount</th>
@@ -131,8 +131,8 @@
                                 <tbody>
                                     {% for i in expenselist %}
                                     <tr>
-                                        <td>{{ i.clientid.client_id }} </td>
-                                        <td>{{ i.clientid.client_name }} </td>
+                                        <!-- <td>{{ i.clientid.client_id }} </td>
+                                        <td>{{ i.clientid.client_name }} </td> -->
                                         <td> {{ i.expencescategory }}</td>
                                         <td> {{ i.expencesdate }}</td>
                                         <td> {{ i.expencesasamount }}</td>
