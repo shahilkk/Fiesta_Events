@@ -10,7 +10,7 @@ $(document).on("click", ".add-btn", function () {
         '<input type="hidden"  id="productId' + rowCount + '" class="form-control">' +
         '</td>' +
         '<td>' +
-        '<input type="text" class="form-control" id="qty' + rowCount + '">' +
+        '<input type="text" class="form-control" readonly id="qty' + rowCount + '">' +
         '</td>' +
         '<td>' +
         '<input id="needed' + rowCount + '" type="number" class="form-control">' +

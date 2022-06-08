@@ -113,16 +113,7 @@
 
                                         <td>{{ i.est_balance }}</td>
 
-                                        <!-- <td class="text-end">
-                                            <a href="/user/viewcustomer/{{ i.id }}"
-                                                class="btn btn-sm btn-white text-primary me-2"><i
-                                                    class="far fa-eye me-1"></i> view</a>
-                                            <a href="/user/editcustomer/{{ i.id }}" class="btn btn-sm btn-white text-success me-2"><i
-                                                    class="far fa-edit me-1"></i> Edit</a>
-                                            <a href="deletecustomer/{{ i.id }}"
-                                                class="btn btn-sm btn-white text-danger me-2"><i
-                                                    class="far fa-trash-alt me-1"></i>Delete</a>
-                                        </td> -->
+                                   
                                     </tr>
 
 
@@ -157,6 +148,8 @@
                                         <th>Amount</th>
                                         <!-- <th>Status</th> -->
                                         <!-- <th class="text-end">Action</th>  -->
+                                        <th class="text-end">Action</th> 
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -174,16 +167,35 @@
                                         <td>{% if i.est_status == 'Billed'  %} <span class="badge badge-pill bg-success-light">{{ i.est_status }}</span> {% elif i.est_status == 'Partialy Paid' %} <span class="badge bg-danger-light">{{ i.est_status }}</span> {% elif i.est_status == 'Advanced' %} <span class="badge bg-warning-light">{{ i.est_status }}</span> {% elif i.est_status == 'Closed' %} <span class="badge bg-primary-light">{{ i.est_status }}</span>  {% elif i.est_status == 'Pending' %} <span class="badge bg-info-light">{{ i.est_status }}</span>  {% endif %}  </td>
                                         <td>{{ i.est_balance }}</td>
 
-                                        <!-- <td class="text-end">
-                                            <a href="/user/viewcustomer/{{ i.id }}"
-                                                class="btn btn-sm btn-white text-primary me-2"><i
-                                                    class="far fa-eye me-1"></i> view</a>
-                                            <a href="/user/editcustomer/{{ i.id }}" class="btn btn-sm btn-white text-success me-2"><i
-                                                    class="far fa-edit me-1"></i> Edit</a>
-                                            <a href="deletecustomer/{{ i.id }}"
-                                                class="btn btn-sm btn-white text-danger me-2"><i
-                                                    class="far fa-trash-alt me-1"></i>Delete</a>
-                                        </td> -->
+                                        <td class="text-right">
+                                            <div class="dropleft dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                        class="fas fa-ellipsis-h"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="/user/editestimate/{{ i.id }}"><i
+                                                            class="far fa-edit me-2"></i>Edit</a>
+                                                    <a class="dropdown-item" href="/user/Delectestimate/{{ i.id }}"><i
+                                                            class="far fa-trash-alt me-2"></i>Delete</a>
+                                                    <a class="dropdown-item" href="/user/viewestimate/{{ i.id }}"><i
+                                                            class="far fa-eye me-2"></i>View</a>
+                                                    <a class="dropdown-item" href="/user/addmaterial/{{ i.id }}"><i
+                                                            class="fa fa-plus me-2"></i>Add Material </a>
+                                                    <a class="dropdown-item"
+                                                        href="/user/viewaddedmaterial/{{ i.id }}"><i
+                                                            class="fa fa-search me-2"></i>View Added Material </a>
+                                                    <a class="dropdown-item" href="indexbill/{{ i.id }}"><i
+                                                            class="far fa-file-alt me-2"></i>Bill</a>
+                                                    <a class="dropdown-item" href="indexadvanced/{{ i.id }}"><i
+                                                            class="far fa-check-circle me-2"></i>Advance</a>
+                                                    <a class="dropdown-item" href="indexpartialy/{{ i.id }}"><i
+                                                            class="far fa-paper-plane me-2"></i>Partialy Paid</a>
+                                                    <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
+                                                            class="far fa-times-circle me-2"></i>Closed</a>
+
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
 
 
