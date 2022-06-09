@@ -12,7 +12,7 @@
                     </h3>
                     <ul class="breadcrumb">
                         <li class="">
-                            <a href="/user/index">Dashboard /</a>
+                            <a href="/index">Dashboard /</a>
                         </li>
                         <li class="breadcrumb-item active">
                             Reports
@@ -97,7 +97,7 @@
     $(document).ready(function () {
         incomeSum = []
         $.ajax({
-            url: "/user/netprofit/",
+            url: "/netprofit/",
             type: 'GET',
             success: function (responce) {
 

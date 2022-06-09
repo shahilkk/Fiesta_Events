@@ -6,7 +6,7 @@ $("#checkname").val(phone)
 function changedProductname(id) {
 
     $.ajax({
-        url: "/user/bill",
+        url: "/bill/",
         type: 'POST',
         data: {
             'productname': $('#productName' + id).val(),
@@ -50,7 +50,7 @@ $('#estimatebutton').click(function () {
         }
         console.log(data)
         $.ajax({
-            url: "/user/est_product",
+            url: "/est_product",
             type: 'POST',
             data: data,
             success: function (responce) {
@@ -62,7 +62,7 @@ $('#estimatebutton').click(function () {
                     showConfirmButton: false,
                     timer: 6000
                   })
-                  window.location.href = '/user/estimate';
+                  window.location.href = '/estimate';
 
             }
 
@@ -142,7 +142,7 @@ function DeleteRow(id){
 
 $('#savenote').click(function () {
     $.ajax({
-        url: "/user/savenote",
+        url: "/savenote",
         type: 'POST',
         data: {
             'addterms': $('#addterms').val(),

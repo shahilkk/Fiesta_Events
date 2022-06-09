@@ -34,7 +34,7 @@ $(".add-table-items").on('click', '.remove-btn', function () {
 
 function changedname(rowCount){
     $.ajax({
-        url:'/user/getQunatity',
+        url:'/getQunatity',
         type:'GET',
         data:{
             'name':$("#stock"+rowCount).val()
@@ -72,7 +72,7 @@ $('#adddetails').click(function () {
         
         // console.log(data)
         $.ajax({
-            url: "/user/valuesave",
+            url: "/valuesave",
             type: 'POST',
             data: data,
             success: function (responce) {
@@ -83,7 +83,7 @@ $('#adddetails').click(function () {
                     showConfirmButton: false,
                     timer: 6000
                 })
-                 window.location.href = '/user/index';
+                 window.location.href = '/index';
 
             }
 

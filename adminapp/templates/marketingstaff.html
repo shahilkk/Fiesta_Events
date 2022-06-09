@@ -13,13 +13,13 @@
                 <div class="col">
                     <h3 class="page-title">Employees</h3>
                     <ul class="breadcrumb">
-                        <li class=""><a href="/user/index">Dashboard /</a>
+                        <li class=""><a href="/index">Dashboard /</a>
                         </li>
                         <li class="breadcrumb-item active">Employees</li>
                     </ul>
                 </div>
                 <div class="col-auto">
-                    <a href="/user/addmstaff" class="btn btn-primary me-1">
+                    <a href="/addmstaff" class="btn btn-primary me-1">
                         <i class="fas fa-plus"></i>Add Employees
                     </a>
                     <!-- <a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
@@ -76,19 +76,19 @@
                                     <tr>
         
                                         <td> {{ i.employee_name }} </td>
-                                        <td> <a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
+                                        <td> <a href="/https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
                                             class="__cf_email__"
                                             data-cfemail="3443515a505158584355465074514c55594458511a575b59">[email&#160;protected]</a> </td>
                                         <td> {{ i.employee_phone }} </td>
                                         <td> {{ i.employee_username }} </td>
                                         <td > {% if i.employee_status == 'Active'  %} <span class="badge badge-pill bg-success-light">{{ i.employee_status }}</span> {% else %} <span class="badge badge-pill bg-danger-light">{{ i.employee_status }}</span> {% endif %}  </td>
                                         <td class="text-end">
-                                            <a href="/user/viewemployee/{{ i.id }}"
+                                            <a href="/viewemployee/{{ i.id }}"
                                                 class="btn btn-sm btn-white text-primary me-2"><i
                                                     class="far fa-eye me-1"></i> view</a>
-                                            <a href="/user/editstaff/{{ i.id }}" class="btn btn-sm btn-white text-success me-2"><i
+                                            <a href="/editstaff/{{ i.id }}" class="btn btn-sm btn-white text-success me-2"><i
                                                     class="far fa-edit me-1"></i> Edit</a>
-                                            <a href="deletestaff/{{ i.id }}"
+                                            <a href="/deletestaff/{{ i.id }}"
                                                 class="btn btn-sm btn-white text-danger me-2"><i
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>

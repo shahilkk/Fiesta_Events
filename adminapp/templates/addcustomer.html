@@ -14,8 +14,8 @@
                 <div class="col-sm-12">
                     <h3 class="page-title">Clients</h3>
                     <ul class="breadcrumb">
-                        <li class=""><a href="/user/index">Dashboard /</a></li>
-                        <li class=""><a href="/user/customer">Clients /</a></li>
+                        <li class=""><a href="/index">Dashboard /</a></li>
+                        <li class=""><a href="/customer">Clients /</a></li>
                         <li class="breadcrumb-item active">Add Clients</li>
                     </ul>
                 </div>
@@ -188,7 +188,7 @@
         }
         else {
             $.ajax({
-                url: "/user/savecustomer/",
+                url: "/savecustomer/",
                 type: 'post',
                 data: {
                     csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
@@ -204,7 +204,7 @@
                     'client_zipcode': $('#client_zipcode').val()
                 },
                 success: function (responce) {
-                    window.location.href = '/user/customer';
+                    window.location.href = '/customer';
                 }
 
 
@@ -239,7 +239,7 @@
         else {
 
             $.ajax({
-                url: "/user/estimatedata/",
+                url: "/estimatedata/",
                 type: 'post',
                 data: {
 
@@ -257,7 +257,7 @@
 
                 },
                 success: function (responce) {
-                    window.location.href = '/user/addestimate/?phone-no=' + responce.client.client_phone
+                    window.location.href = '/addestimate/?phone-no=' + responce.client.client_phone
 
                     $("#checkname").val(responce.client.client_phone)
                 }
@@ -273,7 +273,7 @@
     $('#client_phone').change(() => {
 
         $.ajax({
-            url: "/user/phoneexist",
+            url: "/phoneexist",
             type: 'post',
             data: {
                 'client_phone': $('#client_phone').val()

@@ -13,7 +13,7 @@
                 <div class="col">
                     <ul class="breadcrumb invoices-breadcrumb">
                         <li class="breadcrumb-item invoices-breadcrumb-item">
-                            <a href="/user/invoiceList">
+                            <a href="/invoiceList">
                                 <i class="fa fa-arrow-left"></i> Back to Invoice List
                             </a>
                         </li>
@@ -21,7 +21,7 @@
                 </div>
                 <!-- <div class="col-auto">
                     <div class="invoices-create-btn">
-                        <a class="invoices-preview-link" href="/user/invoicedetails"
+                        <a class="invoices-preview-link" href="invoicedetails"
                             data-bs-target="#invoices_preview"><i class="fe fe-eye"></i> Preview</a>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices_details"
                             class="btn delete-invoice-btn">
@@ -196,7 +196,7 @@
                                     <tbody id="tbodyofInvoice">
                                         <!-- {% for i in estimatelist %}
                                             <tr>
-                                                <td  > <a href="/user/invoicedetails" class="invoice-link">{{ i.id }}</a> </td>
+                                                <td  > <a href="invoicedetails" class="invoice-link">{{ i.id }}</a> </td>
                                                 <td>
                                                     <h2 class="table-avatar">
                                                         {{ i.id }}
@@ -212,9 +212,9 @@
                                                             data-bs-toggle="dropdown" aria-expanded="false"><i
                                                                 class="fas fa-ellipsis-v"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="/user/editinvoice"><i
+                                                            <a class="dropdown-item" href="editinvoice"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
-                                                            <a class="dropdown-item" href="/user/invoicedetails"><i
+                                                            <a class="dropdown-item" href="invoicedetails"><i
                                                                     class="far fa-eye me-2"></i>View</a>
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
@@ -419,7 +419,7 @@
 
     $('#phone').change(function () {
         $.ajax({
-            url: "invoicegetdata",
+            url: "/invoicegetdata",
             type: 'POST',
             data: {
                 'clientphone': $('#phone').val(),
@@ -455,7 +455,7 @@
     })
     $('#name').change(function () {
         $.ajax({
-            url: "clientnamegetdata",
+            url: "/clientnamegetdata",
             type: 'POST',
             data: {
                 'clientname': $('#name').val(),
@@ -498,7 +498,7 @@
     })
 
     function gotoEstimate(id) {
-        window.location.href = "/user/invoicebill/" + id
+        window.location.href = "/invoicebill/" + id
     }
 
 

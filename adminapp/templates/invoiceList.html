@@ -12,15 +12,15 @@
                 <div class="col">
                     <h3 class="page-title">Invoices</h3>
                     <ul class="breadcrumb">
-                        <li><a href="/user/index">Dashboard /</a></li>
+                        <li><a href="/index">Dashboard /</a></li>
                         <li class="breadcrumb-item active">Invoices</li>
                     </ul>
                 </div>
                 <div class="col-auto">
-                    <a href="/user/invoiveList" class="invoices-links active">
+                    <a href="/invoiveList" class="invoices-links active">
                         <i data-feather="list"></i>
                     </a>
-                    <a href="/user/invoivegrid" class="invoices-links">
+                    <a href="/invoivegrid" class="invoices-links">
                         <i data-feather="grid"></i>
                     </a>
                 </div>
@@ -46,10 +46,10 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="invoices-settings-btn">
-                                <a href="invoices-settings.html" class="invoices-settings-icon">
+                                <a href="/invoices-settings.html" class="invoices-settings-icon">
                                     <i data-feather="settings"></i>
                                 </a>
-                                <a href="/user/addinvoice" class="btn">
+                                <a href="/addinvoice" class="btn">
                                     <i data-feather="plus-circle"></i> New Invoice
                                 </a>
                             </div>
@@ -145,7 +145,7 @@
 
                                     {% for i in alllist %}
                                     <tr>
-                                        <td  > <a href="/user/invoicedetails" class="invoice-link">{{ i.id }}</a> </td>
+                                        <td  > <a href="/invoicedetails" class="invoice-link">{{ i.id }}</a> </td>
                                         <td>
                                             <h2 class="table-avatar">
                                                 {{ i.clientd.client_name }}
@@ -161,11 +161,11 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false"><i
                                                         class="fas fa-ellipsis-v"></i></a>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <!-- <a class="dropdown-item" href="/user/editinvoice"><i
+                                                    <!-- <a class="dropdown-item" href="/editinvoice"><i
                                                             class="far fa-edit me-2"></i>Edit</a> -->
-                                                    <a class="dropdown-item" href="/user/viewestimate/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/viewestimate/{{ i.id }}"><i
                                                             class="far fa-eye me-2"></i>View</a>
-                                                    <a class="dropdown-item" href="/user/Delectestimate/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/Delectestimate/{{ i.id }}"><i
                                                             class="far fa-trash-alt me-2"></i>Delete</a>
 
 

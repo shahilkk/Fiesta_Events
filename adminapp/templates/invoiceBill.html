@@ -14,15 +14,15 @@
                 <div class="col">
                     <h3 class="page-title">Expenses</h3>
                     <ul class="breadcrumb">
-                        <li><a href="/user/index">Dashboard /</a></li>
-                        <li> <a href="/user/addinvoice">Invoice /</a></li>
+                        <li><a href="/index">Dashboard /</a></li>
+                        <li> <a href="/addinvoice">Invoice /</a></li>
                         <li class="breadcrumb-item active">Bill Invoice</li>
                     </ul>
                 </div>
                 <div class="col-auto">
                     <input type="hidden" id="estimateId-input" value="{{ estime.id }}">
                     <div class="invoices-create-btn">
-                        <a id="previelink" class="invoices-preview-link" href="/user/invoicedetails/{{ estime.id }}?discount=0"
+                        <a id="previelink" class="invoices-preview-link" href="/invoicedetails/{{ estime.id }}?discount=0"
                             data-bs-target="#invoices_preview"><i class="fe fe-eye"></i> Preview</a>
                         <!-- <a href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices_details"
                             class="btn delete-invoice-btn">
@@ -156,7 +156,7 @@
                                 <div class="upload-sign">
 
                                     <div class="form-group float-end mb-0">
-                                        <a href="/user/save/{{ estime.id }}?discount=0" id="savebtn" class="btn btn-primary">Save Invoice</a>
+                                        <a href="/save/{{ estime.id }}?discount=0" id="savebtn" class="btn btn-primary">Save Invoice</a>
                                         <!-- <button class="btn btn-primary"  type="submit">Save Invoice</button> -->
                                     </div>
                                 </div>
@@ -181,11 +181,11 @@
                 <div class="modal-btn delete-action">
                     <div class="row">
                         <div class="col-6">
-                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                            <a href="/javascript:void(0);" data-bs-dismiss="modal"
                                 class="btn btn-primary paid-continue-btn">Delete</a>
                         </div>
                         <div class="col-6">
-                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                            <a href="/javascript:void(0);" data-bs-dismiss="modal"
                                 class="btn btn-primary paid-cancel-btn">Cancel</a>
                         </div>
                     </div>
@@ -207,11 +207,11 @@
                 <div class="modal-btn delete-action">
                     <div class="row">
                         <div class="col-6">
-                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                            <a href="/javascript:void(0);" data-bs-dismiss="modal"
                                 class="btn btn-primary paid-continue-btn">Save</a>
                         </div>
                         <div class="col-6">
-                            <a href="javascript:void(0);" data-bs-dismiss="modal"
+                            <a href="/javascript:void(0);" data-bs-dismiss="modal"
                                 class="btn btn-primary paid-cancel-btn">Cancel</a>
                         </div>
                     </div>
@@ -230,14 +230,14 @@ $('#discount').keyup(function(){
     grandtotal = total-discount
     $('#Grandtotal').html('₹' + parseInt(grandtotal))
     var estID=$('#estimateId-input').val()
-    document.getElementById("previelink").href = "/user/invoicedetails/"+estID+"/?discount="+discount;
+    document.getElementById("previelink").href = "/invoicedetails/"+estID+"/?discount="+discount;
 })
 
 $('#discount').keyup(function(){
     total = $('#grand').val()
     discount = $('#discount').val()
     var estID=$('#estimateId-input').val()
-    document.getElementById("savebtn").href = "/user/save/"+estID+"/?discount="+discount;
+    document.getElementById("savebtn").href = "/save/"+estID+"/?discount="+discount;
 });
 
 

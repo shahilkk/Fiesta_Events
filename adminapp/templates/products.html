@@ -12,7 +12,7 @@
                 <div class="col">
                     <h3 class="page-title">Product </h3>
                     <ul class="breadcrumb">
-                        <li><a href="/user/index">Dashboard /</a></li>
+                        <li><a href="/index">Dashboard /</a></li>
                         <li class="breadcrumb-item active">Items List</li>
                     </ul>
                 </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="invoices-items-tabs">
                                 <ul>
-                                    <li><a href="/user/products" class="active"> All Products</a></li>
+                                    <li><a href="/products" class="active"> All Products</a></li>
 
                                 </ul>
                             </div>
@@ -41,7 +41,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-12 col-md-12">
                             <div class="invoices-settings-btn invoices-settings-btn-one">
-                                <a href="/user/productcatogory" class="btn" data-bs-toggle="modal"
+                                <a href="/productcatogory" class="btn" data-bs-toggle="modal"
                                     data-bs-target="#add_items">
                                     <i data-feather="plus-circle"></i> Add New Product
                                 </a>
@@ -81,7 +81,7 @@
                                             <a class="btn btn-sm btn-white text-primary" href="#"
                                                 onclick="viewdata({{i.id}})" data-bs-toggle="modal"
                                                 data-bs-target="#view_paid"><i class="fa fa-eye me-1"></i>View</a>
-                                            <a class="btn btn-sm btn-white text-danger" href="delete/{{i.id}}"><i
+                                            <a class="btn btn-sm btn-white text-danger" href="/delete/{{i.id}}"><i
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>
                                     </tr>
@@ -371,7 +371,7 @@
     function viewdata(id) {
         // alert('hi')
         $.ajax({
-            url: "/user/getproductGet/" + id,
+            url: "/getproductGet/" + id,
             type: 'GET',
 
             success: function (responce) {
@@ -390,7 +390,7 @@
     function editdata(id) {
         console.log(id)
         $.ajax({
-            url: "/user/editProductdata/" + id,
+            url: "/editProductdata/" + id,
             type: 'GET',
 
             success: function (responce) {
@@ -409,7 +409,7 @@
         $('#update').click(() => {
             console.log('hello')
             $.ajax({
-                url: "/user/updateproduct/",
+                url: "/updateproduct/",
                 type: 'post',
                 data: {
                     'producId': id,
@@ -438,7 +438,7 @@
 
         console.log(($('#foodname').val()))
         $.ajax({
-            url: "checkexist",
+            url: "/checkexist",
             type: 'post',
             data: {
                 'checkname': $('#foodname').val()
@@ -464,7 +464,7 @@
     $('#categorysave').submit(function (e) {
         var data = $("#categorysave").serializeArray();
         $.ajax({
-            url: "addcat",
+            url: "/addcat",
             type: 'post',
             data: data,
             success: function (response) {

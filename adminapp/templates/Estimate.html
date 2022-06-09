@@ -14,13 +14,13 @@
                 <div class="col">
                     <h3 class="page-title">Estimates</h3>
                     <ul class="breadcrumb">
-                        <li class=""><a href="/user/index">Dashboard /</a>
+                        <li class=""><a href="/index">Dashboard /</a>
                         </li>
                         <li class="breadcrumb-item active">Estimates</li>
                     </ul>
                 </div>
                 <div class="col-auto">
-                    <a href="/user/addestimate" class="btn btn-primary me-1">
+                    <a href="/addestimate" class="btn btn-primary me-1">
                         <i class="fas fa-plus"></i> Add Estimates
                     </a>
                     <a class="btn btn-primary filter-btn" href="javascript:void(0);" id="filter_search">
@@ -173,24 +173,24 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false"><i
                                                         class="fas fa-ellipsis-h"></i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="/user/editestimate/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/editestimate/{{ i.id }}"><i
                                                             class="far fa-edit me-2"></i>Edit</a>
-                                                    <a class="dropdown-item" href="/user/Delectestimate/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/Delectestimate/{{ i.id }}"><i
                                                             class="far fa-trash-alt me-2"></i>Delete</a>
-                                                    <a class="dropdown-item" href="/user/viewestimate/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/viewestimate/{{ i.id }}"><i
                                                             class="far fa-eye me-2"></i>View</a>
-                                                    <a class="dropdown-item" href="/user/addmaterial/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/addmaterial/{{ i.id }}"><i
                                                             class="fa fa-plus me-2"></i>Add Material </a>
                                                     <a class="dropdown-item"
-                                                        href="/user/viewaddedmaterial/{{ i.id }}"><i
+                                                        href="/viewaddedmaterial/{{ i.id }}"><i
                                                             class="fa fa-search me-2"></i>View Added Material </a>
-                                                    <a class="dropdown-item" href="indexbill/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/indexbill/{{ i.id }}"><i
                                                             class="far fa-file-alt me-2"></i>Bill</a>
-                                                    <a class="dropdown-item" href="indexadvanced/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/indexadvanced/{{ i.id }}"><i
                                                             class="far fa-check-circle me-2"></i>Advance</a>
-                                                    <a class="dropdown-item" href="indexpartialy/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/indexpartialy/{{ i.id }}"><i
                                                             class="far fa-paper-plane me-2"></i>Partialy Paid</a>
-                                                    <a class="dropdown-item" href="indexclosed/{{ i.id }}"><i
+                                                    <a class="dropdown-item" href="/indexclosed/{{ i.id }}"><i
                                                             class="far fa-times-circle me-2"></i>Closed</a>
 
                                                 </div>
@@ -202,7 +202,7 @@
 
                                     {% endfor %}
                                     <!-- <tr>
-                                        <td><a href="/user/viewinvoice">EST-17ER281</a></td>
+                                        <td><a href="viewinvoice">EST-17ER281</a></td>
                                         <td>
                                             <h2 class="table-avatar">
                                                 Marie Canales
@@ -217,11 +217,11 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false"><i
                                                         class="fas fa-ellipsis-h"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="/user/editestimate"><i
+                                                            <a class="dropdown-item" href="editestimate"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="/user/viewestimate"><i
+                                                            <a class="dropdown-item" href="viewestimate"><i
                                                                     class="far fa-eye me-2"></i>View</a>
                                                            
                                                         </div>
@@ -244,11 +244,11 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false"><i
                                                         class="fas fa-ellipsis-h"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="/user/editestimate"><i
+                                                            <a class="dropdown-item" href="editestimate"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="/user/viewestimate"><i
+                                                            <a class="dropdown-item" href="viewestimate"><i
                                                                     class="far fa-eye me-2"></i>View</a>
                                                            
                                                         </div>
@@ -271,11 +271,11 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false"><i
                                                         class="fas fa-ellipsis-h"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="/user/editestimate"><i
+                                                            <a class="dropdown-item" href="editestimate"><i
                                                                     class="far fa-edit me-2"></i>Edit</a>
                                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                                     class="far fa-trash-alt me-2"></i>Delete</a>
-                                                            <a class="dropdown-item" href="/user/viewestimate"><i
+                                                            <a class="dropdown-item" href="viewestimate"><i
                                                                     class="far fa-eye me-2"></i>View</a>
                                                            
                                                         </div>
@@ -298,11 +298,11 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false"><i
                                                         class="fas fa-ellipsis-h"></i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="/user/editestimate"><i
+                                                    <a class="dropdown-item" href="editestimate"><i
                                                             class="far fa-edit me-2"></i>Edit</a>
                                                     <a class="dropdown-item" href="javascript:void(0);"><i
                                                             class="far fa-trash-alt me-2"></i>Delete</a>
-                                                    <a class="dropdown-item" href="/user/viewestimate"><i
+                                                    <a class="dropdown-item" href="viewestimate"><i
                                                             class="far fa-eye me-2"></i>View</a>
                                                    
                                                 </div>

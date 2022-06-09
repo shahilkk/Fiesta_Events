@@ -2,7 +2,7 @@
 function changedProductname(id) {
     var csrf_token1 = $('[name="csrfmiddlewaretoken"]').val();
     $.ajax({
-        url: "/user/bill",
+        url: "/bill",
         type: 'POST',
         data: {
 
@@ -48,7 +48,7 @@ $('#estimatebutton').click(function () {
         }
         console.log(data)
         $.ajax({
-            url: "/user/est_productupdate",
+            url: "/est_productupdate",
             type: 'POST',
             data: data,
             success: function (responce) {
@@ -63,7 +63,7 @@ $('#estimatebutton').click(function () {
                     showConfirmButton: false,
                     timer: 6000
                 })
-                window.location.href = '/user/index';
+                window.location.href = '/index';
 
             }
 

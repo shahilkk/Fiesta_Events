@@ -45,23 +45,23 @@ def index(request):
 
 def indexbill(request,id):
     Estimates.objects.filter(id=id).update(est_status ='Billed')
-    return redirect('/user/index')
+    return redirect('/index')
 
 
 
 def indexadvanced(request,id):
     Estimates.objects.filter(id=id).update(est_status ='Advanced')
-    return redirect('/user/index')
+    return redirect('/index')
 
 
 
 def indexpartialy(request,id):
     Estimates.objects.filter(id=id).update(est_status ='Partialy Paid')
-    return redirect('/user/index')
+    return redirect('/index')
 
 def indexclosed(request,id):
     Estimates.objects.filter(id=id).update(est_status ='Closed')
-    return redirect('/user/index')            
+    return redirect('/index')            
 
 
 
@@ -106,7 +106,7 @@ def addcustomer(request):
         client_state=client_state,client_district=client_district,client_zipcode=client_zipcode
         ,client_address=client_address,client_contact_type=client_contact_type,client_whsatpp=client_whsatpp)
         client_add.save()
-        return redirect('/user/customer')
+        return redirect('/customer')
     context={
         "is_customer":True,
        
@@ -210,7 +210,7 @@ def viewcustomer(request,id):
 
 def deletecustomer(request,id):
     Client.objects.filter(id=id).update(client_status='InActive')
-    return redirect ('/user/customer')
+    return redirect ('/customer')
 
 
 def viewemployee(requsest,id):
@@ -245,7 +245,7 @@ def addmstaff(request):
         employee_address=request.POST['employee_address']
         emplyoeedetails=Employee(employee_name=employee_name, employee_username=employee_username, employee_password=employee_password, employee_phone=employee_phone, employee_email=employee_email, employee_state=employee_state, employee_district=employee_district, employee_zipcode=employee_zipcode, employee_address=employee_address, employee_status='Active')
         emplyoeedetails.save()
-        return redirect('/user/marketingstaff')
+        return redirect('/marketingstaff')
         
         
     return render(request,'addmstaff.html',context)
@@ -277,7 +277,7 @@ def editstaff(request,staff_id):
 
 def deletestaff(request,id):
     Employee.objects.filter(id=id).update(employee_status='Inactive')   
-    return redirect('/user/marketingstaff')  
+    return redirect('/marketingstaff')  
 
 
 @admin_login_required
@@ -340,7 +340,7 @@ def Estimate(request):
     
 #         # return reverse('addestimate', args(order_id))
 #         # getid = Estimates.objects.get(clientd_id=clientid)
-#         return redirect('/user/addestimate/'+order_id)
+#         return redirect('addestimate/'+order_id)
        
 #     else:
 #         cust = Client.objects.all()
@@ -352,7 +352,7 @@ def Estimate(request):
 #             }
 #     return render(request,'addestimate.html',locals())
 
-
+@admin_login_required
 def addestimate(request):
     
     cust = Client.objects.all()
@@ -398,7 +398,7 @@ def addestimate(request):
             }
     return render(request,'addestimate.html',context) 
 
-
+@admin_login_required
 def createestimate(request):
     cust = Client.objects.all()
     if request.method=='POST':
@@ -492,7 +492,7 @@ def viewestimate(request,id):
 
 def Delectestimate(request,id):
     delectestimate =  Estimates.objects.filter(id=id).update(est_active=False)
-    return redirect('/user/index')
+    return redirect('/index')
 
 
 def invoicegrid(req):
@@ -610,7 +610,7 @@ def products(request):
         food_deatails = request.POST['food_deatails']
         food_exist = Product(food_name = food_name,catagory = catagory,priceper_head = priceper_head,priceper_kg = priceper_kg,food_deatails = food_deatails)
         food_exist.save()
-        return redirect('/user/products')
+        return redirect('/products')
         # msg = " product added"
 
     else:
@@ -687,7 +687,7 @@ def updateproduct(request):
  
 def delete(request,id):
     Product.objects.filter(id=id).update(food_status=False)  
-    return redirect('/user/products')    
+    return redirect('/products')    
 
 
 @admin_login_required
@@ -790,7 +790,7 @@ def addexpenses(request):
         
         expencevalue =Expences( expencescategory=category,expencesnote=note,  expencesasamount=amount ,expencestatus='Expences')
         expencevalue.save()
-        return redirect('/user/expenses')
+        return redirect('/expenses')
 
     context={
         "is_expenses":True,
@@ -847,7 +847,7 @@ def addprofit(request):
         clientid= Client.objects.get(client_phone=phone)
         profitvalue = Expences(clientid=clientid, expencescategory=category,expencesnote=note, expencesdate=date, expencesasamount=amount ,expencestatus='Expences')
         profitvalue.save()
-        return redirect('/user/profit')
+        return redirect('/profit')
     context={
         "is_profit":True,
         }
@@ -916,7 +916,7 @@ def createestimate(request):
         est_id = Client.objects.get(id=clientid)
         esti=Estimates(clientd=est_id,est_fromdate=fromdate, est_todate=todate)
         esti.save() 
-        return redirect('/user/createestimate') 
+        return redirect('/createestimate') 
 
 
     context={
@@ -1160,7 +1160,7 @@ def login(request):
                     'is_admin':True
                 }
                 request.session['permission']=userDetails
-                return redirect('/user/index') 
+                return redirect('/index') 
 
             else:
                 login_data=Employee.objects.filter(employee_username=username,employee_password=password).exists()
@@ -1171,7 +1171,7 @@ def login(request):
                             'is_admin':False
                         }
                         request.session['permission']=userDetails
-                        return redirect('/user/index')
+                        return redirect('/index')
                     else:
                         return render(request,'login.html',{'status':2})
                 else:
@@ -1186,7 +1186,7 @@ def login(request):
 
 def admin_logout(request):
     del request.session['permission']
-    return redirect('/user/login')   
+    return redirect('userapp:login')   
 
 
 def forget(request):
@@ -1305,7 +1305,7 @@ def addstock(request):
         quantity=request.POST['quantity']
         stock=Stock(stockname=stockname , quantity=quantity)
         stock.save()
-        return redirect('/user/stock')
+        return redirect('/stock')
     context={
         "is_stock":True,
         }
