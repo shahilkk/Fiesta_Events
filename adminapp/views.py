@@ -1030,40 +1030,47 @@ def est_productupdate(request):
 
 @csrf_exempt
 def invoicegetdata(request):
+    data = {}
     clientphone = request.POST['clientphone']
-    viewpro=Client.objects.get(client_phone=clientphone)
-    estimatelist=[]
-    estID = Estimates.objects.filter(clientd=viewpro.id)
+    if Client.objects.filter(client_phone=clientphone).exists():
 
-    if estID.exists():
-        for value in estID:
-            clientdata={
-                "id":value.clientd.id,
-                "client_name":value.clientd.client_name
+        viewpro=Client.objects.get(client_phone=clientphone)
+        estimatelist=[]
+        if Estimates.objects.filter(clientd=viewpro.id).exists():
+            estID = Estimates.objects.filter(clientd=viewpro.id)
+            for value in estID:
+                clientdata={
+                    "id":value.clientd.id,
+                    "client_name":value.clientd.client_name
+                }
+                estdata={
+                    "id":value.id,
+                    "clientd":clientdata,
+                    "est_fromdate":value.est_fromdate,
+                    "est_todate":value.est_todate,
+                    "est_balance":value.est_balance,
+                    "est_status":value.est_status,
+                }
+                estimatelist.append(estdata)
+                data={
+            
+                'msg':True,
+                "id":viewpro.id,
+                "gst":viewpro.client_gst_number,
+                "email":viewpro.client_email,
+                "state":viewpro.client_state,
+                "district":viewpro.client_district,
+                "zipcode":viewpro.client_zipcode,
+                "address":viewpro.client_address,
+                "estimatelist":estimatelist
+                
             }
-            estdata={
-                "id":value.id,
-                "clientd":clientdata,
-                "est_fromdate":value.est_fromdate,
-                "est_todate":value.est_todate,
-                "est_balance":value.est_balance,
-                "est_status":value.est_status,
-            }
-            estimatelist.append(estdata)
+    else:
+        data={
+            'msg':False
+        }
 
-    data={
-        
-        
-        "id":viewpro.id,
-        "gst":viewpro.client_gst_number,
-        "email":viewpro.client_email,
-        "state":viewpro.client_state,
-        "district":viewpro.client_district,
-        "zipcode":viewpro.client_zipcode,
-        "address":viewpro.client_address,
-        "estimatelist":estimatelist
-        
-    }
+    
     return JsonResponse({'details': data})   
 
 
@@ -1073,41 +1080,47 @@ def invoicegetdata(request):
 @csrf_exempt
 def clientnamegetdata(request):
     clientname = request.POST['clientname']
-    viewpro=Client.objects.get(client_name=clientname)
-    estimatelist=[]
-    estID = Estimates.objects.filter(clientd=viewpro.id)
-
-    if estID.exists():
-        for value in estID:
-            clientdata={
-                "id":value.clientd.id,
-                "client_name":value.clientd.client_name
+    data = {}
+    if Client.objects.filter(client_name=clientname).exists():
+        viewpro=Client.objects.get(client_name=clientname)
+        estimatelist=[]
+        if Estimates.objects.filter(clientd=viewpro.id).exists():
+            estID = Estimates.objects.filter(clientd=viewpro.id)
+            for value in estID:
+                clientdata={
+                    "id":value.clientd.id,
+                    "client_name":value.clientd.client_name
+                }
+                estdata={
+                    "id":value.id,
+                    "clientd":clientdata,
+                    "est_fromdate":value.est_fromdate,
+                    "est_todate":value.est_todate,
+                    "est_balance":value.est_balance,
+                    "est_status":value.est_status,
+                }
+                estimatelist.append(estdata)
+                data={
+            
+                'msg':True,
+                "id":viewpro.id,
+                "gst":viewpro.client_gst_number,
+                "email":viewpro.client_email,
+                "state":viewpro.client_state,
+                "district":viewpro.client_district,
+                "zipcode":viewpro.client_zipcode,
+                "address":viewpro.client_address,
+                "estimatelist":estimatelist
+                
             }
-            estdata={
-                "id":value.id,
-                "clientd":clientdata,
-                "est_fromdate":value.est_fromdate,
-                "est_todate":value.est_todate,
-                "est_balance":value.est_balance,
-                "est_status":value.est_status,
-            }
-            estimatelist.append(estdata)
+    else:
+        data={
+            'msg':False
+        }
 
-    data={
-        
-        
-        "id":viewpro.id,
-        "gst":viewpro.client_gst_number,
-        "email":viewpro.client_email,
-        "state":viewpro.client_state,
-        "district":viewpro.client_district,
-        "zipcode":viewpro.client_zipcode,
-        "address":viewpro.client_address,
-        "estimatelist":estimatelist
-        
-    }
-    return JsonResponse({'details': data})      
-
+    
+    return JsonResponse({'details': data}) 
+    
 
 
 def invoicebill(request,id):

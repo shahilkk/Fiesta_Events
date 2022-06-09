@@ -44,24 +44,25 @@
                         <div class="invoices-main-form">
                             <div class="row">
 
-                                
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Phone Number</label>
-                                                <input class="form-control" id="phone" type="text"
-                                                    placeholder="Enter Phone Number">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Enter Name</label>
-                                                <input class="form-control" id="name" type="text"
-                                                    placeholder="Enter Name">
-                                            </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input class="form-control" id="phone" type="text"
+                                                placeholder="Enter Phone Number">
+                                            <p id="ptag"></p>
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Enter Name</label>
+                                            <input class="form-control" id="name" type="text" placeholder="Enter Name">
+                                            <p id="ptagname"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
                                            
                                             <div class="form-group">
                                                  <label>Enter Name</label>
@@ -71,7 +72,7 @@
                                         </div> -->
 
 
-                               
+
                                 <!-- <div class="col-xl-5 col-md-6 col-sm-12 col-12">
                                         <h4 class="invoice-details-title">Invoice details</h4>
                                         <div class="invoice-details-box">
@@ -426,25 +427,36 @@
 
             },
             success: function (responce) {
-                $('#gst').html(responce.details.gst)
-                $('#address').html(responce.details.address)
-                $('#district').html(responce.details.district)
-                $('#state').html(responce.details.state)
-                $('#pincode').html(responce.details.zipcode)
-                $('#mail').html(responce.details.email)
-                for (var i = 0; i < responce.details.estimatelist.length; i++) {
-                    var html = ''
-                    html += '<tr onclick=gotoEstimate(' + responce.details.estimatelist[i].id + ')>'
-                    html += '<td>' + responce.details.estimatelist[i].id + '</td>'
-                    html += '<td>' + responce.details.estimatelist[i].est_fromdate + '</td>'
-                    html += '<td>' + responce.details.estimatelist[i].est_todate + '</td>'
-                    html += '<td>' + responce.details.estimatelist[i].est_balance + '</td>'
-                    html += '<td>' + responce.details.estimatelist[i].est_status + '</td>'
-                    //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
-                    //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
-                    html += '</tr>'
-                    $('#tbodyofInvoice').append(html)
-                } 
+
+                console.log(responce.msg)
+                if (responce.details.msg != true) {
+                    console.log('1')
+                    $('#ptag').html("User Number Does Not matching")
+                }
+                else {
+                    console.log('0')
+                    $('#ptag').html('')
+                    $('#gst').html(responce.details.gst)
+                    $('#address').html(responce.details.address)
+                    $('#district').html(responce.details.district)
+                    $('#state').html(responce.details.state)
+                    $('#pincode').html(responce.details.zipcode)
+                    $('#mail').html(responce.details.email)
+                    for (var i = 0; i < responce.details.estimatelist.length; i++) {
+                        var html = ''
+                        html += '<tr onclick=gotoEstimate(' + responce.details.estimatelist[i].id + ')>'
+                        html += '<td>' + responce.details.estimatelist[i].id + '</td>'
+                        html += '<td>' + responce.details.estimatelist[i].est_fromdate + '</td>'
+                        html += '<td>' + responce.details.estimatelist[i].est_todate + '</td>'
+                        html += '<td>' + responce.details.estimatelist[i].est_balance + '</td>'
+                        html += '<td>' + responce.details.estimatelist[i].est_status + '</td>'
+                        //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
+                        //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
+                        html += '</tr>'
+                        $('#tbodyofInvoice').append(html)
+                    }
+
+                }
 
 
 
@@ -462,32 +474,34 @@
 
             },
             success: function (responce) {
-                $('#gst').html(responce.details.gst)
-                $('#address').html(responce.details.address)
-                $('#district').html(responce.details.district)
-                $('#state').html(responce.details.state)
-                $('#pincode').html(responce.details.zipcode)
-                $('#mail').html(responce.details.email)
-                for (var i = 0; i < responce.details.estimatelist.length; i++) {
-                    var html = ''
-                    html += '<tr onclick=gotoEstimate(' + responce.details.estimatelist[i].id + ')>'
-                    html += '<td>' + responce.details.estimatelist[i].id + '</td>'
-                    html += '<td>' + responce.details.estimatelist[i].est_fromdate + '</td>'
-                    html += '<td>' + responce.details.estimatelist[i].est_todate + '</td>'
-                    html += '<td>' + responce.details.estimatelist[i].est_balance + '</td>'
-                    html += '<td>' + responce.details.estimatelist[i].est_status + '</td>'
-                    //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
-                    //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
-                    html += '</tr>'
-                    $('#tbodyofInvoice').append(html)
+                if (responce.details.msg != true) {
+                    console.log('1')
+                    $('#ptagname').html("User Name Does Not matching")
                 }
+                else {
+                    console.log('0')
+                    $('#ptag').html('')
+                    $('#gst').html(responce.details.gst)
+                    $('#address').html(responce.details.address)
+                    $('#district').html(responce.details.district)
+                    $('#state').html(responce.details.state)
+                    $('#pincode').html(responce.details.zipcode)
+                    $('#mail').html(responce.details.email)
+                    for (var i = 0; i < responce.details.estimatelist.length; i++) {
+                        var html = ''
+                        html += '<tr onclick=gotoEstimate(' + responce.details.estimatelist[i].id + ')>'
+                        html += '<td>' + responce.details.estimatelist[i].id + '</td>'
+                        html += '<td>' + responce.details.estimatelist[i].est_fromdate + '</td>'
+                        html += '<td>' + responce.details.estimatelist[i].est_todate + '</td>'
+                        html += '<td>' + responce.details.estimatelist[i].est_balance + '</td>'
+                        html += '<td>' + responce.details.estimatelist[i].est_status + '</td>'
+                        //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
+                        //    html+='<td>'+responce.details.estimatelist[i].clientd.client_name +'</td>'
+                        html += '</tr>'
+                        $('#tbodyofInvoice').append(html)
+                    }
 
-
-
-
-
-
-
+                }
 
 
 
