@@ -1227,6 +1227,11 @@ def printlist(request):
     return render(request,'printlist.html',context) 
       
 
+def deleteprintlist(request,id):
+    Preview.objects.get(id=id).delete()
+    return redirect('/printlist')
+      
+
 def viewpdf(request,id,discount,previewno):
     details = EstimateProduct.objects.filter(estimateid=id)
     eid= Estimates.objects.get(id=id)
@@ -1323,6 +1328,20 @@ def addstock(request):
         "is_stock":True,
         }
     return render(request,'addstock.html',context)        
+  
+
+def editstock(request,id):
+    stock=Stock.objects.get(id=id)
+    if request.method=='POST':
+        stockname=request.POST['stockname']
+        quantity=request.POST['quantity']
+        Stock.objects.filter(id=id).update(stockname=stockname , quantity=quantity)
+        return redirect('/stock')
+    context={
+        "is_stock":True,
+        "stock":stock
+        }
+    return render(request,'editstock.html',context)        
   
 
 

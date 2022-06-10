@@ -43,10 +43,10 @@ urlpatterns = [
     path('deletestaff/<str:id>/',views.deletestaff,name="deletestaff"),
     path('deletecustomer/<str:id>/',views.deletecustomer,name="deletecustomer"),
     path('addcat/',views.addcat,name="addcat"),
-    path('bill/',views.bill,name="bill"),
+    path('bill',views.bill,name="bill"),
     path('checkexist',views.checkexist,name="checkexist"),
     path('est_product',views.est_product,name="est_product"),
-    path('est_productupdate/',views.est_productupdate,name="est_productupdate"),
+    path('est_productupdate',views.est_productupdate,name="est_productupdate"),
     path('createestimate/',views.createestimate,name="createestimate"),
     path('invoicebill/<str:id>/',views.invoicebill,name="invoicebill"),
 
@@ -83,8 +83,11 @@ urlpatterns = [
     
 
     path('printlist/',views.printlist,name="printlist"),
+    path('deleteprintlist/<str:id>',views.deleteprintlist,name="deleteprintlist"),
     path('stock/',views.stock,name="stock"),
     path('addstock/',views.addstock,name="addstock"),
+    path('editstock/<str:id>',views.editstock,name="editstock"),
+
     path('addmaterial/<str:id>',views.addmaterial,name="addmaterial"),
     path('getQunatity/',views.getQunatity,name="getQunatity"),
     path('valuesave',views.valuesave,name="valuesave"),
