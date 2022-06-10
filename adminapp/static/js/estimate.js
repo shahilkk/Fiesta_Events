@@ -6,7 +6,7 @@ $("#checkname").val(phone)
 function changedProductname(id) {
 
     $.ajax({
-        url: "/bill/",
+        url: "/bill",
         type: 'POST',
         data: {
             'productname': $('#productName' + id).val(),

@@ -945,6 +945,24 @@ def bill (request):
     }
     return JsonResponse({'product': data})
 
+@csrf_exempt
+def billitem (request):
+    productname = request.POST['productname']
+    # estimateid = request.POST['estimateid']
+    viewpro=Product.objects.get(food_name=productname)
+    # estid=Estimates.objects.get(id=estimateid)
+    data={
+        
+        # "food_name":viewpro.food_name,
+        # "estimateid":estid.id,
+        "id":viewpro.id,
+        "catagory":viewpro.catagory,
+        "priceper_head":viewpro.priceper_head,
+        "priceper_kg":viewpro.priceper_kg,
+        "food_deatails":viewpro.food_deatails
+    }
+    return JsonResponse({'product': data})
+
 
 @csrf_exempt
 def checkexist(request):
@@ -1005,7 +1023,10 @@ def est_productupdate(request):
         updateproduct.est_amount=est_amount
         updateproduct.est_qty=est_qty
         updateproduct.save()
+        print('*'*20)
+
     else:
+        print('@'*20)
         EstimateProduct.objects.create(estimateid=estiid,productid=prodid,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
@@ -1026,6 +1047,21 @@ def est_productupdate(request):
     }
     return JsonResponse({'msg':'data inserted sucess','details': data})
 
+
+
+@csrf_exempt
+def deletedata(request):
+    product = request.POST['product']
+    estimateid = request.POST['estimateid']
+    estmate=Estimates.objects.get(id=estimateid)
+    EstimateProduct.objects.get(productid=product,estimateid=estmate).delete()
+    estid= EstimateProduct.objects.filter(estimateid=estimateid)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    gsttotal = int(totalAmonut)*5/100
+    grandtotal= totalAmonut+gsttotal
+    total=Estimates.objects.filter(id=estimateid).update(est_balance=grandtotal)
+    return JsonResponse({'msg':'data Delected sucess'})
 
 
 @csrf_exempt

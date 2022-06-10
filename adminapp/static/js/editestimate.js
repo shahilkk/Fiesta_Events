@@ -1,8 +1,9 @@
 
 function changedProductname(id) {
+    alert()
     var csrf_token1 = $('[name="csrfmiddlewaretoken"]').val();
     $.ajax({
-        url: "/bill",
+        url: "/billitem",
         type: 'POST',
         data: {
 

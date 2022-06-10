@@ -99,12 +99,15 @@
                                         <tr class="add-row">
                                             <td>
                                                 <input type="text" value="{{estimateItem.index}}" class="form-control">
-                                                
+
                                             </td>
                                             <td>
-                                                <input type="hidden" class="form-control" value="{{estimateItem.item.productid.id}}" id="productId{{estimateItem.index}}">
+                                                <input type="hidden" class="form-control"
+                                                    value="{{estimateItem.item.productid.id}}"
+                                                    id="productId{{estimateItem.item.productid.id}}">
                                                 <input type="text" class="form-control"
-                                                    value="{{estimateItem.item.productid.food_name}}" id="productName{{estimateItem.index}}" list="food"
+                                                    value="{{estimateItem.item.productid.food_name}}"
+                                                    id="productName{{estimateItem.index}}" list="food"
                                                     onChange=changedProductname(1)>
                                                 <datalist id="food">
                                                     {% for i in pro %}
@@ -116,31 +119,36 @@
 
                                             </td>
                                             <td>
-                                                <input type="text" id="category{{estimateItem.index}}" value="{{ estimateItem.item.est_category }}"
-                                                    class="form-control">
+                                                <input type="text" id="category{{estimateItem.index}}"
+                                                    value="{{ estimateItem.item.est_category }}" class="form-control">
                                             </td>
                                             <td>
-                                                <input type="text" id="qty{{estimateItem.index}}" value="{{ estimateItem.item.est_qty }}"
+                                                <input type="text" id="qty{{estimateItem.index}}"
+                                                    value="{{ estimateItem.item.est_qty }}"
                                                     onChange=changeqty({{estimateItem.index}}) class="form-control">
                                             </td>
                                             <td>
 
-                                                <select name="" id="priceselect{{estimateItem.index}}" value="{{ estimateItem.item.est_price }}" aria-placeholder="{{ estimateItem.item.est_price }}"
+                                                <select name="" id="priceselect{{estimateItem.index}}"
+                                                    value="{{ estimateItem.item.est_price }}"
+                                                    aria-placeholder="{{ estimateItem.item.est_price }}"
                                                     onChange=changeqty({{estimateItem.index}}) class="form-control">
-                                                    <option value="{{estimateItem.priceper_head}}">{{estimateItem.priceper_head}} Per Head</option>
-                                                    <option value="{{estimateItem.priceper_kg}}">{{estimateItem.priceper_kg}} Per KG</option>
+                                                    <option value="{{estimateItem.priceper_head}}">
+                                                        {{estimateItem.priceper_head}} Per Head</option>
+                                                    <option value="{{estimateItem.priceper_kg}}">
+                                                        {{estimateItem.priceper_kg}} Per KG</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="text" id="amount{{estimateItem.index}}" value="{{ estimateItem.item.est_amount }}"
-                                                    class="form-control">
+                                                <input type="text" id="amount{{estimateItem.index}}"
+                                                    value="{{ estimateItem.item.est_amount }}" class="form-control">
                                             </td>
 
                                             <td class="add-remove text-end">
                                                 <a href="javascript:void(0);" id="add" class="add-btn me-2"><i
                                                         class="fas fa-plus-circle"></i></a>
-                                                <a href="#" class="copy-btn me-2"><i class="fa fa-copy"></i></a><a
-                                                    href="javascript:void(0);" class="remove-btn"><i
+                                                <a class="copy-btn me-2"><i class="fa fa-copy"></i></a>
+                                                <a onclick="delectbtn('{{estimateItem.item.productid.id}}')" class="remove-btn"><i
                                                         class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
@@ -210,7 +218,7 @@
 
     $(document).ready(() => {
         console.log('page loaded')
-     
+
 
         // $('#productname').keyup(() => {
         //     console.log('hi')
@@ -247,6 +255,170 @@
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script src="{% static 'js/editestimate.js' %}"></script>
+<script>
+
+    function changedProductname(id) {
+
+        var csrf_token1 = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+            url: "/billitem",
+            type: 'POST',
+            data: {
+
+                'productname': $('#productName' + id).val(),
+                csrfmiddlewaretoken: csrf_token1
+
+            },
+            success: function (responce) {
+                $('#category' + id).val(responce.product.catagory)
+                $('#productId' + id).val(responce.product.id)
+                $('#priceselect' + id).append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per Head</option>')
+                $('#priceselect' + id).append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
+                $("#amount" + id).val(responce.product.priceper_head)
+
+
+            }
+
+        })
+    }
+
+
+    $('#estimatebutton').click(function () {
+        var estimateid = $('#estimateid').val()
+
+        var rowCount = $(".add-table-items tr").length;
+        for (var i = 1; i < rowCount; i++) {
+            var productId = $('#productId' + i).val()
+            var est_category = $('#category' + i).val()
+            var est_price = $('#priceselect' + i).val()
+            var est_amount = $('#amount' + i).val()
+            var est_qty = $('#qty' + i).val()
+
+
+
+            var data = {
+                "productId": productId,
+                "est_category": est_category,
+                "est_price": est_price,
+                "est_amount": est_amount,
+                "est_qty": est_qty,
+                "estimateid": estimateid
+
+            }
+            console.log(data)
+            $.ajax({
+                url: "/est_productupdate",
+                type: 'POST',
+                data: data,
+                success: function (responce) {
+                    // alert(responce.msg)
+                    $('#total').html(responce.details.totalAmonut)
+                    $('#gst').html(responce.details.gsttotal)
+                    $('#grandtotal').html(responce.details.grandtotal)
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'Your Estimate has been saved',
+                        showConfirmButton: false,
+                        timer: 6000
+                    })
+                    window.location.href = '/index';
+
+                }
+
+            })
+
+
+
+        }
+        return false;
+    })
+
+
+    $(document).on("click", ".add-btn", function () {
+        var rowCount = $(".add-table-items tr").length;
+        var experiencecontent = '<tr class="add-row">' +
+            '<td>' +
+            '<input type="text" class="form-control" value="' + rowCount + '">' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" list="food" id="productName' + rowCount + '" onChange="changedProductname(' + rowCount + ')" class="form-control productname">' +
+            '<input type="hidden"  id="productId' + rowCount + '" class="form-control">' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" id="category' + rowCount + '" class="form-control">' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" id="qty' + rowCount + '" onChange="changeqty(' + rowCount + ')" class="form-control">' +
+            '</td>' +
+            '<td>' +
+            ' <select name="" id="priceselect' + rowCount + '"      ="changeqty(' + rowCount + ')" class="form-control"> </select>' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" id="amount' + rowCount + '" class="form-control">' +
+            '</td>' +
+            '<td class="add-remove text-end">' +
+            '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
+            '<a href="#" class="copy-btn me-2"><i class="fas fa-copy"></i></a>' +
+            '<a href="javascript:void(0);" onclick="DeleteRow(' + rowCount + ')" class="remove-btn"><i class="fas fa-trash"></i></a>' +
+            '</td>' +
+            '</tr>';
+
+        $(".add-table-items").append(experiencecontent);
+
+        return false;
+    });
+
+    function changeqty(id) {
+        var completeTotal = 0
+        var unitprice = $('#priceselect' + id).val()
+        var qty = $('#qty' + id).val()
+        var amount = unitprice * qty
+        $("#amount" + id).val(amount)
+        var total = $("#total").html()
+        completeTotal = parseInt(total) + amount
+        $("#total").html(completeTotal)
+    }
+
+    function DeleteRow(id) {
+
+
+
+        var completeTotal = 0
+        var amount = parseInt($("#amount" + id).val())
+        var total = $("#total").html()
+        completeTotal = parseInt(total) - amount
+        $("#total").html(completeTotal)
+       
+
+    }
+
+
+    function delectbtn(id) {
+        $.ajax({
+            url: "/deletedata",
+            type: 'POST',
+            data: {
+                "product": $('#productId'+id).val(),
+                "estimateid": $('#estimateid').val()
+            },
+            success: function (responce) {
+                Swal.fire({
+                        position: 'top-center',
+                        icon: 'warning',
+                        title: 'Your Item has been Delected',
+                        showConfirmButton: false,
+                        timer: 6000
+                    })
+                
+                // window.location.href = '/index';
+
+            }
+
+        })
+
+    }
+
+</script>
 
 {% endblock %}
