@@ -5,6 +5,14 @@
 <div class="page-wrapper">
     <div class="content container-fluid">
 
+
+        {% if status == 1 %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Successfully</strong> add the Item.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-6">
@@ -27,39 +35,61 @@
                     </div>
                     <div class="card-body">
 
-                        <form action="#" method="post" class="invoices-settings-form">
+                        <form action="#" method="POST">
                             {% csrf_token %}
-                            <!-- <div class="row align-items-center form-group">
-                                <label for="name" class="col-sm-3 col-form-label input-label">Default Bank
-                                    Account</label>
-                                <div class="col-sm-9">
-                                    <label class="custom_check">
-                                        <input type="checkbox" name="invoice">
-                                        <span class="checkmark"></span> Check to enable Bank Account default
-                                    </label>
+                            <div class="row text-capitalize">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>item name</label>
+                                        <input type="text" name="stockname" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>category</label>
+
+                                        <input type="text" class="form-control" name="catagories" id="catagories"
+                                            list="catagory" required>
+                                        <datalist id="catagory">
+                                            {% for c in allcatagory %}
+                                            <option value="{{c.cat_name}}">
+                                                {{c.cat_name}}
+                                            </option>
+                                            {% endfor %}
+                                        </datalist>
+                                  
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Missing price</label>
+                                        <input type="number" name="missing_price" class="form-control" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sqft price</label>
+                                        <input type="number" name="sqft_price" value="0" class="form-control" >
+                                    </div>
                                 </div>
-                            </div> -->
-                            <div class="row align-items-center form-group">
-                                <label for="phone" class="col-sm-3 col-form-label input-label">Stock name</label>
-                                <div class="col-sm-9">
-                                    <input required type="text" name="stockname" class="form-control">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>quantity</label>
+                                        <input type="number" class="form-control" name="quantity" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>price</label>
+                                        <input type="number" name="price" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Damage price</label>
+                                        <input type="number" name="damage_price" value="0" class="form-control" >
+                                    </div>
+
+
+
                                 </div>
-                            </div>
-                            <div class="row align-items-center form-group">
-                                <label for="email" class="col-sm-3 col-form-label input-label">Quantity</label>
-                                <div class="col-sm-9">
-                                    <input type="number" required name="quantity" class="form-control">
+                                <div class="text-end mt-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Add Stock
+                                    </button>
                                 </div>
-                            </div>
-                            
-                          
-                           
-                            <div class="invoice-setting-btn text-end">
-                                <a href="/stock"  class="btn cancel-btn me-2">Cancel</a>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </form>
-                       
 
                     </div>
                 </div>
@@ -67,6 +97,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 
 
 {% endblock %}

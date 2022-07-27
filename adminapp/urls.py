@@ -42,7 +42,7 @@ urlpatterns = [
     path('delete/<str:id>/',views.delete,name="delete"),
     path('deletestaff/<str:id>/',views.deletestaff,name="deletestaff"),
     path('deletecustomer/<str:id>/',views.deletecustomer,name="deletecustomer"),
-    path('addcat/',views.addcat,name="addcat"),
+    path('addcat',views.addcat,name="addcat"),
     path('bill',views.bill,name="bill"),
     path('billitem',views.billitem,name="billitem"),
     path('checkexist',views.checkexist,name="checkexist"),
@@ -79,6 +79,9 @@ urlpatterns = [
 
     path('savecustomer/',views.savecustomer,name="savecustomer"),
     path('estimatedata/',views.estimatedata,name="estimatedata"),
+
+
+    path('returningitems',views.returningitems,name="returningitems"),
     
 
     # path('printlist',views.printlist,name="printlist"),
@@ -96,7 +99,7 @@ urlpatterns = [
     path('viewaddedmaterial/<str:id>',views.viewaddedmaterial,name="viewaddedmaterial"),
     path('stocktransfer',views.stocktransfer,name="stocktransfer"),
 
-
+    path('damage',views.damage,name="damage"),
 
     path('viewpdf/<str:id>,<str:discount>,<str:previewno>',views.viewpdf,name="viewpdf"),
     

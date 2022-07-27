@@ -18,49 +18,56 @@
             </div>
         </div>
 
-        <div class="row">
-            
-            <div class="col-xl-12 col-md-12">
-                <div class="card invoices-settings-card">
-                    <div class="card-header">
-                        <h5 class="card-title">Add Stock</h5>
-                    </div>
-                    <div class="card-body">
 
-                        <form action="#" method="post" class="invoices-settings-form">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Stock Edit</h4>
+                        <form action="#" method="POST">
                             {% csrf_token %}
-                            <!-- <div class="row align-items-center form-group">
-                                <label for="name" class="col-sm-3 col-form-label input-label">Default Bank
-                                    Account</label>
-                                <div class="col-sm-9">
-                                    <label class="custom_check">
-                                        <input type="checkbox" name="invoice">
-                                        <span class="checkmark"></span> Check to enable Bank Account default
-                                    </label>
+                            <div class="row text-capitalize">
+                                <div class="col-md-6">
+                                    
+                                    <div class="form-group">
+                                        <label>item name</label>
+                                        <input type="text" value="{{stock.stockname}}" class="form-control" name="stockname" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>category</label>
+                                        <input type="text" value="{{stock.category.cat_name}}" class="form-control" readonly >
+                                    </div>
+                                     <div class="form-group">
+                                        <label>quantity</label>
+                                        <input type="number" class="form-control" value="{{stock.quantity}}" name="quantity"  >
+                                    </div>       
                                 </div>
-                            </div> -->
-                            <div class="row align-items-center form-group">
-                                <label for="phone" class="col-sm-3 col-form-label input-label">Stock name</label>
-                                <div class="col-sm-9">
-                                    <input required type="text" value="{{ stock.stockname}}" name="stockname" class="form-control">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Price/Day</label>
+                                        <input type="number" class="form-control" value="{{stock.price}}" name="price" required>
+                                    </div>
+                                     <div class="form-group">
+                                        <label>Damage price</label>
+                                        <input type="number" class="form-control" value="{{stock.damage_price}}" name="damageprice" required>
+                                    </div>      
+                                    <div class="form-group">
+                                        <label>Missing price</label>
+                                        <input type="number" class="form-control" value="{{stock.missing_price}}" name="missprice" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sqft price</label>
+                                        <input type="number" class="form-control" value="{{stock.sqft_price}}" name="sqftprice" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row align-items-center form-group">
-                                <label for="email" class="col-sm-3 col-form-label input-label">Quantity</label>
-                                <div class="col-sm-9">
-                                    <input type="number" required name="quantity" value="{{ stock.quantity}}" class="form-control">
-                                </div>
-                            </div>
-                            
-                          
-                           
-                            <div class="invoice-setting-btn text-end">
-                                <a href="/stock"  class="btn cancel-btn me-2">Cancel</a>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <div class="invoice-setting-btn text-end">
+                                    <a href="/stock"  class="btn cancel-btn me-2">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div> 
                             </div>
                         </form>
                        
-
                     </div>
                 </div>
             </div>

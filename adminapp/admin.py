@@ -104,6 +104,12 @@ admin.site.register(Items,ItemsAdmin)
 
 
 
+class StockCatagoryAdmin(admin.ModelAdmin):
+    list_display = ('cat_name',)
+    search_fields=('cat_name',)
+admin.site.register(StockCatagory,StockCatagoryAdmin)
+
+
 
 
 

@@ -37,6 +37,7 @@ class Product(models.Model):
     priceper_kg = models.IntegerField(default=0)
     food_deatails = models.CharField(max_length=500000)
     food_status = models.BooleanField(default=True)
+    
 
     class Meta:
         db_table = 'product'
@@ -152,9 +153,22 @@ class Preview(models.Model):
     class Meta:
         db_table = 'discount'
 
+class StockCatagory(models.Model):
+    cat_name = models.CharField(max_length=40,null=True)        
+    class Meta:
+        db_table = 'cat_name'
+
+
+
 class Stock(models.Model):
     stockname = models.CharField(max_length=3000,null=True)
     quantity = models.IntegerField(default=0)
+    category = models.ForeignKey(StockCatagory,on_delete=models.CASCADE )
+    price = models.IntegerField(default=0)
+    damage_price = models.FloatField(null=True)
+    missing_price = models.FloatField(null=True)
+    sqft_price = models.FloatField(null=True)
+
     class Meta:
         db_table = 'stockname'
 
@@ -162,6 +176,13 @@ class Items(models.Model):
     estimate = models.ForeignKey(Estimates,on_delete=models.CASCADE )
     stock = models.ForeignKey(Stock,on_delete=models.CASCADE ) 
     taken = models.IntegerField(default=0)
+    status = models.CharField(max_length=20,default="not returned")
     class Meta:
         db_table = 'taken'   
-    
+
+
+class StockDetails(models.Model):
+    estimate = models.ForeignKey(Estimates,on_delete=models.CASCADE )
+    stock = models.ForeignKey(Stock,on_delete=models.CASCADE ) 
+    damagedstock = models.IntegerField(default=0)
+    missingstock = models.IntegerField(default=0)

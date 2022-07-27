@@ -2,7 +2,7 @@
 from tracemalloc import take_snapshot
 from urllib import response
 from django.shortcuts import render , redirect 
-from . models import Employee, Items,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences, Stock,Terms,Income,Preview
+from . models import Employee, Items,Product,Client,AddBank,Category,EstimateProduct,Estimates,PaymentDetails,Expences, Stock,Terms,Income,Preview,StockCatagory,StockDetails
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
@@ -29,6 +29,7 @@ def index(request):
     paritialy = Estimates.objects.filter(est_status ='Partialy Paid',est_active=True).all()
     closed = Estimates.objects.filter(est_status ='Closed',est_active=True).all()
     bank = AddBank.objects.all()
+    
 
     context={
         "is_index":True,
@@ -1354,14 +1355,44 @@ def stock(request):
 
 
 def addstock(request):
+    allcatagory = StockCatagory.objects.all()
+    
     if request.method=='POST':
         stockname=request.POST['stockname']
         quantity=request.POST['quantity']
-        stock=Stock(stockname=stockname , quantity=quantity)
-        stock.save()
-        return redirect('/stock')
+        missingPrice = request.POST['missing_price']
+        sqft_price = request.POST['sqft_price']
+        damagePrice = request.POST['damage_price']
+        price = request.POST['price']
+        category = request.POST['catagories']
+
+        category_exist=StockCatagory.objects.filter(cat_name=category).exists()
+        if not category_exist:
+            new_category=StockCatagory(cat_name=category)
+            new_category.save()
+            addStock = Stock(stockname=stockname , quantity=quantity, missing_price= missingPrice, damage_price=damagePrice, sqft_price=sqft_price,price=price,category=new_category)
+            addStock.save()
+            context = {
+            "is_stock":True,
+            "allcatagory":allcatagory,
+            "status":1
+            }
+            return render(request, 'addstock.html',context)
+        else:
+            catagory = StockCatagory.objects.get(cat_name=category)
+            addStock = Stock(stockname=stockname , quantity=quantity, missing_price= missingPrice, damage_price=damagePrice, sqft_price=sqft_price,price=price,category=catagory)
+            addStock.save()
+            context = {
+            "is_stock":True,
+            "allcatagory":allcatagory,
+            "status":1
+            }
+            return render(request, 'addstock.html',context)
+
+
     context={
         "is_stock":True,
+        "allcatagory":allcatagory
         }
     return render(request,'addstock.html',context)        
   
@@ -1371,7 +1402,11 @@ def editstock(request,id):
     if request.method=='POST':
         stockname=request.POST['stockname']
         quantity=request.POST['quantity']
-        Stock.objects.filter(id=id).update(stockname=stockname , quantity=quantity)
+        price=request.POST['price']
+        damageprice=request.POST['damageprice']
+        missprice=request.POST['missprice']
+        sqftprice=request.POST['sqftprice']
+        Stock.objects.filter(id=id).update(stockname=stockname , quantity=quantity, price=price, damage_price=damageprice,missing_price=missprice,sqft_price=sqftprice)
         return redirect('/stock')
     context={
         "is_stock":True,
@@ -1425,6 +1460,7 @@ def viewaddedmaterial(request,id):
     context={
         "is_stock":True,
         "view":view,
+        "estimates":estimates
         }
     return render(request,'viewaddedmaterial.html',context)        
   
@@ -1455,9 +1491,120 @@ def phoneexist(request):
     
 @admin_login_required
 def rentoutlist(request):
-    takenlist = Items.objects.filter(taken__gt=0)
+    takenlist = Items.objects.filter(taken__gt=0 , status="not returned")
     context={
         "is_rent":True,
         "takenlist":takenlist
         }
     return render(request,'rentoutlist.html',context)    
+
+
+
+
+
+
+
+@csrf_exempt
+def returningitems(request):
+    returnQty = request.POST['returnQty']
+    Estimateid = request.POST['Estimateid']
+    StockId = request.POST['StockId']
+    damage_qty = request.POST['damage_qty']
+    missed_qty = request.POST['missed_qty']
+    ItemId = request.POST['ItemId']
+
+
+    # print(returnQty, damage_qty, missed_qty,Estimateid,StockId)
+    estimate = Estimates.objects.get(id=Estimateid)
+    stock = Stock.objects.get(id=StockId)
+    # print(estimate,stock)
+
+    price = stock.price
+    print(price)
+    damage_amount = stock.damage_price
+    missing_amount = stock.missing_price
+    
+    item = Items.objects.get(id=ItemId)
+    qty_taken = item.taken
+    # print(qty_taken,missing_amount,damage_amount)
+   
+    
+   
+    
+
+    #damage
+
+    if damage_qty == '' :
+
+        damage_qty = 0
+        damage_qty_amt = 0
+
+         
+    else :
+        
+        damage_qty_amt = int(damage_amount) * int(damage_qty)
+
+
+        # print (damage_qty_amt)  
+
+    
+    # missings 
+    
+    if missed_qty == '' :
+        print(returnQty,damage_qty)   
+        missed_qty = int(returnQty) + int(damage_qty)
+        print(missed_qty, 'hiiiiiii')
+
+        missing_quantity = qty_taken - missed_qty 
+        print(missing_quantity, 'hello')
+
+        missing_qty_amt = missing_quantity * int(missing_amount)
+
+        print(missing_qty_amt)
+
+      
+
+    else:
+ 
+        missing_qty_amt = int(missing_amount) * int(missed_qty)
+        print(missing_qty_amt, 'heeeeeee')
+
+
+   
+    totalrentamount = int(returnQty) * int(price)
+    print(totalrentamount)
+
+
+    
+    total_amount =  damage_qty_amt + missing_qty_amt + totalrentamount
+    print(total_amount, 'sum')
+
+    
+    transfer_obj = Items.objects.get(id=ItemId)
+    transfer_obj.stock.quantity = transfer_obj.stock.quantity + int(returnQty)
+    transfer_obj.stock.save()
+    transfer_obj.taken = transfer_obj.taken -int(returnQty)
+    transfer_obj.save()
+    estimateid = Estimates.objects.get(id=Estimateid)
+    stockid = Stock.objects.get(id=StockId)
+    damaged_item = StockDetails(estimate=estimateid, stock=stockid, damagedstock=damage_qty, missingstock=missed_qty)
+    damaged_item.save()
+    itemstatus = Items.objects.filter(id=ItemId).update(status='Returned')
+
+    data = {
+        'total':total_amount,
+        'status':"returned",
+    }
+
+    return JsonResponse(data)
+
+
+
+
+def damage(request):
+    damagelist = StockDetails.objects.all()
+    context={
+        "is_stock":True,
+        "damagelist":damagelist
+        }
+    return render(request,'damage.html',context)

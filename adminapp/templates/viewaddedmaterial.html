@@ -67,9 +67,20 @@
                                         <th>
                                             Return Quantity
                                         </th>
+                                        <th>
+                                            Damage
+                                        </th>
+                                        <th>
+                                            Missing
+                                        </th>
+
                                         <th class="text-center">
                                             Actions
                                         </th>
+                                        <th id="rentalAmount" hidden>
+                                            Rental Amount
+                                        </th>
+                                        
                                     </tr>
                                     {% csrf_token %}
                                 </thead>
@@ -79,23 +90,56 @@
 
                                         <td> {{ i.stock.stockname}}</td>
                                         <td>{{ i.taken}}</td>
+                                        <!-- <input type="number" class="form-control" id="Tak{{i.id}}"
+                                                value="{ i.taken}}" hidden> -->
 
-                                        <td>
+                                        {% comment %} <td>
                                             <input type="number" required class="form-control" min="0"
                                                 max="{{ i.taken }}" id="returnQty{{i.id}}">
                                             <p id="p{{i.id}}"></p>
                                             <input id="tid" hidden type="number" value="{{i.id}}">
+                                        </td> {% endcomment %}
+                                        <td>
+                                            <input type="number" class="form-control" id="returnQty{{i.id}}" min="0"
+                                                max="{{i.taken}}" required>
+                                                <input type="number" class="form-control" id="EstimateId{{i.id}}"
+                                                value="{{estimates.id}}" hidden>
+                                            <input type="number" class="form-control" id="StockId{{i.id}}"
+                                                value="{{i.stock.id}}" hidden>
+                                                <input type="number" class="form-control" id="ItemId{{i.id}}"
+                                                value="{{i.id}}" hidden>
+                                          
+                                            
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="damageqty{{i.id}}" min="0"
+                                                max="{{i.taken}}">
+                                        </td>
+                                        <td>
+                                            <input type="number" id="missingQty{{i.id}}" class="form-control"
+                                                min="0" max="{{i.taken}}">
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a href="#" class="btn btn-sm btn-white text-success me-2"
+                                                id="returnbtn{{i.id}}" onclick="returni('{{i.id}}')"><i
+                                                    class="far fa-edit me-1"></i> Return</a>
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger me-2"
+                                                hidden><i class="fa fa-pen me-1"></i>Edit</a>
+                                        </td>
+                                        <td id="totalTd{{i.id}}" hidden>
+                                            <input type="number" id="rentalAmountValue{{i.id}}" class="form-control"
+                                                readonly>
                                         </td>
 
 
-                                        <td class="text-center">
+                                        {% comment %} <td class="text-center">
                                             <a href="" onclick="acceptReturn('{{i.id}}')" id="changebutton{{i.id}}"
                                                 class="btn btn-sm btn-white text-success me-2"><i
                                                     class="fa fa-check me-1"></i>Done </a>
-                                            <!-- <a href="javascript:void(0);" id="btnchange" style="display: none;" class="remove-btn"><i
-                                                    class="fas fa-trash"></i></a> -->
+                                           
 
-                                        </td>
+                                        </td> {% endcomment %}
                                     </tr>
 
                                     {% endfor %}
@@ -113,39 +157,152 @@
                 </div>
             </div>
         </div>
+
+
+        {% comment %} <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-center table-hover datatable">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
+                                            Item Name
+                                        </th>
+                                        <th>
+                                            Quantity
+                                        </th>
+                                        <th>
+                                            Return Quantity
+                                        </th>
+                                        <th>
+                                            Damage
+                                        </th>
+                                        <th>
+                                            Missing
+                                        </th>
+
+                                        <th class="text-center">
+                                            Actions
+                                        </th>
+                                        <th id="rentalAmount" hidden>
+                                            Rental Amount
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for items in items %}
+                                    <tr>
+                                        <td>
+                                            <h2 class="table-avatar" id="item_date">
+                                                {{items.billing_date.date}}
+                                            </h2>
+                                        </td>
+                                        <td class="text-capitalize">
+
+                                            {{items.item.item_name}}
+                                        </td>
+                                        <td>
+                                            {{items.qty}}
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="returnQty{{items.id}}" min="0"
+                                                max="{{items.qty}}" required>
+                                            <input type="number" class="form-control" id="billId{{items.id}}"
+                                                value="{{bill.id}}" hidden>
+                                            <input type="number" class="form-control" id="itemId{{items.id}}"
+                                                value="{{items.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="damageqty{{items.id}}" min="0"
+                                                max="{{items.qty}}">
+                                        </td>
+                                        <td>
+                                            <input type="number" id="missingQty{{items.id}}" class="form-control"
+                                                min="0" max="{{items.qty}}">
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a href="#" class="btn btn-sm btn-white text-success me-2"
+                                                id="returnbtn{{items.id}}" onclick="returnItems('{{items.id}}')"><i
+                                                    class="far fa-edit me-1"></i> Return</a>
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-white text-danger me-2"
+                                                hidden><i class="fa fa-pen me-1"></i>Edit</a>
+                                        </td>
+                                        <td id="totalTd{{items.id}}" hidden>
+                                            <input type="number" id="rentalAmountValue{{items.id}}" class="form-control"
+                                                readonly>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+
+                            </table>
+                            <div class="text-end mt-2">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> {% endcomment %}
     </div>
 </div>
 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
 
-    function acceptReturn(id) {
-        event.preventDefault()
-        var returnQty = $("#returnQty" + id).val();
+
+
+
+<script>
+     function returni(id) {
+        
+        var returnQty = $("#returnQty" + id).val()
+        var Estimateid = $("#EstimateId" + id).val()
+        var StockId = $("#StockId" + id).val()
+        var damage_qty = $("#damageqty" + id).val()
+        var missed_qty = $("#missingQty" + id).val()
+        var ItemId = $("#ItemId" + id).val()
+        
+        
         $.ajax({
-            url: '/stocktransfer',
+            url: "/returningitems",
             type: 'POST',
             data: {
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                'returnQty': $("#returnQty" + id).val(),
-                "id": id
+                'returnQty': returnQty,
+                'Estimateid': Estimateid,
+                'StockId': StockId,
+                'damage_qty': damage_qty,
+                'missed_qty': missed_qty,
+                'ItemId': ItemId,
             },
             success: function (response) {
-                // var staff_id = response
-
-
-                // $("#btnchange").show()
-                $("#changebutton"+id).removeClass('text-success')
-                $("#changebutton"+id).addClass('text-danger')
-
+                console.log(response)
+                $("#returnbtn" + id).removeClass('text-success')
+                $("#returnbtn" + id).addClass('text-danger')
+                // $("#returnbtn"+id).prop("disabled", true)
+                $("#returnbtn" + id).html(response.status)
+                $("#rentalAmount").attr('hidden', false)
+                $("#totalTd" + id).attr('hidden', false)
+                $("#rentalAmountValue" + id).val(response.total)
+                $("#returnQty" + id).attr('readonly', true)
+                $("#damageqty" + id).attr('readonly', true)
+                $("#missingQty" + id).attr('readonly', true)
+                
 
             }
-        
         })
-    }
 
+
+    }
 </script>
+
 
 {% endblock %}
