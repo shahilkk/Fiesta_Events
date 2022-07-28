@@ -1613,11 +1613,12 @@ def damage(request):
 
 
 # estimate
-def estmatenew(request):
+def estmatenew(request,id):
+ 
     context={
 
     }
     return render(request,'viewestimate1.html',context)
 
 
-# estimate
+

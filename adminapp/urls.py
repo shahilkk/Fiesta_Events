@@ -112,7 +112,7 @@ urlpatterns = [
     path('demo',views.demo,name="demo"),
 
 
-    path('estmatenew',views.estmatenew,name="estmatenew"),
+    path('estmatenew/<str:id>',views.estmatenew,name="estmatenew"),
     
    
 ]
