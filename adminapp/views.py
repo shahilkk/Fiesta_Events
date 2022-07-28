@@ -1617,8 +1617,7 @@ def estmatenew(request,id):
     clientdetails = Estimates.objects.select_related('clientd').get(id=id)
     details = EstimateProduct.objects.filter(estimateid=id)
     estid= EstimateProduct.objects.filter(estimateid=id)
-    note = Terms.objects.filter(estimateid=id)
-    print(note)
+    note = Terms.objects.filter(estimateid=id).last()
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
     gsttotal =totalAmonut*5/100
@@ -1643,7 +1642,26 @@ def estmatenew(request,id):
 # invoicebill
 
 def invoicebillnew(request,id):
-    context={
+    clientdetails = Estimates.objects.select_related('clientd').get(id=id)
+    details = EstimateProduct.objects.filter(estimateid=id)
+    estid= EstimateProduct.objects.filter(estimateid=id)
+    note = Terms.objects.filter(estimateid=id).last()
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    gsttotal =totalAmonut*5/100
+    cgst = gsttotal/2
+    total = totalAmonut + gsttotal
 
-    }
+    context={
+        "is_estimate":True,
+        "clientdetails":clientdetails,
+        "details":details,
+        "totalAmonut":totalAmonut,
+        "gsttotal":gsttotal,
+        "total":total,
+        "cgst":cgst,
+        "note":note
+        
+        }
+
     return render(request,'viewinvoicebill.html',context)

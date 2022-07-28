@@ -17,18 +17,18 @@
 
         </div>
         <div class="cs-invoice_right cs-text_right">
-          <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Invoice No:</b>
+          <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">GST No :</b>
             #SM75692</p>
 
           <p>
-          <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">GST No:</b>
-            #SM75692</p>
+          <!-- <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">:</b>
+            #SM75692</p> -->
 
           <p>
-            237 Roanoke Road, North York, <br />
-            Ontario, Canada <br />
-            demo@email.com <br />
-            +1-613-555-0141
+            Fiesta Events And Catering <br />
+            MP Complex, Areacode, Malappuram <br />
+           fiesta@gmail.com <br />
+          7766557889
           </p>
         </div>
       </div>
@@ -108,17 +108,17 @@
                 <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Total Amount:</td>
                 <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ total }}</td>
               </tr>
-              <tr class="cs-table_baseline">
+              <!-- <tr class="cs-table_baseline">
                 <td class="cs-width_5">
                   <b class="cs-primary_color">Pay By</b><br />
                   Credit Card - 236***************** <br />Amount: $ 113 - Due: $ 0
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
       </div>
-      {% for i in note %}
+      
       <div class="cs-note">
         <div class="cs-note_left">
           <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
@@ -132,12 +132,15 @@
        
         <div class="cs-note_right">
           <p class="cs-mb0"><b class="cs-primary_color cs-bold"> Terms & Note:</b></p>
-          <p class="cs-m0"> {{i.term}} &  {{i.note}} </p>
-        </div>
         
+          <p class="cs-m0"> {{note.note}}  and {{note.term}} </p>
+          
+          
+        </div>
+       
        
       </div>
-      {% endfor %}
+     
       <!-- .cs-note -->
     </div>
     <div class="cs-invoice_btns cs-hide_print">

@@ -42,25 +42,25 @@
       </div>
       <ul class="cs-list cs-style2">
         <li>
-          <div class="cs-list_left">Customer Name: <b class="cs-primary_color cs-semi_bold ">Johan Smith</b></div>
-          <div class="cs-list_right">Event : <b class="cs-primary_color cs-semi_bold ">1200 PAX HOUSE WARMING
-              DINNER</b></div>
+          <div class="cs-list_left">Customer Name : <b
+              class="cs-primary_color cs-semi_bold ">{{clientdetails.clientd.client_name}}</b></div>
+          <div class="cs-list_right">Phone : <b
+              class="cs-primary_color cs-semi_bold ">{{clientdetails.clientd.client_phone}}</b>
+          </div>
         </li>
         <li>
-            <div class="cs-list_right">GSTIN: <b class="cs-primary_color cs-semi_bold ">0001</b></div>
-          <div class="cs-list_right">Venue: <b class="cs-primary_color cs-semi_bold ">RESIDENCE</b></div>
-          
+          <div class="cs-list_right">Event From Date :<b
+              class="cs-primary_color cs-semi_bold ">{{clientdetails.est_fromdate}}</b></div>
+          <div class="cs-list_right">Email : <b
+              class="cs-primary_color cs-semi_bold ">{{clientdetails.clientd.client_email}}</b></div>
         </li>
         <li>
-            <div class="cs-list_right">Event Date :<b class="cs-primary_color cs-semi_bold ">25 Feb 2022</b></div>
-            
-          <div class="cs-list_left">Address : <b class="cs-primary_color cs-semi_bold "> 237 Roanoke Road, North York,
-              <br />
-              Ontario, Canada <br />
-              demo@email.com <br />
-              +1-613-555-0141</b></div>
+          <div class="cs-list_right">Event To Date : <b
+              class="cs-primary_color cs-semi_bold ">{{clientdetails.est_todate}}</b></div>
+          <div class="cs-list_left">Address : <b
+              class="cs-primary_color cs-semi_bold ">{{clientdetails.clientd.client_address}}
+
         </li>
-        
       </ul>
       <div class="cs-table cs-style2">
         <div class="cs-round_border">
@@ -68,7 +68,7 @@
             <table>
               <thead>
                 <tr class="cs-focus_bg">
-                  <th class="cs-width_5 cs-semi_bold cs-primary_color">sl no</th>
+                  <th class="cs-width_5 cs-semi_bold cs-primary_color">SL NO :</th>
                   <th class="cs-width_5 cs-semi_bold cs-primary_color">Perticulars</th>
                   <th class="cs-width_5 cs-semi_bold cs-primary_color">Quantity</th>
                   <th class="cs-width_5 cs-semi_bold cs-primary_color">Rate</th>
@@ -77,47 +77,17 @@
                 </tr>
               </thead>
               <tbody>
+                {% for i in details %}
                 <tr>
-                  <td class="cs-width_5"> 1</td>
-                  <td class="cs-width_5">LEGORN BIRIYANI</td>
-                  <td class="cs-width_5">25 </td>
-                  <td class="cs-width_5">223 </td>
-                  <td class="cs-width_5">2235 </td>
-
+                  <td>{{ forloop.counter }}</td>
+                  <td class="cs-width_5">{{ i.productid.food_name }} </td>
+                  <td class="cs-width_5">{{ i.est_qty }} </td>
+                  <td class="cs-width_5">{{ i.est_price }} </td>
+                  <td class="cs-width_5">{{ i.est_amount }} </td>
+                  
                 </tr>
-                <tr>
-                  <td class="cs-width_5"> 2</td>
-                  <td class="cs-width_5">FISH MAJBOOS</td>
-                  <td class="cs-width_5">25 </td>
-                  <td class="cs-width_5">223 </td>
-                  <td class="cs-width_5">2235 </td>
-
-                </tr>
-                <tr>
-                  <td class="cs-width_5"> 3</td>
-                  <td class="cs-width_5">LEGORN BIRIYANI</td>
-                  <td class="cs-width_5">25 </td>
-                  <td class="cs-width_5">223 </td>
-                  <td class="cs-width_5">2235 </td>
-
-                </tr>
-                <tr>
-                  <td class="cs-width_5"> 4</td>
-                  <td class="cs-width_5">Hostel Fee</td>
-                  <td class="cs-width_5">25 </td>
-                  <td class="cs-width_5">223 </td>
-                  <td class="cs-width_5">2235 </td>
-
-                </tr>
-                <tr>
-                  <td class="cs-width_5"> 5</td>
-                  <td class="cs-width_5">Book Fee</td>
-                  <td class="cs-width_5">25 </td>
-                  <td class="cs-width_5">223 </td>
-                  <td class="cs-width_5">2235 </td>
-
-                </tr>
-              </tbody>
+                {% endfor %}
+                 </tbody>
             </table>
           </div>
         </div>
@@ -126,28 +96,30 @@
         <div class="cs-table_responsive">
           <table>
             <tbody>
-                <tr class="cs-table_baseline">
-                    <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Total:</td>
-                    <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">$273</td>
-                  </tr>
               <tr class="cs-table_baseline">
-                <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">SGST 2.5%:</td>
-                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">$73</td>
+                <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Sub Total:</td>
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ totalAmonut }}</td>
+              </tr>
+              {% comment %} <tr class="cs-table_baseline">
+                <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">SGST Amount (2.5%):</td>
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ cgst }}
+                </td>
               </tr>
               <tr class="cs-table_baseline">
-                <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">CGST 2.5%:</td>
-                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">$73</td>
-              </tr>
+                <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">CGST Amount (2.5%):</td>
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ cgst }}
+                </td>
+              </tr> {% endcomment %}
               <tr class="cs-table_baseline">
                 <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Total Amount:</td>
-                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">$273</td>
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ total }}</td>
               </tr>
-              <tr class="cs-table_baseline">
+              <!-- <tr class="cs-table_baseline">
                 <td class="cs-width_5">
                   <b class="cs-primary_color">Pay By</b><br />
                   Credit Card - 236***************** <br />Amount: $ 113 - Due: $ 0
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
