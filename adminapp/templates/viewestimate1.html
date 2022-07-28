@@ -1,7 +1,9 @@
 {% extends 'master.html' %}
 {% block content %}
 {% load static %}
-
+<!-- estimate bill-->
+<link rel="stylesheet" href="{% static 'estbill/css/style.css' %}">
+<!-- end etimate -->
 
 <div class="cs-container">
     <div class="cs-invoice cs-style1">
@@ -164,6 +166,13 @@
       </div>
     </div>
   </div>
+
+<!-- estbill -->
+<script src="{% static 'estbill/js/jquery.min.js' %}"></script>
+<script src="{% static 'estbill/js/jspdf.min.js' %}"></script>
+<script src="{% static 'estbill/js/html2canvas.min.js' %}"></script>
+<script src="{% static 'estbill/js/main.js' %}"></script>
+<!-- end estbill -->
 
 {% endblock %}
 
