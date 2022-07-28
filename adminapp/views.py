@@ -1623,7 +1623,7 @@ def estmatenew(request,id):
 
 # invoicebill
 
-def invoicebillnew(request):
+def invoicebillnew(request,id):
     context={
 
     }
