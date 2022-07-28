@@ -1640,4 +1640,10 @@ def estmatenew(request,id):
     return render(request,'quatation.html',context)
 
 
+# invoicebill
 
+def invoicebillnew(request,id):
+    context={
+
+    }
+    return render(request,'viewinvoicebill.html',context)
