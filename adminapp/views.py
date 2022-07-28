@@ -1621,4 +1621,10 @@ def estmatenew(request,id):
     return render(request,'viewestimate1.html',context)
 
 
+# invoicebill
 
+def invoicebillnew(request):
+    context={
+
+    }
+    return render(request,'viewinvoicebill.html',context)
