@@ -1456,7 +1456,7 @@ def valuesave(request):
     
 def viewaddedmaterial(request,id):
     estimates = Estimates.objects.get(id=id)
-    view = Items.objects.filter(estimate=estimates)
+    view = Items.objects.filter(estimate=estimates,status="not returned")
     context={
         "is_stock":True,
         "view":view,
