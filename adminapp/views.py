@@ -1,4 +1,5 @@
 
+from multiprocessing import context
 from tracemalloc import take_snapshot
 from urllib import response
 from django.shortcuts import render , redirect 
@@ -1608,3 +1609,15 @@ def damage(request):
         "damagelist":damagelist
         }
     return render(request,'damage.html',context)
+
+
+
+# estimate
+def estmatenew(request):
+    context={
+
+    }
+    return render(request,'viewestimate1.html',context)
+
+
+# estimate

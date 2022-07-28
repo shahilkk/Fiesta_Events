@@ -112,6 +112,7 @@ urlpatterns = [
     path('demo',views.demo,name="demo"),
 
 
+    path('estmatenew',views.estmatenew,name="estmatenew"),
     
    
 ]
