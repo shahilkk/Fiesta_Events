@@ -83,6 +83,7 @@ urlpatterns = [
 
 
     path('returningitems',views.returningitems,name="returningitems"),
+    path('stockbill/<str:id>',views.stockbill,name="stockbill"),
     
 
     # path('printlist',views.printlist,name="printlist"),
@@ -103,6 +104,7 @@ urlpatterns = [
     path('damage',views.damage,name="damage"),
 
     path('viewpdf/<str:id>,<str:discount>,<str:previewno>',views.viewpdf,name="viewpdf"),
+    path('billsaved/<str:id>',views.billsaved,name="billsaved"),
     
     # path('formesmimate',views.formesmimate,name="formesmimate"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),

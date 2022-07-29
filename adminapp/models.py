@@ -186,3 +186,5 @@ class StockDetails(models.Model):
     stock = models.ForeignKey(Stock,on_delete=models.CASCADE ) 
     damagedstock = models.IntegerField(default=0)
     missingstock = models.IntegerField(default=0)
+    returnstock = models.IntegerField(default=0)
+    grandtotal = models.IntegerField(default=0)

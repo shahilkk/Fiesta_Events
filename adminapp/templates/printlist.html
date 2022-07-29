@@ -36,7 +36,9 @@
                                         <th>Estimate Id</th>
                                         <th>Invoice No</th>
 
-                                        <th class="text-end">Actions</th>
+                                        <th class="text-end">Invoice Bill</th>
+                                        <th class="text-end">Stock Bill</th>
+                                        <th class="text-end">Delete Bill</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,14 +52,27 @@
                                             <!-- <a class="btn btn-sm btn-white me-2"  onclick="makeprint()">
                                                 <i class="fas fa-download me-1"></i> PDF
                                             </a> -->
-                                            <a class="btn btn-sm btn-white" href="/viewpdf/{{ i.estimateId.id }},{{ i.discount }},{{ i.prviewnumber }}">
+                                            <a class="btn btn-sm btn-white" href="/billsaved/{{i.estimateId.id}}">
                                                 <i class="far fa-eye me-1"></i> View
                                             </a>
+                                            
+                                        </td>
+                                        <td class="text-end">
+                                           
+                                            <a class="btn btn-sm btn-white" href="/stockbill/{{i.estimateId.id}}">
+                                                <i class="far fa-eye me-1"></i> View
+                                            </a>
+                                           
+                                        </td>
+                                        <td class="text-end">
+                                           
+                                            
                                             <a  onclick="deletelist('{{ i.id }}')"
                                                 class="btn btn-sm btn-white text-danger me-2"><i
                                                     class="far fa-trash-alt me-1"></i>Delete</a>
                                         </td>
-        
+                                        
+
         
                                     </tr>
                                     {% endfor %}

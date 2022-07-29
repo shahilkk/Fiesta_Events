@@ -111,6 +111,13 @@ admin.site.register(StockCatagory,StockCatagoryAdmin)
 
 
 
+class StockDetailsAdmin(admin.ModelAdmin):
+    list_display = ('estimate',)
+    search_fields=('estimate',)
+admin.site.register(StockDetails,StockDetailsAdmin)
+
+
+
 
 
 

@@ -1588,7 +1588,7 @@ def returningitems(request):
     transfer_obj.save()
     estimateid = Estimates.objects.get(id=Estimateid)
     stockid = Stock.objects.get(id=StockId)
-    damaged_item = StockDetails(estimate=estimateid, stock=stockid, damagedstock=damage_qty, missingstock=missed_qty)
+    damaged_item = StockDetails(estimate=estimateid, stock=stockid, damagedstock=damage_qty, missingstock=missed_qty,returnstock=returnQty,grandtotal=total_amount)
     damaged_item.save()
     itemstatus = Items.objects.filter(id=ItemId).update(status='Returned')
 
@@ -1713,3 +1713,49 @@ def savenotenew(request,id):
         }
     return render(request,'savenotenew.html',context)
 
+
+
+def stockbill(request,id):
+    estid = Estimates.objects.get(id=id)
+    stockdetails=StockDetails.objects.filter(estimate=estid)
+    clientdetails = Estimates.objects.select_related('clientd').get(id=id)
+    totalvalue=stockdetails.aggregate(Sum('grandtotal'))
+    totalAmonut = totalvalue['grandtotal__sum']
+    context={
+        "stockdetails":stockdetails,
+        "totalAmonut":totalAmonut,
+        "clientdetails":clientdetails
+        }
+
+    return render (request,'stockbill.html',context)    
+
+def billsaved(request,id):
+    estid = Estimates.objects.get(id=id)
+    previewlist = Preview.objects.filter(estimateId=estid).last()
+    print(previewlist.discount)
+    clientdetails = Estimates.objects.select_related('clientd').get(id=id)
+    details = EstimateProduct.objects.filter(estimateid=id)
+    estid= EstimateProduct.objects.filter(estimateid=id)
+    note = Terms.objects.filter(estimateid=id).last()
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    gsttotal =totalAmonut*5/100
+    cgst = gsttotal/2
+    discount = previewlist.discount
+    subtotal = totalAmonut + gsttotal
+    total =subtotal - discount
+    
+
+    print(previewlist)
+    context={
+       "previewlist":previewlist,
+       "clientdetails":clientdetails,
+        "details":details,
+        "totalAmonut":totalAmonut,
+        "gsttotal":gsttotal,
+        "total":total,
+        "cgst":cgst,
+        "discount":discount
+        }
+
+    return render (request,'billsaved.html',context)  
