@@ -1665,3 +1665,51 @@ def invoicebillnew(request,id):
         }
 
     return render(request,'viewinvoicebill.html',context)
+
+
+def savenotenew(request,id):
+    discount=request.GET['discount']  
+    eid= Estimates.objects.get(id=id)
+    if Preview.objects.exists():
+        est = Preview.objects.last().id
+        est_id = 'INV'+str(1001+est)
+    else:
+        est=0
+        est_id = 'INV'+str(1001+est)
+
+    clientdetails = Estimates.objects.select_related('clientd').get(id=id)    
+    preview =Preview(estimateId=eid, discount=discount,prviewnumber=est_id)
+    preview.save()
+    details = EstimateProduct.objects.filter(estimateid=id)
+    eid= Estimates.objects.get(id=id)
+    billing = PaymentDetails.objects.select_related('clientid','bankid','estimateId').filter(estimateId=eid).last()
+    termandnote =Terms.objects.filter(estimateid=id).last()
+
+    estid= EstimateProduct.objects.filter(estimateid=id)
+    totalvalue=estid.aggregate(Sum('est_amount'))
+    totalAmonut = totalvalue['est_amount__sum']
+    gsttotal =totalAmonut*5/100
+    # sgst = (totalAmonut*5/100)/2
+    total = totalAmonut + gsttotal
+    grandtotal = total-int(discount)
+    addincome = Income(estimateId=eid,incomestatus='Income',incomeamount=grandtotal)
+    addincome.save()
+    
+    preview = Preview.objects.filter(estimateId=eid).last()
+    cgst =gsttotal/2
+    context={
+        "is_invoice":True,
+        'billing':billing,
+        "details":details,
+        "totalAmonut":totalAmonut,
+        "gsttotal":gsttotal,
+        "discount":discount,
+        "grandtotal":grandtotal,
+        "termandnote":termandnote,
+        "eid":eid,
+        "preview":preview,
+        "cgst":cgst,
+        "clientdetails":clientdetails
+        }
+    return render(request,'savenotenew.html',context)
+

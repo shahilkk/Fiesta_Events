@@ -20,7 +20,7 @@
         </div>
         <div class="cs-invoice_right cs-text_right">
           <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Invoice No:</b>
-            #SM75692</p>
+            {{ preview.prviewnumber }}</p>
           <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">GST No:</b>
             #SM75692</p>
           <p>
@@ -102,19 +102,27 @@
                 <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Sub Total:</td>
                 <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ totalAmonut  }}</td>
               </tr>
-              {% comment %} <tr class="cs-table_baseline">
+               <tr class="cs-table_baseline">
                 <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">SGST Amount (2.5%):</td>
                 <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ cgst }}
                 </td>
               </tr>
               <tr class="cs-table_baseline">
                 <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">CGST Amount (2.5%):</td>
-                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ cgst }}
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{cgst}}
                 </td>
-              </tr> {% endcomment %}
+              </tr> 
+              <tr class="cs-table_baseline">
+                <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Discount:</td>
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ discount }} 
+                </td>
+              </tr> 
+              
+              
+              
               <tr class="cs-table_baseline">
                 <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Total Amount:</td>
-                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ total }}</td>
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹  {{ grandtotal }}</td>
               </tr>
               <!-- <tr class="cs-table_baseline">
                 <td class="cs-width_5">

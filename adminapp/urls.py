@@ -67,6 +67,7 @@ urlpatterns = [
     path('savenote',views.savenote,name="savenote"),
 
     path('save/<str:id>/',views.save,name="save"),
+    path('savenotenew/<str:id>/',views.savenotenew,name="savenotenew"),
 
     path('',views.login,name="login"),
     path('admin_logout/',views.admin_logout,name="admin_logout"),

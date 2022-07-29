@@ -230,14 +230,14 @@ $('#discount').keyup(function(){
     grandtotal = total-discount
     $('#Grandtotal').html('₹' + parseInt(grandtotal))
     var estID=$('#estimateId-input').val()
-    document.getElementById("previelink").href = "/invoicedetails/"+estID+"/?discount="+discount;
+    document.getElementById("previelink").href = "/savenotenew/"+estID+"/?discount="+discount;
 })
 
 $('#discount').keyup(function(){
     total = $('#grand').val()
     discount = $('#discount').val()
     var estID=$('#estimateId-input').val()
-    document.getElementById("savebtn").href = "/save/"+estID+"/?discount="+discount;
+    document.getElementById("savebtn").href = "/savenotenew/"+estID+"/?discount="+discount;
 });
 
 

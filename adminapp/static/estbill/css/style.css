@@ -358,6 +358,7 @@ html {
   line-height: 1.5em;
   overflow-x: hidden;
   background-color: #f5f7ff;
+ 
 }
 
 h1,
@@ -836,6 +837,7 @@ kbd {
   padding: 30px 15px;
   margin-left: auto;
   margin-right: auto;
+  
 }
 
 .cs-text_center {
@@ -892,10 +894,25 @@ kbd {
   border-right-width: 0;
 }
 
+/* .backround{
+  background-image: url(../../img/logo/Fiestalogo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  opacity: .5;
+
+} */
+
 .cs-invoice.cs-style1 {
   background: #fff;
   border-radius: 10px;
   padding: 50px;
+  
 }
 
 .cs-invoice.cs-style1 .cs-invoice_head {
