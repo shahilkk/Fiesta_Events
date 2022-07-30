@@ -1362,7 +1362,7 @@ def addstock(request):
         stockname=request.POST['stockname']
         quantity=request.POST['quantity']
         missingPrice = request.POST['missing_price']
-        sqft_price = request.POST['sqft_price']
+        # sqft_price = request.POST['sqft_price']
         damagePrice = request.POST['damage_price']
         price = request.POST['price']
         category = request.POST['catagories']
@@ -1371,7 +1371,7 @@ def addstock(request):
         if not category_exist:
             new_category=StockCatagory(cat_name=category)
             new_category.save()
-            addStock = Stock(stockname=stockname , quantity=quantity, missing_price= missingPrice, damage_price=damagePrice, sqft_price=sqft_price,price=price,category=new_category)
+            addStock = Stock(stockname=stockname , quantity=quantity, missing_price= missingPrice, damage_price=damagePrice, price=price,category=new_category)
             addStock.save()
             context = {
             "is_stock":True,
@@ -1381,7 +1381,7 @@ def addstock(request):
             return render(request, 'addstock.html',context)
         else:
             catagory = StockCatagory.objects.get(cat_name=category)
-            addStock = Stock(stockname=stockname , quantity=quantity, missing_price= missingPrice, damage_price=damagePrice, sqft_price=sqft_price,price=price,category=catagory)
+            addStock = Stock(stockname=stockname , quantity=quantity, missing_price= missingPrice, damage_price=damagePrice, price=price,category=catagory)
             addStock.save()
             context = {
             "is_stock":True,
@@ -1407,7 +1407,7 @@ def editstock(request,id):
         damageprice=request.POST['damageprice']
         missprice=request.POST['missprice']
         sqftprice=request.POST['sqftprice']
-        Stock.objects.filter(id=id).update(stockname=stockname , quantity=quantity, price=price, damage_price=damageprice,missing_price=missprice,sqft_price=sqftprice)
+        Stock.objects.filter(id=id).update(stockname=stockname , quantity=quantity, price=price, damage_price=damageprice,missing_price=missprice)
         return redirect('/stock')
     context={
         "is_stock":True,

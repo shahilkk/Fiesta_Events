@@ -167,7 +167,7 @@ class Stock(models.Model):
     price = models.IntegerField(default=0)
     damage_price = models.FloatField(null=True)
     missing_price = models.FloatField(null=True)
-    sqft_price = models.FloatField(null=True)
+    # sqft_price = models.FloatField(null=True)
 
     class Meta:
         db_table = 'stockname'
