@@ -1,6 +1,5 @@
 
 from http import client
-from unicodedata import category
 from xmlrpc.client import Boolean
 from django.db import models
 # from datetime import date
@@ -94,7 +93,7 @@ class Estimates(models.Model):
 
 
 class Category(models.Model):
-    category = models.CharField(max_length=50)
+    category = models.CharField(max_length=50,null=True)
     class Meta:
         db_table = 'category'
 
@@ -163,7 +162,7 @@ class StockCatagory(models.Model):
 class Stock(models.Model):
     stockname = models.CharField(max_length=3000,null=True)
     quantity = models.IntegerField(default=0)
-    category = models.ForeignKey(StockCatagory,on_delete=models.CASCADE )
+    category = models.ForeignKey(StockCatagory,on_delete=models.CASCADE)
     price = models.IntegerField(default=0)
     damage_price = models.FloatField(null=True)
     missing_price = models.FloatField(null=True)
