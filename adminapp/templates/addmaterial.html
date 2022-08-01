@@ -22,61 +22,139 @@
                     <div class="card-body">
 
                         <div class="invoice-add-table">
-                            <h4>Stock Details</h4>
+                            <h4>
+                                Item Details
+                                <input type="number" id="estimateid" value="{{id}}" hidden class="form-control"  readonly>
+
+                            </h4>
                             <div class="table-responsive">
                                 <table class="table table-center add-table-items">
                                     <thead>
                                         <tr>
-                                            <th>Sl no</th>
-                                            <th>Stock Name</th>
-                                            <th> Total Quantity</th>
-                                            <th>Quantity Needed</th>
-                                            <th>Actions</th>
+                                            <th>
+                                                Item Name
+                                            </th>
+                                            <th>
+                                                Category
+                                            </th>
+                                            <th>
+                                                Quantity
+                                            </th>
+                                            <th>
+                                                Price/Day
+                                            </th>
+                                            <th>
+                                                Amount/Day
+                                            </th>
+                                           
+                                            <th>
+                                                Actions
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                       
+                            {% csrf_token %}
+                
+                
+                                        <!-- --------------------- -->
                                         <tr class="add-row">
                                             <td>
-                                                <input type="text" class="form-control" readonly value="1"
-                                                    style="border: 0;background-color: white;">
-                                            </td>
-                                            <td>   
-                                                <input type="hidden" class="form-control" id="productId1">           
-                                                <input type="text" class="form-control" name="stockname" list="stock" id="stock1" onchange=changedname(1)>
-                                                <datalist id="stock">
-                                                    {% for i in stock %}
-                                                    <option value="{{ i.stockname}}">{{ i.stockname}}</option>
-                                                        {% endfor %}
-                                                      
-                                                </datalist>
+                                                <input type="text"
+                                                  class="form-control"
+                                                  name="item"
+                                                  id="item1"
+                                                  list="stock" required onchange=changedname1(1)>
+                                              <datalist id="stock">
+                                                  {% for c in stock  %}
+                                                      <option value="{{c.stockname}}">
+                                                          {{c.stockname}}
+                                                      </option>
+                                                  {% endfor %}
+                                              </datalist> 
+                                              </td>
+                                            
+                                            <td>
+                                                <input type="text" id="item_category1" class="form-control" readonly>
                                             </td>
                                             <td>
-                                                <input type="number" disabled class="form-control" id="qty1" min="1"
-                                                    name="qty">
+                                                <input type="number" id="qtyy1" class="form-control" onchange=changedqty(1) required min="1">
                                             </td>
                                             <td>
-                                                <input type="number" min="1" class="form-control" id="needed1">
+                                                <input type="number" id="item_price1" class="form-control"  readonly>
                                             </td>
-
+                                            <td>
+                                                <input type="number" id="amount1" class="form-control"  readonly>
+                                            </td>
+                                            
                                             <td class="add-remove text-end">
-                                                <a href="javascript:void(0);" class="add-btn me-2"><i
-                                                        class="fas fa-plus-circle"></i></a>
-                                                {% comment %} <a href="javascript:void(0);" class="remove-btn"><i
-                                                        class="fas fa-trash"></i></a> {% endcomment %}
+                                                <a href="javascript:void(0);" id="add" class="add-btn me-2"><i
+                                                        class="fas fa-plus-circle"></i></a>                        
+                                                        <a href="javascript:void(0);" class="remove-btn"><i
+                                                        class="fa fa-trash"></i></a>
                                             </td>
-                                            <input type="hidden" value="{{id}}"  id="estimateid">
+                                         
                                         </tr>
+                                        <!-- --------------------- -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div class="text-end mt-4">
-                            <button type="button" id="adddetails" class="btn btn-primary">Add </button>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-6">                                               
+                            </div>
+                            <div class="col-lg-5 col-md-6">
+                                <div class="invoice-total-card">
+                                    <h4 class="invoice-total-title">
+                                        Summary
+                                    </h4>
+                                    <div class="invoice-total-box">
+                                        <div class="invoice-total-inner">
+                                            <p>
+                                                No of Items <span id="rowcount">0</span>
+                                            </p>
+                                            <div class="links-info-one">
+                                                <div class="links-info">
+                                                    <div class="links-cont">
+                                                        <a href="#" class="service-trash">
+                                                            <i class="feather-trash-2"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="links-info-discount">
+                                                <div class="links-cont-discount">
+                                                    
+                                                    <a href="#" class="service-trash-one">
+                                                        <i class="feather-trash-2"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="invoice-total-footer">
+                                            <h4>
+                                                Amount per Day <span >₹<span id="total_amt"></span></span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="upload-sign">
+                                    <div class="form-group float-end mb-0">
+                                        <button class="btn btn-primary" id="generatebutton" type="submit">
+                                            Save Invoice
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <!-- <div class="text-end mt-4">
+                            <button type="button" id="adddetails" class="btn btn-primary">Add </button>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
+       
     </div>
 </div>
 
@@ -87,5 +165,151 @@
 
 
 
-<script src="{% static 'js/material.js' %}"></script>
+
+<script>
+    $(".add-table-items").on('click','.remove-btn', function () {
+    $(this).closest('.add-row').remove();
+    return false;
+});
+
+
+function changedname1(id){
+   
+       
+    $.ajax({
+        url:'/itemsearch',
+        type:'GET',
+        data:{
+            'itemname':$("#item" + id).val()  
+        },
+        success:function(response){
+            $('#item_category'+id).val(response.item)
+            $('#item_price'+id).val(response.rentalprice)
+            $('#qty' +id).attr("max",response.max_qty)
+           
+        }
+    })
+
+}
+
+
+
+function changedqty(rowCount){
+    
+    var qty = $('#qtyy'+rowCount).val()
+ 
+    var price = $('#item_price'+rowCount).val()
+
+    var sum = 0
+    var amount = qty*price
+    
+
+    $('#amount'+rowCount).val(amount)
+    var Available_rowCount = $(".add-table-items tr ").length;
+    var sum = 0
+    for(var i=1;i<Available_rowCount;i++){
+    sum+=parseInt($('#amount'+i).val())
+
+    }
+    $('#rowcount').html(parseInt(Available_rowCount - 1))
+    $('#total_amt').html(parseInt(sum))
+}
+
+
+     
+function DeleteRow(id){
+
+    var completeTotal =0
+    var count = parseInt($('#rowcount').html())
+    var amount=parseInt($("#amount" + id).val())
+    var total=parseInt($("#total_amt").html())
+    completeTotal = parseInt(total)  - amount
+    var row_count =  count - 1
+    $("#total_amt").html(completeTotal)
+    $("#rowcount").html(row_count)
+
+    }
+
+$(document).on("click", ".add-btn", function () {
+var rowCount = $(".add-table-items tr").length;
+var experiencecontent = '<tr class="add-row">' +
+    '<td>' +
+    '<input type="text" list="stock" id="item' + rowCount + '" onChange="changedname1(' + rowCount + ')" class="form-control productname">' +
+    '</td>' +
+    '<td>' +
+    '<input type="text" id="item_category' + rowCount + '" class="form-control" readonly> ' +
+    '</td>' +
+    '<td>' +
+    '<input type="number" id="qtyy' + rowCount + '" onChange="changedqty(' + rowCount + ')" class="form-control" min="1" >' +
+    '</td>' +
+    '<td>' +
+    '<input type="number" id="item_price' + rowCount + '" class="form-control" readonly>' +
+    '</td>' +
+    '<td>' +
+    '<input type="number" id="amount' + rowCount + '" class="form-control" readonly>' +
+    '</td>' +
+    '<td class="add-remove text-end">' +
+    '<a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a> ' +
+    '<a href="javascript:void(0);" onclick="DeleteRow(' + rowCount + ')" class="remove-btn"><i class="fas fa-trash"></i></a>' +
+    '</td>' +
+    '</tr>';
+
+$(".add-table-items").append(experiencecontent);
+
+return false;
+});
+
+
+
+
+
+
+
+
+$('#generatebutton').click(function () {
+    var estimateid = $('#estimateid').val()
+     
+    var rowCount = $(".add-table-items tr").length;
+
+    for (var i = 1; i < rowCount; i++) {
+        var item = $('#item' + i).val()
+        var qty = $('#qtyy' + i).val()
+
+        
+
+        var data = {
+            "estimateid": estimateid,
+            "item": item,
+            "qty": qty,
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
+        }
+        
+        $.ajax({
+        
+            url: "/bill_adding",
+            type: 'POST',
+            data: data,
+            success: function (responce) {
+                    
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Your data has been saved',
+                    showConfirmButton: false,
+                  })
+                  location.reload();
+            },
+            
+
+        })
+
+
+
+    }
+  
+    return false;
+})
+</script>
+
+
 {% endblock %}

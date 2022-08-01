@@ -105,6 +105,8 @@ urlpatterns = [
 
     path('viewpdf/<str:id>,<str:discount>,<str:previewno>',views.viewpdf,name="viewpdf"),
     path('billsaved/<str:id>',views.billsaved,name="billsaved"),
+    path('bill_adding',views.bill_adding,name="bill_adding"),
+    
     
     # path('formesmimate',views.formesmimate,name="formesmimate"),
     # path('estimatedetailsadd',views.estimatedetailsadd,name="estimatedetailsadd"),
@@ -118,5 +120,9 @@ urlpatterns = [
     path('estmatenew/<str:id>',views.estmatenew,name="estmatenew"),
     path('invoicebillnew/<str:id>',views.invoicebillnew,name="invoicebillnew"),
     
+
+
+
+    path('itemsearch',views.itemsearch,name="itemsearch"),
    
 ]

@@ -1759,3 +1759,46 @@ def billsaved(request,id):
         }
 
     return render (request,'billsaved.html',context)  
+
+
+
+
+
+def itemsearch(request):
+    item = request.GET['itemname']
+    item_ex = Stock.objects.filter(stockname = item).exists()
+    if item_ex:
+        item_details = Stock.objects.get(stockname = item)
+        # date = datetime.now()
+        print(type(item_details.price))
+        print(type(item_details.quantity))
+        data = {
+            'item':item_details.category.cat_name,
+            'rentalprice':item_details.price,
+            'max_qty':item_details.quantity,          
+        }
+     
+        return JsonResponse(data)    
+
+
+
+
+@csrf_exempt
+def bill_adding(request):
+    invid = request.POST['estimateid']
+    item = request.POST['item']
+    qty = request.POST['qty']
+    print(invid,item,qty)
+
+    inv_obj = Estimates.objects.get(id=invid)
+    print(inv_obj)
+      
+    itemname = Stock.objects.get(stockname=item)
+    print(itemname)
+    
+    taken = Items(estimate=inv_obj, stock=itemname, taken=qty,status="not returned")
+    taken.save()
+    added_qty = Stock.objects.get(stockname=item)
+    added_qty.quantity = added_qty.quantity -int(qty)
+    added_qty.save()
+    return JsonResponse({'msg':'Genegrated'})        
