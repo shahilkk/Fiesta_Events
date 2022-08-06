@@ -1206,7 +1206,7 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         try:
-            if username == "admin" and password == '12345':
+            if username == "fiesta_2022" and password == 'fiesta_2022':
                 userDetails = {
                     'is_admin':True
                 }
