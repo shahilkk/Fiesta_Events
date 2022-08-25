@@ -1,4 +1,5 @@
 
+from builtins import int, print
 from multiprocessing import context
 from tracemalloc import take_snapshot
 from urllib import response
@@ -610,7 +611,8 @@ def products(request):
         priceper_head = request.POST['priceper_head']
         priceper_kg = request.POST['priceper_kg']
         food_deatails = request.POST['food_deatails']
-        food_exist = Product(food_name = food_name,catagory = catagory,priceper_head = priceper_head,priceper_kg = priceper_kg,food_deatails = food_deatails)
+        catname=Category.objects.get(category=catagory)
+        food_exist = Product(food_name = food_name,catagory = catname,priceper_head = priceper_head,priceper_kg = priceper_kg,food_deatails = food_deatails)
         food_exist.save()
         return redirect('/products')
         # msg = " product added"
@@ -647,7 +649,7 @@ def getproductGet(request,id):
 
     data={
         "food_name":product.food_name,
-        "catagory":product.catagory,
+        "catagory":product.catagory.category,
         "priceper_head":product.priceper_head,
         "priceper_kg":product.priceper_kg,
         "food_deatails":product.food_deatails
@@ -667,7 +669,7 @@ def editProductdata(request,id):
     
     data={
         "food_name":editproduct.food_name,
-        "catagory":editproduct.catagory,
+        "catagory":editproduct.catagory.category,
         "priceper_head":editproduct.priceper_head,
         "priceper_kg":editproduct.priceper_kg,
         "food_deatails":editproduct.food_deatails
@@ -940,7 +942,7 @@ def bill (request):
         # "food_name":viewpro.food_name,
         # "estimateid":estid.id,
         "id":viewpro.id,
-        "catagory":viewpro.catagory,
+        "catagory":viewpro.catagory.category,
         "priceper_head":viewpro.priceper_head,
         "priceper_kg":viewpro.priceper_kg,
         "food_deatails":viewpro.food_deatails
@@ -958,7 +960,7 @@ def billitem (request):
         # "food_name":viewpro.food_name,
         # "estimateid":estid.id,
         "id":viewpro.id,
-        "catagory":viewpro.catagory,
+        "catagory":viewpro.catagory.category,
         "priceper_head":viewpro.priceper_head,
         "priceper_kg":viewpro.priceper_kg,
         "food_deatails":viewpro.food_deatails
@@ -994,9 +996,13 @@ def est_product(request):
     est_price = request.POST['est_price']
     est_amount = request.POST['est_amount']    
     est_qty = request.POST['est_qty']
+    additionalchargeid = request.POST['additionalchargeid']
+    print(additionalchargeid)
+    extraamount=int(est_amount)+int(additionalchargeid)
+    print(extraamount)
     pr=Product.objects.get(id=productId)
     estim=Estimates.objects.get(id=estimateid)
-    addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
+    addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=extraamount, est_qty=est_qty)
     addest.save()
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
     totalvalue=estid.aggregate(Sum('est_amount'))
@@ -1615,7 +1621,12 @@ def damage(request):
 # estimate
 def estmatenew(request,id):
     clientdetails = Estimates.objects.select_related('clientd').get(id=id)
-    details = EstimateProduct.objects.filter(estimateid=id)
+    # details = EstimateProduct.objects.filter(estimateid=id)
+    products = EstimateProduct.objects.select_related('productid').filter(estimateid=id).values('productid__catagory__category','productid__food_name').order_by('productid__catagory__category')
+    # products = EstimateProduct.objects.filter(estimateid=id).order_by('productid__catagory__category')
+
+
+    print(products,"Success")
     estid= EstimateProduct.objects.filter(estimateid=id)
     note = Terms.objects.filter(estimateid=id).last()
     totalvalue=estid.aggregate(Sum('est_amount'))
@@ -1627,7 +1638,9 @@ def estmatenew(request,id):
     context={
         "is_estimate":True,
         "clientdetails":clientdetails,
-        "details":details,
+        # "details":details,
+        # "details":details,
+        "products":products,
         "totalAmonut":totalAmonut,
         "gsttotal":gsttotal,
         "total":total,

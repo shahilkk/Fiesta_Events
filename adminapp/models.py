@@ -29,9 +29,19 @@ class Client(models.Model):
         return self.client_name 
 
 
+
+
+
+
+class Category(models.Model):
+    category = models.CharField(max_length=50,null=True)
+    class Meta:
+        db_table = 'category'
+
 class Product(models.Model):
+    catagory = models.ForeignKey(Category,on_delete=models.CASCADE ,null=True)
     food_name = models.CharField(max_length=50)
-    catagory = models.CharField(max_length=50)
+    # catagory = models.CharField(max_length=50)
     priceper_head = models.IntegerField()
     priceper_kg = models.IntegerField(default=0)
     food_deatails = models.CharField(max_length=500000)
@@ -42,6 +52,7 @@ class Product(models.Model):
         db_table = 'product'
     def __str__(self):
         return self.food_name    
+        
 
 
 class Employee(models.Model):
@@ -89,13 +100,6 @@ class Estimates(models.Model):
      
 
 
-
-
-
-class Category(models.Model):
-    category = models.CharField(max_length=50,null=True)
-    class Meta:
-        db_table = 'category'
 
 
 class EstimateProduct(models.Model):

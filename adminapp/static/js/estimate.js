@@ -27,8 +27,11 @@ function changedProductname(id) {
 
 
 $('#estimatebutton').click(function () {
+  
     var estimateid = $('#estimateid').val()
-    
+ 
+    var additionalchargeid = $('#additionalchargeid').val()
+    alert($('#additionalchargeid').val())
     var rowCount = $(".add-table-items tr").length;
     for (var i = 1; i < rowCount; i++) {
         var productId = $('#productId' + i).val()
@@ -45,7 +48,8 @@ $('#estimatebutton').click(function () {
             "est_price": est_price,
             "est_amount": est_amount,
             "est_qty": est_qty,
-            "estimateid": estimateid
+            "estimateid": estimateid,
+            "additionalchargeid":additionalchargeid
 
         }
         console.log(data)

@@ -71,13 +71,27 @@
                 </tr>
               </thead>
               <tbody>
-                {% for i in details %}
-                <tr>
-                  <td class="cs-width_5"> {{ i.est_category }}</td>
-                  <td class="cs-width_5">{{ i.productid.food_name }} </td>
+                
+
+                 {% regroup products by productid__catagory__category as caragory_list %}
+               
+                  {% for p in caragory_list %}
+                  <tr>
+                  <td class="cs-width_5"> {{ p.grouper }}</td>
+                  
+                    
+                      <td class="cs-width_5">
+                        <ul>
+                          {% for pc in p.list %}
+                          <li style="line-height: 40px;">{{ pc.productid__food_name }}</li>
+                          {% endfor %}
+                        </ul>
+                      </td> 
+                 
+                    
+                    
                 </tr>
                 {% endfor %}
-
               </tbody>
             </table>
           </div>

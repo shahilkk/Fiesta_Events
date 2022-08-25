@@ -71,7 +71,7 @@
                                     {% for i in view_product %}
                                     <tr>
                                         <td>{{i.food_name }} </td>
-                                        <td>{{i.catagory}}</td>
+                                        <td>{{i.catagory.category}}</td>
                                         <td>{{i.priceper_head}}</td>
                                         <td>{{i.priceper_kg}}</td>
                                         <td class="text-end">
@@ -398,7 +398,7 @@
 
                 // console.log(responce)
                 $('#editfood').val(responce.product.food_name)
-                $('#editcat').val(responce.product.catagory)
+                $('#editcat').val(responce.product.catagory.catagory)
                 $('#editdecrption').val(responce.product.food_deatails)
                 $('#editperhead').val(responce.product.priceper_head)
                 $('#editperkg').val(responce.product.priceper_kg)

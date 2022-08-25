@@ -81,7 +81,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Customer Phone:</label>
-                                            <input type="text" class="form-control" name="checkphone" placeholder="Enter Customer Phone Number" id="checkname">
+                                        <input type="text" class="form-control" name="checkphone"
+                                            placeholder="Enter Customer Phone Number" id="checkname">
                                         <!-- <input type="text" class="form-control" name="checkname" list="customer">
                                         <datalist id="customer">
                                             {% for i in cust %}
@@ -95,7 +96,8 @@
                                     <div class="form-group">
                                         <label>From</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker"placeholder="Starting Date" name="dataform" type="text">
+                                            <input class="form-control datetimepicker" placeholder="Starting Date"
+                                                name="dataform" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +105,8 @@
                                     <div class="form-group">
                                         <label>To</label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" placeholder="Ending Date" name="todate" type="text">
+                                            <input class="form-control datetimepicker" placeholder="Ending Date"
+                                                name="todate" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +129,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="text-start mt-4">
-                                        <a href="/addcustomer" class="btn btn-sm btn-primary"> <i class="fa fa-plus">Add Customer</i> </a>
+                                        <a href="/addcustomer" class="btn btn-sm btn-primary"> <i class="fa fa-plus">Add
+                                                Customer</i> </a>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -135,8 +139,8 @@
                                     </div>
                                 </div>
                             </div>
-                           
-                            
+
+
                         </form>
                         {% endif %}
                         {%if estimate %}
@@ -214,14 +218,15 @@
                                             <td></td>
                                             <td class="text-end">Sub Total</td>
                                             <td class="text-end">0</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-end">Discount</td>
-                                            <td class="text-end">0</td>
                                         </tr> -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                        <td class="text-end">Additional Charge</td>
+                                        <td class="text-end"> <input type="text" value="0" class="form-control" id="additionalchargeid"></td>
+                                    </tr>
 
                                     <tr>
                                         <td>
@@ -229,7 +234,7 @@
                                         </td>
                                         <td></td>
                                         <td></td>
-                                        <td>Total :</td>
+                                        <td class="text-end">Total :</td>
                                         <td class="text-end"> <span id="total">0</span> </td>
                                     </tr>
                                 </tbody>
@@ -287,13 +292,13 @@
                                                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
                                                     aria-labelledby="headingThree" data-bs-parent="#accordion">
                                                     <div class="panel-body">
-                                                        <textarea class="form-control" id="addnote" ></textarea>
+                                                        <textarea class="form-control" id="addnote"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        
+
                                     </div>
                                 </div>
                                 <div class="text-end mt-4">
@@ -358,7 +363,7 @@
 
 
     })
-  
+
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
