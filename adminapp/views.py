@@ -996,20 +996,26 @@ def est_product(request):
     est_price = request.POST['est_price']
     est_amount = request.POST['est_amount']    
     est_qty = request.POST['est_qty']
+
+
+    print(est_amount,"$"*32)
     additionalchargeid = request.POST['additionalchargeid']
     print(additionalchargeid)
-    extraamount=int(est_amount)+int(additionalchargeid)
-    print(extraamount)
+    # extraamount=int(est_amount)+int(additionalchargeid)
+    # print(extraamount)
     pr=Product.objects.get(id=productId)
     estim=Estimates.objects.get(id=estimateid)
-    addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=extraamount, est_qty=est_qty)
+    addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     addest.save()
+
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
     gsttotal =totalAmonut*5/100
     grandtotal= totalAmonut+gsttotal
-    total=Estimates.objects.filter(id=estimateid).update(est_balance=grandtotal)
+    extraamount=int(grandtotal)+int(additionalchargeid)
+    print(extraamount)
+    total=Estimates.objects.filter(id=estimateid).update(est_balance=extraamount,totalsum=extraamount)
     return JsonResponse({'msg':'data inserted sucess'})
 
 
@@ -1627,14 +1633,29 @@ def estmatenew(request,id):
 
 
     print(products,"Success")
+
+
+    totalsumval= clientdetails.totalsum
+    print(totalsumval,'##'*7)
+
+
+
+
     estid= EstimateProduct.objects.filter(estimateid=id)
     note = Terms.objects.filter(estimateid=id).last()
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
+    print(totalAmonut,'*'*19)
+
+    
+
     gsttotal =totalAmonut*5/100
     cgst = gsttotal/2
     total = totalAmonut + gsttotal
 
+    
+    addedamount=totalsumval-total 
+    print(addedamount,'---'*7)
     context={
         "is_estimate":True,
         "clientdetails":clientdetails,
@@ -1645,7 +1666,9 @@ def estmatenew(request,id):
         "gsttotal":gsttotal,
         "total":total,
         "cgst":cgst,
-        "note":note
+        "note":note,
+        "addedamount":addedamount,
+        "totalsumval":clientdetails.totalsum
         
         }
 

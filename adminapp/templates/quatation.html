@@ -10,20 +10,22 @@
     <div class="cs-invoice_in" id="download_section">
       <div class="cs-invoice_head cs-type1 cs-mb25">
         <div class="cs-invoice_left">
-          <div class="cs-logo cs-mb5"> <img src="{% static 'img/logo/Fiesta-01.jpg' %}" style="width:230px;" alt="">
+          <div class="cs-logo cs-mb5"> <img src="{% static 'img/FIESTA.png' %}" style="width:230px;" alt="">
           </div>
 
 
 
         </div>
         <div class="cs-invoice_right cs-text_right">
-          <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Fssai No:</b>
+          <div class="cs-logo cs-mb5"> <img src="{% static 'img/GSTIN.png' %}" style="width:230px;" alt="">
+          </div>
+          <!-- <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Fssai No:</b>
             113180100006000</p>
           <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">GST No:</b>
-            32DHLPM3616R1ZT</p>
+            32DHLPM3616R1ZT</p> -->
           <p>
             AP/161 A,MP Complex,<br />
-            Vazhakkad Road,AREEKODE,  <br />
+            Vazhakkad Road,AREEKODE, <br />
             Malappuram <br />
             Kerala-673639
           </p>
@@ -71,25 +73,25 @@
                 </tr>
               </thead>
               <tbody>
-                
 
-                 {% regroup products by productid__catagory__category as caragory_list %}
-               
-                  {% for p in caragory_list %}
-                  <tr>
+
+                {% regroup products by productid__catagory__category as caragory_list %}
+
+                {% for p in caragory_list %}
+                <tr>
                   <td class="cs-width_5"> {{ p.grouper }}</td>
-                  
-                    
-                      <td class="cs-width_5">
-                        <ul>
-                          {% for pc in p.list %}
-                          <li style="line-height: 40px;">{{ pc.productid__food_name }}</li>
-                          {% endfor %}
-                        </ul>
-                      </td> 
-                 
-                    
-                    
+
+
+                  <td class="cs-width_5">
+                    <ul>
+                      {% for pc in p.list %}
+                      <li style="line-height: 40px;">{{ pc.productid__food_name }}</li>
+                      {% endfor %}
+                    </ul>
+                  </td>
+
+
+
                 </tr>
                 {% endfor %}
               </tbody>
@@ -116,8 +118,13 @@
                 </td>
               </tr>
               <tr class="cs-table_baseline">
+                <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Additional Amount:</td>
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ addedamount }}
+                </td>
+              </tr>
+              <tr class="cs-table_baseline">
                 <td class="cs-width_5 cs-primary_color cs-bold cs-f16 cs-text_right">Total Amount:</td>
-                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ total }}</td>
+                <td class="cs-width_2 cs-text_right cs-primary_color cs-bold cs-primary_color cs-f16">₹ {{ totalsumval }}</td>
               </tr>
               <!-- <tr class="cs-table_baseline">
                 <td class="cs-width_5">
@@ -129,7 +136,7 @@
           </table>
         </div>
       </div>
-      
+
       <div class="cs-note">
         <div class="cs-note_left">
           <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
@@ -140,22 +147,88 @@
               stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
           </svg>
         </div>
-       
+
         <div class="cs-note_right">
           <p class="cs-mb0"><b class="cs-primary_color cs-bold"> Terms & Note:</b></p>
-        
-          <p class="cs-m0"> {{note.note}}  and {{note.term}} </p>
-          
-          
+
+          <p class="cs-m0"> {{note.note}} and {{note.term}} </p>
+
+
         </div>
-       
-       
+
+
       </div>
-     
+      <div class="container my-5">
+
+        <!-- Footer -->
+        <footer class="text-center text-lg-start text-DARK" style="background-color: rgb(207, 199, 150); border-radius: 10px;" >
+          <!-- Section: Social media -->
+         
+          <!-- Section: Social media -->
+      
+          <!-- Section: Links  -->
+          <section class="">
+            <div class="container text-center text-md-start mt-5">
+              <!-- Grid row -->
+              <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mb-4">
+                  <!-- Content -->
+                  <div style="padding: 15px;"></div>
+                  <!-- <p>
+                    Here you can use rows and columns to organize your footer
+                    content. Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit.
+                  </p> -->
+                </div>
+                <!-- Grid column -->
+      
+                <!-- Grid column -->
+               
+                <!-- Grid column -->
+      
+                <!-- Grid column -->
+               
+                <!-- Grid column -->
+      
+                <!-- Grid column -->
+                <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mb-md-0 mb-4">
+                  <div style="padding: 15px;"></div>
+                  <!-- Links -->
+                  <p><i class="fas fa-home mr-3"></i> AP/161 A,MP Complex</p>
+                  <p><i class="fas fa-envelope mr-3"></i> fiestaeventscatering@gmail.com</p>
+                  <p><i class="fas fa-globe mr-3"></i> www.fiestacateringcompany.com</p>
+                  <p><i class="fas fa-phone mr-3"></i> 8943108000 , 8943208000</p>
+                  <!-- <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p> -->
+                </div>
+                <!-- Grid column -->
+                <div style="padding: 15px;"></div>
+              </div>
+              <!-- Grid row -->
+            </div>
+          </section>
+          <!-- Section: Links  -->
+      
+          <!-- Copyright -->
+        
+          <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+      
+      </div>
       <!-- .cs-note -->
     </div>
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+
+    <!-- End of .container -->
+
+
+
+
+
+
     <div class="cs-invoice_btns cs-hide_print">
-      <a href="javascript:window.print()" class="cs-invoice_btn cs-color1">
+      <!-- <a href="javascript:window.print()" class="cs-invoice_btn cs-color1">
         <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
           <path
             d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
@@ -167,7 +240,7 @@
           <circle cx="392" cy="184" r="24" />
         </svg>
         <span>Print</span>
-      </a>
+      </a> -->
       <button id="download_btn" class="cs-invoice_btn cs-color2">
         <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
           <title>Download</title>
@@ -180,6 +253,9 @@
       </button>
     </div>
   </div>
+
+
+
 </div>
 
 <!-- estbill -->
