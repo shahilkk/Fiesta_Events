@@ -121,6 +121,7 @@ function changeqty(id) {
     $("#amount" + id).val(amount)
     var total=$("#total" ).html()
     completeTotal = parseInt(total)  + amount
+  
     $("#total").html(completeTotal)
 }
 

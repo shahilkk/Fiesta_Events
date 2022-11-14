@@ -8,7 +8,7 @@ from . models import Employee, Items,Product,Client,AddBank,Category,EstimatePro
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
-from django.db.models import Avg, Count, Min, Sum
+    from django.db.models import Avg, Count, Min, Sum
 from django.db.models import Q
 from datetime import datetime, timedelta, time
 from decorator import admin_login_required
