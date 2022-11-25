@@ -149,7 +149,7 @@
                                             </div>
                                         </div>
                                         <div class="invoice-total-footer">
-                                            <h4>Total Amount <span id="Grandtotal"> ₹ {{ grandtotal }}</span></h4>
+                                            <h4>Total Amount <span > ₹ <span id="Grandtotal">{{ estime.totalsum }}</span></span></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +228,7 @@ $('#discount').keyup(function(){
     total = $('#grand').val()
     discount = $('#discount').val()
     grandtotal = total-discount
-    $('#Grandtotal').html('₹' + parseInt(grandtotal))
+    $('#Grandtotal').html(parseInt(grandtotal))
     var estID=$('#estimateId-input').val()
     document.getElementById("previelink").href = "/savenotenew/"+estID+"/?discount="+discount;
 })

@@ -8,7 +8,7 @@ from . models import Employee, Items,Product,Client,AddBank,Category,EstimatePro
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
-    from django.db.models import Avg, Count, Min, Sum
+from django.db.models import Avg, Count, Min, Sum
 from django.db.models import Q
 from datetime import datetime, timedelta, time
 from decorator import admin_login_required
@@ -357,12 +357,9 @@ def Estimate(request):
 
 @admin_login_required
 def addestimate(request):
-    
     cust = Client.objects.all()
     pro = Product.objects.all()
-
     if request.method=='POST':
-
         checkphone=request.POST['checkphone']
         if Client.objects.filter(client_phone=checkphone).exists():
 
@@ -997,24 +994,32 @@ def est_product(request):
     est_amount = request.POST['est_amount']    
     est_qty = request.POST['est_qty']
 
-
-    print(est_amount,"$"*32)
     additionalchargeid = request.POST['additionalchargeid']
-    print(additionalchargeid)
-    # extraamount=int(est_amount)+int(additionalchargeid)
-    # print(extraamount)
+    gtotal = request.POST['grandtotal']
+
     pr=Product.objects.get(id=productId)
     estim=Estimates.objects.get(id=estimateid)
     addest = EstimateProduct(estimateid=estim,productid=pr,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     addest.save()
-
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
-    totalvalue=estid.aggregate(Sum('est_amount'))
-    totalAmonut = totalvalue['est_amount__sum']
-    gsttotal =totalAmonut*5/100
+    estTotal=estid.aggregate(Sum('est_amount'))
+    totall = estTotal['est_amount__sum']
+    # totalvalue=estid.aggregate(Sum('est_amount'))
+    
+    # totalAmonut = totalvalue['est_amount__sum']
+    
+
+
+    grandtotal = 0
+    totalAmonut = int(gtotal)
+    # print(totalAmonut,"#"*20)
+    if totall == 0:
+        gsttotal = 0
+    else:
+        gsttotal =totalAmonut*5/100
     grandtotal= totalAmonut+gsttotal
     extraamount=int(grandtotal)+int(additionalchargeid)
-    print(extraamount)
+
     total=Estimates.objects.filter(id=estimateid).update(est_balance=extraamount,totalsum=extraamount)
     return JsonResponse({'msg':'data inserted sucess'})
 
@@ -1040,7 +1045,6 @@ def est_productupdate(request):
         print('*'*20)
 
     else:
-        print('@'*20)
         EstimateProduct.objects.create(estimateid=estiid,productid=prodid,est_category=est_category, est_price=est_price, est_amount=est_amount, est_qty=est_qty)
     
     estid= EstimateProduct.objects.filter(estimateid=estimateid)
@@ -1178,13 +1182,20 @@ def invoicebill(request,id):
    
     # payment = PaymentDetails.objects.filter(estimateId_id=id)    
     details = EstimateProduct.objects.filter(estimateid=id)
-    estime = Estimates.objects.get(id=id) 
+    estime = Estimates.objects.get(id=id)
     estid= EstimateProduct.objects.filter(estimateid=id)
     totalvalue=estid.aggregate(Sum('est_amount'))
-    totalAmonut = totalvalue['est_amount__sum']
-    gsttotal =totalAmonut*5/100
-    sgst = (totalAmonut*5/100)/2
+    subtotal = totalvalue['est_amount__sum']
+    if subtotal == 0:
+        totalAmonut = int(estime.totalsum)
+        gsttotal = 0
+        sgst = 0
+    else :
+        totalAmonut = int(subtotal)
+        gsttotal =totalAmonut*5/100
+        sgst = (totalAmonut*5/100)/2
     grandtotal = totalAmonut + gsttotal
+    print(grandtotal,"#"*20)
     context={
             "is_estimate":True,
             "details":details,
@@ -1224,7 +1235,6 @@ def login(request):
                 }
                 request.session['permission']=userDetails
                 return redirect('/index') 
-
             else:
                 login_data=Employee.objects.filter(employee_username=username,employee_password=password).exists()
                 if login_data:
@@ -1631,23 +1641,13 @@ def estmatenew(request,id):
     products = EstimateProduct.objects.select_related('productid').filter(estimateid=id).values('productid__catagory__category','productid__food_name').order_by('productid__catagory__category')
     # products = EstimateProduct.objects.filter(estimateid=id).order_by('productid__catagory__category')
 
-
-    print(products,"Success")
-
-
     totalsumval= clientdetails.totalsum
-    print(totalsumval,'##'*7)
-
-
-
 
     estid= EstimateProduct.objects.filter(estimateid=id)
     note = Terms.objects.filter(estimateid=id).last()
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
-    print(totalAmonut,'*'*19)
 
-    
 
     gsttotal =totalAmonut*5/100
     cgst = gsttotal/2
@@ -1655,7 +1655,7 @@ def estmatenew(request,id):
 
     
     addedamount=totalsumval-total 
-    print(addedamount,'---'*7)
+  
     context={
         "is_estimate":True,
         "clientdetails":clientdetails,
@@ -1724,9 +1724,13 @@ def savenotenew(request,id):
     estid= EstimateProduct.objects.filter(estimateid=id)
     totalvalue=estid.aggregate(Sum('est_amount'))
     totalAmonut = totalvalue['est_amount__sum']
-    gsttotal =totalAmonut*5/100
-    # sgst = (totalAmonut*5/100)/2
-    total = totalAmonut + gsttotal
+    if totalAmonut == 0:
+        gsttotal = 0
+        total = int(eid.totalsum)
+    else :
+        gsttotal =totalAmonut*5/100
+        # sgst = (totalAmonut*5/100)/2
+        total = totalAmonut + gsttotal
     grandtotal = total-int(discount)
     addincome = Income(estimateId=eid,incomestatus='Income',incomeamount=grandtotal)
     addincome.save()

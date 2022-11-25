@@ -31,7 +31,8 @@ $('#estimatebutton').click(function () {
     var estimateid = $('#estimateid').val()
  
     var additionalchargeid = $('#additionalchargeid').val()
-    alert($('#additionalchargeid').val())
+    var grandTotal = $('#total').val()
+
     var rowCount = $(".add-table-items tr").length;
     for (var i = 1; i < rowCount; i++) {
         var productId = $('#productId' + i).val()
@@ -49,7 +50,8 @@ $('#estimatebutton').click(function () {
             "est_amount": est_amount,
             "est_qty": est_qty,
             "estimateid": estimateid,
-            "additionalchargeid":additionalchargeid
+            "additionalchargeid":additionalchargeid,
+            "grandtotal":grandTotal,
 
         }
         console.log(data)
@@ -119,19 +121,19 @@ function changeqty(id) {
     var qty = $('#qty' + id).val()
     var amount = unitprice * qty
     $("#amount" + id).val(amount)
-    var total=$("#total" ).html()
-    completeTotal = parseInt(total)  + amount
-  
-    $("#total").html(completeTotal)
+    var total=$("#total").val()
+ 
+    completeTotal = parseInt(total)  + parseInt(amount)
+
+    $("#total").val(completeTotal)
 }
 
-function DeleteRow(id){
-
+function DeleteRow(id){ 
     var completeTotal =0
     var amount=parseInt($("#amount" + id).val())
-    var total=$("#total" ).html()
-    completeTotal = parseInt(total)  - amount
-    $("#total").html(completeTotal)
+    var total=$("#total" ).val()
+    completeTotal = total  - amount
+    $("#total").val(completeTotal)
 
 }
 

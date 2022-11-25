@@ -184,10 +184,11 @@
                                 </li>
                             </ul>
                         </li>
-                        
+                        {% if permission == True %}
                         <li {% if is_payment %} class="active" {% endif %}>
                             <a href="/payment"><i class="fa fa-credit-card"></i> <span>Payments</span></a>
                         </li>
+                        {% endif %}
                         <!-- ----------------------------- -->
                         {% if permission == True %}
                         <li class="submenu">
