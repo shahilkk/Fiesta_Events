@@ -925,29 +925,46 @@ def createestimate(request):
             'cust':cust,
             
             }
-    return render(request,'createestimate.html',context)    
+    return render(request,'createestimate.html',context)
 
 
 @csrf_exempt
-def bill (request):
+def bill(request):
     productname = request.POST['productname']
+    # viewpro = Product.objects.filter(food_name=productname).count()
+    # product_cat = viewpro.catagory.category
     # estimateid = request.POST['estimateid']
-    viewpro=Product.objects.get(food_name=productname)
+    # product_count = 0
+    # product_count = Product.objects.filter(food_name=productname).count()
+    # if product_count > 1 :
+    #     viewproduct = Product.objects.filter(food_name=productname).last()
+    # else :
+    viewproduct = Product.objects.filter(food_name=productname).last()
+    # catagoryname = viewpro.catagory.category
     # estid=Estimates.objects.get(id=estimateid)
+    # product_data = viewproduct.food_name
+    if viewproduct.catagory.category is not None:
+        product_category = viewproduct.catagory.category
+    else :
+        product_category = viewproduct.catagory
     data={
-        
+        # "fdata":product_data,
         # "food_name":viewpro.food_name,
         # "estimateid":estid.id,
-        "id":viewpro.id,
-        "catagory":viewpro.catagory.category,
-        "priceper_head":viewpro.priceper_head,
-        "priceper_kg":viewpro.priceper_kg,
-        "food_deatails":viewpro.food_deatails
+        "id":viewproduct.id,
+        "catagory":product_category,
+        "priceper_head":viewproduct.priceper_head,
+        "priceper_kg":viewproduct.priceper_kg,
+        "food_deatails":viewproduct.food_deatails
     }
-    return JsonResponse({'product': data})
+
+    # data = {
+    #     "catagory":viewpro,
+    # }
+    return JsonResponse(data)
 
 @csrf_exempt
-def billitem (request):
+def billitem(request):
     productname = request.POST['productname']
     # estimateid = request.POST['estimateid']
     viewpro=Product.objects.get(food_name=productname)
@@ -1678,12 +1695,16 @@ def estmatenew(request,id):
 # invoicebill
 
 def invoicebillnew(request,id):
+    
     clientdetails = Estimates.objects.select_related('clientd').get(id=id)
     details = EstimateProduct.objects.filter(estimateid=id)
     estid= EstimateProduct.objects.filter(estimateid=id)
     note = Terms.objects.filter(estimateid=id).last()
     totalvalue=estid.aggregate(Sum('est_amount'))
+
+    
     totalAmonut = totalvalue['est_amount__sum']
+    totalAmonut = 0
     gsttotal =totalAmonut*5/100
     cgst = gsttotal/2
     total = totalAmonut + gsttotal

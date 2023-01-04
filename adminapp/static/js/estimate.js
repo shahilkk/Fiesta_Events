@@ -1,25 +1,21 @@
-
 var params = new window.URLSearchParams(window.location.search);
 var phone = params.get('phone-no')
 $("#checkname").val(phone)
 
 function changedProductname(id) {
-
+    
     $.ajax({
-        url: "/bill",
+        url: "/bill/",
         type: 'POST',
         data: {
             'productname': $('#productName' + id).val(),
-
         },
-        success: function (responce) {
-            $('#category' + id).val(responce.product.catagory)
-            $('#productId' + id).val(responce.product.id)
-            $('#priceselect' + id).append('<option value="' + responce.product.priceper_head + '">' + responce.product.priceper_head + ' Per Head</option>')
-            $('#priceselect' + id).append('<option value="' + responce.product.priceper_kg + '">' + responce.product.priceper_kg + ' Per KG</option>')
-            $("#amount" + id).val(responce.product.priceper_head)
-
-
+        success: function(responce) {
+            $('#category' + id).val(responce.catagory)
+            $('#productId' + id).val(responce.id)
+            $('#priceselect' + id).append('<option value="' + responce.priceper_head + '">' + responce.priceper_head + ' Per Head</option>')
+            $('#priceselect' + id).append('<option value="' + responce.priceper_kg + '">' + responce.priceper_kg + ' Per KG</option>')
+            $("#amount" + id).val(responce.priceper_head)
         }
 
     })
@@ -27,6 +23,7 @@ function changedProductname(id) {
 
 
 $('#estimatebutton').click(function () {
+    alert("button clickjedc")
   
     var estimateid = $('#estimateid').val()
  
@@ -56,7 +53,7 @@ $('#estimatebutton').click(function () {
         }
         console.log(data)
         $.ajax({
-            url: "/est_product",
+            url: "/est_product/",
             type: 'POST',
             data: data,
             success: function (responce) {
@@ -88,17 +85,17 @@ $(document).on("click", ".add-btn", function () {
         '<input type="text" class="form-control" value="' + rowCount + '">' +
         '</td>' +
         '<td>' +
-        '<input type="text" list="food" id="productName' + rowCount + '" onChange="changedProductname(' + rowCount + ')" class="form-control productname">' +
+        '<input type="text" list="food" id="productName' + rowCount + '" onchange="changedProductname(' + rowCount + ')" class="form-control productname">' +
         '<input type="hidden"  id="productId' + rowCount + '" class="form-control">' +
         '</td>' +
         '<td>' +
         '<input type="text" id="category' + rowCount + '" class="form-control">' +
         '</td>' +
         '<td>' +
-        '<input type="text" id="qty' + rowCount + '" onChange="changeqty(' + rowCount + ')" class="form-control">' +
+        '<input type="text" id="qty' + rowCount + '" onchange="changeqty(' + rowCount + ')" class="form-control">' +
         '</td>' +
         '<td>' +
-        ' <select name="" id="priceselect' + rowCount + '"      ="changeqty(' + rowCount + ')" class="form-control"> </select>' +
+        ' <select name="" id="priceselect' + rowCount + '"  onchange="changeqty(' + rowCount + ')" class="form-control"> </select>' +
         '</td>' +
         '<td>' +
         '<input type="text" id="amount' + rowCount + '" class="form-control">' +

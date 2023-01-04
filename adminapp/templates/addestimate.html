@@ -164,13 +164,12 @@
                                             <input type="text" value="1" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="hidden" class="form-control" id="productId1">
-                                            <input type="text" class="form-control" id="productName1" list="food"
-                                                onChange=changedProductname(1)>
+                                            <input type="number" hidden class="form-control" id="productId1">
+                                            <input type="text" class="form-control" id="productName1" list="food" onchange="changedProductname(1)">
+                                                
                                             <datalist id="food">
                                                 {% for i in pro %}
                                                 <option value="{{i.food_name}}">{{i.food_name}}
-
                                                 </option>
                                                 {% endfor %}
                                             </datalist>
@@ -181,11 +180,11 @@
                                             <input type="text" id="category1" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="text" id="qty1" onChange=changeqty(1) class="form-control">
+                                            <input type="text" id="qty1" onchange="changeqty(1)" class="form-control">
                                         </td>
                                         <td>
 
-                                            <select name="" id="priceselect1" onChange=changeqty(1)
+                                            <select name="" id="priceselect1" onchange="changeqty(1)"
                                                 class="form-control">
 
                                             </select>
