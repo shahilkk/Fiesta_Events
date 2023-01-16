@@ -1701,12 +1701,19 @@ def invoicebillnew(request,id):
     estid= EstimateProduct.objects.filter(estimateid=id)
     note = Terms.objects.filter(estimateid=id).last()
     totalvalue=estid.aggregate(Sum('est_amount'))
-
-    
-    totalAmonut = totalvalue['est_amount__sum']
-    totalAmonut = 0
-    gsttotal =totalAmonut*5/100
-    cgst = gsttotal/2
+    # totalAmonut = totalvalue['est_amount__sum']
+    # print(totalAmonut,"#"*10)
+    # totalAmonut = 0
+    totalAmonut_value = totalvalue['est_amount__sum']
+    # print(totalAmonut,"#"*10)
+    if totalAmonut_value == 0:
+        totalAmonut = clientdetails.totalsum
+        gsttotal = 0
+        cgst = 0
+    else :
+        totalAmonut = totalAmonut_value
+        gsttotal =totalAmonut*5/100
+        cgst = gsttotal/2
     total = totalAmonut + gsttotal
 
     context={

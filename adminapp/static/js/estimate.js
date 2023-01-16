@@ -23,7 +23,6 @@ function changedProductname(id) {
 
 
 $('#estimatebutton').click(function () {
-    alert("button clickjedc")
   
     var estimateid = $('#estimateid').val()
  
